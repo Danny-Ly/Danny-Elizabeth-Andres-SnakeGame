@@ -130,10 +130,18 @@ public class Main {
 			//System.out.println (user_input);
 			
 			if (user_input.equalsIgnoreCase("d")){
-				array_for_maze [column_snake][row_snake] = EMPTY;
+				//array_for_maze [column_snake][row_snake] = EMPTY; //change 
 				array_for_maze [column_snake][row_snake + 1] = SNAKE;
 				row_snake += 1;
 				boundary();	
+				int[] arrayMoveSnake = new int [2];
+				arrayMoveSnake[0] = column_snake;
+				arrayMoveSnake[1] = row_snake + 1;
+				int[] arrayForSnakeNew = snakeMove.moveSnake(arrayMoveSnake); //WRONG coordinates
+				array_for_maze[arrayMoveSnake[0]][arrayMoveSnake[1]] = EMPTY;
+				
+				
+				
 			}
 			else if (user_input.equalsIgnoreCase("a")){
 				array_for_maze [column_snake][row_snake] = EMPTY;
@@ -192,13 +200,13 @@ public class Main {
 	private static int PELLET = 0;
 	private int difficulty;
 	private int[][] array_for_maze;
-	private int[][] array_for_snake;
+	private Snake snakeMove = new Snake();
 
 	private static int row_map = 20;
 	private static int column_map = 10;
 	
 	private static int row_snake = 9;
-	private static int column_snake = 2;
+	private static int column_snake = 4;
 	
 	public static void main(String[] args) {
 		
