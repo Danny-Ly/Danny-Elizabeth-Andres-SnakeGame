@@ -35,6 +35,10 @@ public class Main {
 		
 		if (line.equalsIgnoreCase("easy")) {
 			difficulty = 0;
+			//generate map random
+			//MazeGenerator snakeMaze = new MazeGenerator();
+			//snakeMaze.creation();
+
 			array_for_maze = new int[column_map][row_map];
 			
 			for (int i = 0; i < 20; i++) {
@@ -81,9 +85,14 @@ public class Main {
 			array_for_maze [7][16] = WALL;
 			array_for_maze [7][15] = WALL;
 			
+			array_for_maze [3][9] = EMPTY;
+			array_for_maze [2][9] = EMPTY;
+			array_for_maze [3][8] = EMPTY;
+			array_for_maze [2][8] = EMPTY;
+			
 			array_for_maze [column_snake][row_snake] = SNAKE;
 
-			boundary();
+			boundary(); 
 		}
 		
 		if (line.equalsIgnoreCase("medium")) {
@@ -119,17 +128,25 @@ public class Main {
 			System.out.println();				
 		}	
 	}
-	
+	// need to move some of these into the Snake class
 	public void snake(){
-		
 		String user_input = "";
-		while (!(user_input.equalsIgnoreCase("0"))) {
+		while (!(user_input.equalsIgnoreCase("u"))) {
 			System.out.println("Make a move");
 			inp = new Scanner(System.in);
 			user_input = inp.nextLine(); 
 			//System.out.println (user_input);
 			
 			if (user_input.equalsIgnoreCase("d")){
+				if ((array_for_maze[column_snake][row_snake + 1])==(WALL)) {
+					System.out.println("GameOver");
+					// this needs to be = instead of equalsIgnoreCase to work
+					user_input="u";
+				}
+				if ((array_for_maze[column_snake][row_snake + 1])==(PELLET)) {
+					SNAKE_LENGTH += 1;
+					System.out.println("Extra");
+				}
 				array_for_maze [column_snake][row_snake] = EMPTY; //change 
 				array_for_maze [column_snake][row_snake + 1] = SNAKE;
 				row_snake += 1;
@@ -144,18 +161,39 @@ public class Main {
 				
 			}
 			else if (user_input.equalsIgnoreCase("a")){
+				if ((array_for_maze[column_snake][row_snake - 1])==(WALL)) {
+					System.out.println("GameOver");
+					user_input="u";
+				}
+				if ((array_for_maze[column_snake][row_snake - 1])==(PELLET)) {
+					SNAKE_LENGTH += 1;
+				}
 				array_for_maze [column_snake][row_snake] = EMPTY;
 				array_for_maze [column_snake][row_snake - 1] = SNAKE;
 				row_snake -= 1;
 				boundary();	
 			}
 			else if (user_input.equalsIgnoreCase("w")){
+				if ((array_for_maze[column_snake - 1][row_snake])==(WALL)) {
+					System.out.println("GameOver");
+					user_input="u";
+				}
+				if ((array_for_maze[column_snake - 1][row_snake])==(PELLET)) {
+					SNAKE_LENGTH += 1;
+				}
 				array_for_maze [column_snake][row_snake] = EMPTY;
 				array_for_maze [column_snake - 1][row_snake] = SNAKE;
 				column_snake -= 1;
 				boundary();	
 			}
 			else if (user_input.equalsIgnoreCase("s")){
+				if ((array_for_maze[column_snake + 1][row_snake])==(WALL)) {
+					System.out.println("GameOver");
+					user_input="u";
+				}
+				if ((array_for_maze[column_snake + 1][row_snake])==(PELLET)) {
+					SNAKE_LENGTH += 1;
+				}
 				array_for_maze [column_snake][row_snake] = EMPTY;
 				array_for_maze [column_snake + 1][row_snake] = SNAKE;
 				column_snake += 1;
@@ -163,31 +201,32 @@ public class Main {
 			}
 			//have to make this more efficient.
 			// This codes for if you run into the right upside-down L structure you lose. 
-			if (array_for_maze [column_snake][row_snake] == array_for_maze [2][2]) {
+			
+			/*if (array_for_maze [column_snake][row_snake] == array_for_maze [2][2]) {
 				System.out.println("GAMEOVER");
-				user_input.equalsIgnoreCase("0");
+				user_input=("u");
 			}
 			else if (array_for_maze [column_snake][row_snake] == array_for_maze [2][3]) {
 				System.out.println("GAMEOVER");
-				user_input.equalsIgnoreCase("0");
+				user_input=("u");
 			}
 			else if (array_for_maze [column_snake][row_snake] == array_for_maze [2][4]) {
 				System.out.println("GAMEOVER");
-				user_input.equalsIgnoreCase("0");
+				user_input=("u");
 			}
 			else if (array_for_maze [column_snake][row_snake] == array_for_maze [2][5]) {
 				System.out.println("GAMEOVER");
-				user_input.equalsIgnoreCase("0");
+				user_input=("u");
 			}
 			else if (array_for_maze [column_snake][row_snake] == array_for_maze [3][2]) {
 				System.out.println("GAMEOVER");
-				user_input.equalsIgnoreCase("0");
+				user_input=("u");
 			}
 			else if (array_for_maze [column_snake][row_snake] == array_for_maze [4][2]) {
 				System.out.println("GAMEOVER");
-				user_input.equalsIgnoreCase("0");
+				user_input=("0");
 			
-			}
+			}*/
 		}
 		
 		
@@ -198,6 +237,7 @@ public class Main {
 	private static int SNAKE = 1; 
 	private static int WALL = 2;
 	private static int PELLET = 0;
+	private static int SNAKE_LENGTH = 1;
 	private int difficulty;
 	private int[][] array_for_maze;
 	//private Snake snakeMove = new Snake();

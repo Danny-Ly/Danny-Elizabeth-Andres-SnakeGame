@@ -7,7 +7,7 @@ import java.util.Random;
  * @author Written by Andres, assisted and co-written by Elizabeth and Danny.
  *
  */
-public class mazeGenarator extends Main {
+public class MazeGenerator extends Main {
 	// Initializing/declaring variables that will be used in the creation, 
 	// And customization of the maze
 	private static final int WALL = 2;
@@ -121,7 +121,7 @@ public class mazeGenarator extends Main {
 		
 	public static void main(String[] args) {
 			
-			mazeGenarator maze = new mazeGenarator();
+			MazeGenerator maze = new MazeGenerator();
 			maze.creation();	
 	}
 }
