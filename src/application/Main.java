@@ -15,7 +15,7 @@ public class Main {
 		System.out.println("Your Input is:" + line);
 		difficulty = 0;
 		
-		
+
 		while (line != "") {
 			line = inp.nextLine();
 			if (line != ""){
@@ -32,6 +32,11 @@ public class Main {
 				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to existing string and displays result
 			}
 		}
+		if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
+			difficulty = 1;
+			System.out.println("This Version is still in progress");
+			
+			}
 		
 		if (line.equalsIgnoreCase("easy")) {
 			difficulty = 0;
@@ -43,15 +48,10 @@ public class Main {
 			
 			for (int i = 0; i < 20; i++) {
 				array_for_maze[0][i] = WALL;
-				
-			}
-			for (int i = 0; i < 10; i++) {
-				array_for_maze[i][0] = WALL;
-			}
-			for (int i = 0; i < 20; i++) {
 				array_for_maze[9][i] = WALL;
 			}
 			for (int i = 0; i < 10; i++) {
+				array_for_maze[i][0] = WALL;
 				array_for_maze[i][19] = WALL;
 			}
 			
@@ -94,18 +94,11 @@ public class Main {
 
 			boundary(); 
 		}
-		
-		if (line.equalsIgnoreCase("medium")) {
-			difficulty = 1;
-			System.out.println("This Version is still in progress");
-		}
-		if (line.equalsIgnoreCase("hard")){
-			difficulty = 2;
-			System.out.println("This Version is still in progress");
-		}
+
 		
 		snake();
-	}
+		}
+	
 	
 	public void boundary(){
 		 
@@ -134,6 +127,7 @@ public class Main {
 		int CONSTANT_ZERO = 0;
 		
 		String user_input = "";
+		//if (difficulty == 0) {
 		while (!(user_input.equalsIgnoreCase("u"))) {
 			System.out.println("Make a move");
 			inp = new Scanner(System.in);
@@ -178,11 +172,13 @@ public class Main {
 							
 						}
 					}
+					
 				
 				
 			}*/
 				boundary();	
 			}
+		}
 			if (user_input.equalsIgnoreCase("a")){
 				if ((array_for_maze[column_snake][row_snake - 1])==(WALL)) {
 					System.out.println("GameOver");
@@ -226,9 +222,9 @@ public class Main {
 		
 		}
 		
-	}
+	//}
 	
-	private Scanner inp; // scans user input		
+	private Scanner inp; // scans user input	
 	private static int EMPTY = 0;
 	private static int SNAKE = 1; 
 	private static char WALL = 'W';
