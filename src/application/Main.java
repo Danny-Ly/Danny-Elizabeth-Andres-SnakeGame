@@ -127,7 +127,7 @@ public class Main {
 		int CONSTANT_ZERO = 0;
 		
 		String user_input = "";
-		//if (difficulty == 0) {
+		if (difficulty == 0) {
 		while (!(user_input.equalsIgnoreCase("u"))) {
 			System.out.println("Make a move");
 			inp = new Scanner(System.in);
@@ -222,7 +222,7 @@ public class Main {
 		
 		}
 		
-	//}
+	}
 	
 	private Scanner inp; // scans user input	
 	private static int EMPTY = 0;
