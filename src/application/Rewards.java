@@ -9,12 +9,14 @@ import java.util.Arrays;
  * @author Written by Elizabeth, assisted and co-written by Andres and Danny.
  */
 public class Rewards {
-	Random randomNumber = new Random();
-	public static final int WALL = 2;
-	public static final int SNAKE = 1; 
-	public static final int PELLET = 0;
-	private ArrayList<int[]> arrayOfPellets = new ArrayList<int[]>();
+	// dont need em 
+	//public static final int WALL = 2;
+	//public static final int SNAKE = 1; 
+	//public static final int PELLET = 0;
 	
+	// Placeholder values are initialized and declared, will be used in code.
+	Random randomNumber = new Random();
+	ArrayList<int[]> arrayOfPellets = new ArrayList<int[]>();
 	int numberOfPellets = 0;
 	
 	/** Randomly genarating pellets, and storing pellet location values in arraylist 
