@@ -6,6 +6,7 @@ public class Snake extends Main {
 		
 			
 		
+		
 	}
 	public void moveSnake() {
 	

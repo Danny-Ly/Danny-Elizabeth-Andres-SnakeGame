@@ -8,33 +8,40 @@ import java.util.Random;
  *
  */
 public class MazeGenerator {
-	// Initializing/declaring variables that will be used in the creation, 
+	// Initializing/declaring constant variables that will be used in the creation, 
 	// And customization of the maze
 	public static final int WALL = 2;
 	public static int EMPTY = 3;
 	public static int SNAKE = 1; 
 	public static int PELLET = 0;
+	// Placeholder values are initialized and declared, will be used in code.
 	int[][] maze;
-	
 	int difficulty = 0;
-	int numberOfobstactle = 0;
+	int numberOfObstactle = 0;
 	int numberOfPellets = 0;
-	Random randomvalue = new Random();
+	Random randomValue = new Random();
 	
 		/**
-		 * Creating a new 10 by 20 array that will behave as our maze.
+		 * Creating a new 10 by 20 array that will behave as our maze,
+		 * when it is called in the main class while passing a difficulty parameter.
+		 * @param difficultyParameter is passed as 0,1,2 
+		 * depending on which level user wants to try.
 		 */
-		public MazeGenerator(int difficuty_paramter){
-			
-			difficulty = difficuty_paramter;
+		public MazeGenerator(int difficultyParameter){
+			difficulty = difficultyParameter;
 			// all difficulties generate specific size array
 			if (difficulty >= 0) {
 				maze = new int[10][20];
 			}
+			// calling a method obstacle to perform its action on newly created maze.
 			obstacles();
-			
 		}
 		
+		/**
+		 * Checking if the specific location entered is representing a WALL or not.
+		 * @param the location in the 10 by 20 array we want to check if it is a WALL value. 
+		 * @return will return TRUE if location is a wall, else FALSE.
+		 */
 		public boolean wallHere(int[] location){
 			if (maze[location[0]][location[1]] == WALL) {
 				return true;
@@ -58,24 +65,26 @@ public class MazeGenerator {
 				}
 			}
 			// changes top row,and bottom row of maze into walls
-			for (int y_axis =0; y_axis < 20; y_axis++) {
-				maze[0][y_axis]= WALL;
-				maze[9][y_axis] = WALL;
+			for (int yAxis =0; yAxis < 20; yAxis++) {
+				maze[0][yAxis]= WALL;
+				maze[9][yAxis] = WALL;
 			}
 			// changes first column, and last column of maze into walls
-			for (int x_axis = 0; x_axis < 10; x_axis++) {
-				maze[x_axis][0] = WALL;
-				maze[x_axis][19] = WALL;
+			for (int xAxis = 0; xAxis < 10; xAxis++) {
+				maze[xAxis][0] = WALL;
+				maze[xAxis][19] = WALL;
 			}
 			/*
 			 * Randomly creating 20 or less obstacle within maze 
 			 */
-			while (numberOfobstactle <20) {
-				int x = randomvalue.nextInt(10) ;
-				int y = randomvalue.nextInt(16)+2 ;
+			while (numberOfObstactle <20) {
+				// randomly generating a number between 0-10 and 2-18,
+				// storing in their respective values.
+				int x = randomValue.nextInt(10) ;
+				int y = randomValue.nextInt(16)+2 ;
 				if (x==2 || x==5 || x==7) {
 					maze[x][y]= WALL;
-					numberOfobstactle++;
+					numberOfObstactle++;
 				}
 			}
 			// constant structure of every maze.
@@ -86,7 +95,7 @@ public class MazeGenerator {
 			maze [4][8] = WALL;
 			maze [4][10] = WALL;
 			
-			
+			// block below that is commented out used in decoding problems that we ran into.
 			/*
 			for(int i=0; i<maze.length; i++) {
 				for(int j=0; j <maze[i].length; j++) {
@@ -99,20 +108,21 @@ public class MazeGenerator {
 
 		}
 		
-		/*
+		/**
 		 * Changing the numeric values altered into a visual representation of each value 
+		 * @param rewards amount of pellets generated in maze.
 		 */
 		public void boundary(Rewards rewards){
 			// looping through entire array changing each element into 1 of the four possible options.
 			for(int i=0; i<maze.length; i++) {
 				for(int j=0; j <maze[i].length; j++) {
-					int[] locationarray = new int[2];
-					locationarray[0]=i;
-					locationarray[1]= j;
+					int[] locationArray = new int[2];
+					locationArray[0]=i;
+					locationArray[1]= j;
 					if (maze [i][j] == WALL) {	
 						System.out.print("#");
 					}
-					else if (rewards.pelletHere(locationarray)){
+					else if (rewards.pelletHere(locationArray)){
 						System.out.print(".");
 					}
 					else if (maze[i][j]== SNAKE) {
