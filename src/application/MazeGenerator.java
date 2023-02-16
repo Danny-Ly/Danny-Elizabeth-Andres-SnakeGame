@@ -74,6 +74,7 @@ public class MazeGenerator extends Main {
 			/*
 			 * Randomly creating 5 or less pellets within maze
 			 */
+			//put in separate class
 			while (numberOfPellets < 5) {
 				int x = randomvalue.nextInt(8)+1 ;
 				int y = randomvalue.nextInt(18)+1 ;

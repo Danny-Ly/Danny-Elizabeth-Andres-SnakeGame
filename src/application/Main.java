@@ -131,7 +131,6 @@ public class Main {
 	// need to move some of these into the Snake class
 	//have to source one thing before handing in
 	public void snake(){
-		int CONSTANT_ZERO = 0;
 		
 		String user_input = "";
 		while (!(user_input.equalsIgnoreCase("u"))) {
@@ -151,12 +150,13 @@ public class Main {
 					SNAKE_LENGTH += 1;
 					System.out.println("Extra");
 				}
-				array_for_maze [column_snake][row_snake] = EMPTY;
+				// USE THIS CODE IF THE BOTTOM ONE ISNT WORKING!
+				/*array_for_maze [column_snake][row_snake] = EMPTY;
 				array_for_maze [column_snake ][row_snake+1] = SNAKE;
-				row_snake += 1;
+				row_snake += 1;*/
 				
 				//do we have to do compare to right here?
-				/*if (SNAKE_LENGTH >= 1) {
+				if (SNAKE_LENGTH >= 1) {
 					array_for_maze [column_snake][row_snake] = SNAKE_LENGTH; 
 					array_for_maze [column_snake][row_snake + 1] = SNAKE_LENGTH +1;
 					row_snake += 1;
@@ -171,8 +171,9 @@ public class Main {
 							else if (array_for_maze[i][j]== EMPTY) {
 								array_for_maze [i][j] = 0;
 							}
-							// how to check if this element is an interger?
-							else if (array_for_maze[i][j] instanceof int) {
+							// how to check if this element is an integer?
+							//https://stackoverflow.com/questions/12558206/how-can-i-check-if-a-value-is-of-type-integer
+							else if ((array_for_maze[i][j])== (int)(array_for_maze[i][j])) {
 								array_for_maze[i][j] -= 1;
 							}
 							
@@ -180,7 +181,7 @@ public class Main {
 					}
 				
 				
-			}*/
+			}
 				boundary();	
 			}
 			if (user_input.equalsIgnoreCase("a")){
