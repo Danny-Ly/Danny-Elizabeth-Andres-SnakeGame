@@ -7,14 +7,15 @@ import java.util.Random;
  * @author Written by Andres, assisted and co-written by Elizabeth and Danny.
  *
  */
-public class MazeGenerator extends Main {
+public class MazeGenerator {
 	// Initializing/declaring variables that will be used in the creation, 
 	// And customization of the maze
-	private static final int WALL = 2;
-	private static int EMPTY = 3;
-	private static int SNAKE = 1; 
-	private static int PELLET = 0;
+	public static final int WALL = 2;
+	public static int EMPTY = 3;
+	public static int SNAKE = 1; 
+	public static int PELLET = 0;
 	int[][] maze;
+	
 	int difficulty = 0;
 	int numberOfobstactle = 0;
 	int numberOfPellets = 0;
@@ -23,13 +24,27 @@ public class MazeGenerator extends Main {
 		/**
 		 * Creating a new 10 by 20 array that will behave as our maze.
 		 */
-		public void creation() {
+		public MazeGenerator(int difficuty_paramter){
+			
+			difficulty = difficuty_paramter;
 			// all difficulties generate specific size array
 			if (difficulty >= 0) {
 				maze = new int[10][20];
 			}
 			obstacles();
+			
 		}
+		
+		public boolean wallHere(int[] location){
+			if (maze[location[0]][location[1]] == WALL) {
+				return true;
+			}
+			else {
+				return false;
+			}	
+			
+		}
+		
 		/**
 		 * Altering the created 10 by 20 array into respective values to act like a maze.
 		 */
@@ -71,17 +86,6 @@ public class MazeGenerator extends Main {
 			maze [4][8] = WALL;
 			maze [4][10] = WALL;
 			
-			/*
-			 * Randomly creating 5 or less pellets within maze
-			 */
-			while (numberOfPellets < 5) {
-				int x = randomvalue.nextInt(8)+1 ;
-				int y = randomvalue.nextInt(18)+1 ;
-				if(maze[x][y] != WALL && maze[x][y] != SNAKE) {
-					maze[x][y]= PELLET;
-					numberOfPellets++;
-				}
-			}
 			
 			/*
 			for(int i=0; i<maze.length; i++) {
@@ -92,20 +96,23 @@ public class MazeGenerator extends Main {
 				
 			}
 			*/
-			boundary();
+
 		}
 		
 		/*
 		 * Changing the numeric values altered into a visual representation of each value 
 		 */
-		public void boundary(){
+		public void boundary(Rewards rewards){
 			// looping through entire array changing each element into 1 of the four possible options.
 			for(int i=0; i<maze.length; i++) {
 				for(int j=0; j <maze[i].length; j++) {
+					int[] locationarray = new int[2];
+					locationarray[0]=i;
+					locationarray[1]= j;
 					if (maze [i][j] == WALL) {	
 						System.out.print("#");
 					}
-					else if (maze[i][j]== PELLET) {
+					else if (rewards.pelletHere(locationarray)){
 						System.out.print(".");
 					}
 					else if (maze[i][j]== SNAKE) {
@@ -119,9 +126,5 @@ public class MazeGenerator extends Main {
 			}
 		}
 		
-	public static void main(String[] args) {
-			
-			MazeGenerator maze = new MazeGenerator();
-			maze.creation();	
+
 	}
-}
