@@ -113,15 +113,21 @@ public class MazeGenerator {
 						System.out.print("#");
 					}
 					else if (rewards.pelletHere(locationarray)){
+						// make this maze equal to pellet.
+						maze[i][j] = PELLET;
 						System.out.print(".");
-					}
-					else if (maze[i][j]== SNAKE) {
-						System.out.print("O");
 					}
 					else if (maze[i][j]== EMPTY) {
 						System.out.print(" ");
+					}	
+					else if (maze[i][j]== (int)maze[i][j]) {
+						if (maze [i][j] != 0) {
+							System.out.print("O");	
+						}
+					
 					}
 				}	
+			
 				System.out.println();
 			}
 		}
