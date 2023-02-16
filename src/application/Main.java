@@ -47,9 +47,10 @@ public class Main {
 			//snakeMaze.creation();
 		}
 		
-		maze = new MazeGenerator(difficulty);
-		pellets = new Rewards(maze);
-		maze.boundary(pellets);
+		mazeCreation = new MazeGenerator(difficulty);
+		pellets = new Rewards(mazeCreation);
+		mazeCreation.boundary(pellets);
+		
 		snake();
 		
 		}
@@ -60,7 +61,6 @@ public class Main {
 	// need to move some of these into the Snake class
 	//have to source one thing before handing in
 	public void snake(){
-		int CONSTANT_ZERO = 0;
 		
 		String user_input = "";
 		if (difficulty == 0) {
@@ -71,19 +71,21 @@ public class Main {
 			//System.out.println (user_input);
 			
 			if (user_input.equalsIgnoreCase("d")){
-				if ((array_for_maze[column_snake][row_snake + 1])==(W)) {
+				if ((mazeCreation.maze[column_snake][row_snake + 1])==(W)) {
 					System.out.println("GameOver");
 					// this needs to be = instead of equalsIgnoreCase to work
 					user_input="u";
 				}
-				if ((array_for_maze[column_snake][row_snake + 1])==(P)) {
+				if ((mazeCreation.maze[column_snake][row_snake + 1])==(P)) {
 					
 					SNAKE_LENGTH += 1;
 					System.out.println("Extra");
 				}
-				array_for_maze [column_snake][row_snake] = EMPTY;
-				array_for_maze [column_snake ][row_snake+1] = SNAKE;
+				mazeCreation.maze [column_snake][row_snake] = EMPTY;
+				mazeCreation.maze [column_snake ][row_snake+1] = SNAKE;
 				row_snake += 1;
+				
+				
 				
 				//do we have to do compare to right here?
 				/*if (SNAKE_LENGTH >= 1) {
@@ -112,47 +114,50 @@ public class Main {
 				
 				
 			}*/
-				maze.boundary(pellets);	
+				mazeCreation.boundary(pellets);	
 			
 		}
 			if (user_input.equalsIgnoreCase("a")){
-				if ((array_for_maze[column_snake][row_snake - 1])==(W)) {
+				if ((mazeCreation.maze[column_snake][row_snake - 1])==(W)) {
 					System.out.println("GameOver");
 					user_input="u";
 				}
-				if ((array_for_maze[column_snake][row_snake - 1])==(P)) {
+				if ((mazeCreation.maze[column_snake][row_snake - 1])==(P)) {
 					SNAKE_LENGTH += 1;
+					System.out.println("Extra");
 				}
-				array_for_maze [column_snake][row_snake] = EMPTY;
-				array_for_maze [column_snake][row_snake - 1] = SNAKE;
+				mazeCreation.maze [column_snake][row_snake] = EMPTY;
+				mazeCreation.maze [column_snake][row_snake - 1] = SNAKE;
 				row_snake -= 1;
-				maze.boundary(pellets);		
+				mazeCreation.boundary(pellets);		
 			}
 			if (user_input.equalsIgnoreCase("w")){
-				if ((array_for_maze[column_snake - 1][row_snake])==(W)) {
+				if ((mazeCreation.maze[column_snake - 1][row_snake])==(W)) {
 					System.out.println("GameOver");
 					user_input="u";
 				}
-				if ((array_for_maze[column_snake - 1][row_snake])==(P)) {
+				if ((mazeCreation.maze[column_snake - 1][row_snake])==(P)) {
 					SNAKE_LENGTH += 1;
+					System.out.println("Extra");
 				}
-				array_for_maze [column_snake][row_snake] = EMPTY;
-				array_for_maze [column_snake - 1][row_snake] = SNAKE;
+				mazeCreation.maze [column_snake][row_snake] = EMPTY;
+				mazeCreation.maze [column_snake - 1][row_snake] = SNAKE;
 				column_snake -= 1;
-				maze.boundary(pellets);		
+				mazeCreation.boundary(pellets);		
 			}
 			if (user_input.equalsIgnoreCase("s")){
-				if ((array_for_maze[column_snake + 1][row_snake])==(W)) {
+				if ((mazeCreation.maze[column_snake + 1][row_snake])==(W)) {
 					System.out.println("GameOver");
 					user_input="u";
 				}
-				if ((array_for_maze[column_snake + 1][row_snake])==(P)) {
+				if ((mazeCreation.maze[column_snake + 1][row_snake])==(P)) {
 					SNAKE_LENGTH += 1;
+					System.out.println("Extra");
 				}
-				array_for_maze [column_snake][row_snake] = EMPTY;
-				array_for_maze [column_snake + 1][row_snake] = SNAKE;
+				mazeCreation.maze [column_snake][row_snake] = EMPTY;
+				mazeCreation.maze [column_snake + 1][row_snake] = SNAKE;
 				column_snake += 1;
-				maze.boundary(pellets);	
+				mazeCreation.boundary(pellets);	
 			
 			}
 
@@ -162,11 +167,12 @@ public class Main {
 		
 	}
 	
-	private Scanner inp; // scans user input	
+	private Scanner inp; // scans user input
+	//these values were alters in the interest of the mazegenerator class
 	private static int EMPTY = 0;
 	private static int SNAKE = 1; 
-	private static char WALL = 2;
-	private static char PELLET = 3;
+	private static char WALL = 'W';
+	private static char PELLET = 'P';
 	
 	private static char W = 'W';
 	private static char P = 'P';
@@ -180,7 +186,7 @@ public class Main {
 	
 	private static int row_snake = 9;
 	private static int column_snake = 4;
-	private MazeGenerator maze;
+	private MazeGenerator mazeCreation;
 	private Rewards pellets;
 	
 	

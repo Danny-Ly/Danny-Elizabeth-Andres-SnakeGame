@@ -11,9 +11,9 @@ import java.util.Arrays;
  */
 public class Rewards {
 	Random randomvalue = new Random();
-	public static final int WALL = 2;
+	public static final char WALL = 'W';
 	public static final int SNAKE = 1; 
-	public static final int PELLET = 0;
+	public static final char PELLET = 'P';
 	private ArrayList<int[]> arrayofPellets = new ArrayList<int[]>();
 	
 	int numberOfPellets = 0;
