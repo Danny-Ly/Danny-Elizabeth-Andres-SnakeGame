@@ -88,10 +88,11 @@ public class Main {
 			array_for_maze [3][10] = PELLET;
 			array_for_maze [2][14] = PELLET;
 			array_for_maze [1][8] = PELLET;
-			array_for_maze [1][8] = PELLET;
+			array_for_maze [2][8] = PELLET;
+			array_for_maze [5][8] = PELLET;
 			
 			array_for_maze [column_snake][row_snake] = SNAKE;
-
+			
 			boundary(); 
 		}
 		
@@ -108,21 +109,28 @@ public class Main {
 	}
 	
 	public void boundary(){
-		 
+		 // this is changed
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 20; j++) {
 				if (array_for_maze [i][j] == WALL) {	
-					System.out.print("#");
+					System.out.print('#');
+					//System.out.print(WALL);
 				}
-				if (array_for_maze[i][j]== PELLET) {
-					System.out.print(".");
+				else if (array_for_maze[i][j]== PELLET) {
+					System.out.print('.');
+					//System.out.print(PELLET);
+				}				
+				else if (array_for_maze[i][j]== EMPTY) {
+					System.out.print(' ');
+					//System.out.print(EMPTY);
 				}
-				if (array_for_maze[i][j]== SNAKE) {
-					System.out.print("O");
+				//changed
+				else if (array_for_maze[i][j]== (int)array_for_maze[i][j]) {
+					if (array_for_maze[i][j]!= 0)
+					System.out.print('O');
+					//System.out.print(SNAKE_LENGTH);
 				}
-				if (array_for_maze[i][j]== EMPTY) {
-					System.out.print(" ");
-				}
+
 			}
 			
 			System.out.println();				
@@ -131,7 +139,7 @@ public class Main {
 	// need to move some of these into the Snake class
 	//have to source one thing before handing in
 	public void snake(){
-		
+		SNAKE_LENGTH = 1;
 		String user_input = "";
 		while (!(user_input.equalsIgnoreCase("u"))) {
 			System.out.println("Make a move");
@@ -139,6 +147,7 @@ public class Main {
 			user_input = inp.nextLine(); 
 			//System.out.println (user_input);
 			
+			// direction in snake class, .direction
 			if (user_input.equalsIgnoreCase("d")){
 				if ((array_for_maze[column_snake][row_snake + 1])==(WALL)) {
 					System.out.println("GameOver");
@@ -146,42 +155,59 @@ public class Main {
 					user_input="u";
 				}
 				if ((array_for_maze[column_snake][row_snake + 1])==(PELLET)) {
-					
 					SNAKE_LENGTH += 1;
 					System.out.println("Extra");
 				}
-				// USE THIS CODE IF THE BOTTOM ONE ISNT WORKING!
-				/*array_for_maze [column_snake][row_snake] = EMPTY;
-				array_for_maze [column_snake ][row_snake+1] = SNAKE;
-				row_snake += 1;*/
-				
+
+
 				//do we have to do compare to right here?
 				if (SNAKE_LENGTH >= 1) {
-					array_for_maze [column_snake][row_snake] = SNAKE_LENGTH; 
-					array_for_maze [column_snake][row_snake + 1] = SNAKE_LENGTH +1;
-					row_snake += 1;
+					System.out.println(SNAKE_LENGTH);
+					(array_for_maze [column_snake][row_snake]) = SNAKE_LENGTH; 
+					(array_for_maze [column_snake][row_snake + 1]) = SNAKE_LENGTH +1;
+					
+					//System.out.println(SNAKE_LENGTH);
+					//System.out.println(SNAKE_LENGTH+1);
+					row_snake = row_snake + 1;
 					for (int i = 0; i < 10; i++) {
 						for (int j = 0; j < 20; j++) {
-							if (array_for_maze [i][j] == WALL) {	
-								array_for_maze [i][j] = 'W';
-							} 
-							else if (array_for_maze[i][j]== PELLET) {
-								array_for_maze [i][j] = 'P';
+								
+							if ((array_for_maze [i][j]) != 0){
+								if ((array_for_maze [i][j]) == WALL) {	
+									(array_for_maze [i][j]) = WALL;
+									
+								} 
+								else if ((array_for_maze[i][j])== PELLET) {
+									(array_for_maze [i][j]) = PELLET;
+								}
+								//else if (array_for_maze[i][j]== EMPTY) {
+								//	array_for_maze [i][j] = EMPTY;
+								//}
+								// how to check if this element is an integer?
+								//https://stackoverflow.com/questions/12558206/how-can-i-check-if-a-value-is-of-type-integer
+								else if ((array_for_maze[i][j])== (int)(array_for_maze[i][j])) {
+									
+									(array_for_maze[i][j]) = (array_for_maze[i][j]) - 1;
+									//System.out.println(" " +(array_for_maze[i][j]));
+								}
 							}
-							else if (array_for_maze[i][j]== EMPTY) {
-								array_for_maze [i][j] = 0;
-							}
-							// how to check if this element is an integer?
-							//https://stackoverflow.com/questions/12558206/how-can-i-check-if-a-value-is-of-type-integer
-							else if ((array_for_maze[i][j])== (int)(array_for_maze[i][j])) {
-								array_for_maze[i][j] -= 1;
-							}
-							
 						}
 					}
-				
-				
-			}
+				// THIS IS TRYING TO MAKE IT IF YOU RUN INTO YOURSELF YOU DIE
+//				if (array_for_maze[column_snake][row_snake + 1]==(int)array_for_maze[column_snake][row_snake + 1]) {
+//					//https://stackoverflow.com/questions/15229492/binary-or-operator-in-java-comparing-chars
+//					//for |
+//					if (array_for_maze[column_snake][row_snake + 1]==('P' | 'W')) {
+//						break;
+//					}
+//					else if (array_for_maze[column_snake][row_snake + 1]>0) {
+//						System.out.println("GameOver");
+//					
+//						user_input="u";	
+//					}
+//				}
+
+				}
 				boundary();	
 			}
 			if (user_input.equalsIgnoreCase("a")){
@@ -192,11 +218,31 @@ public class Main {
 				if ((array_for_maze[column_snake][row_snake - 1])==(PELLET)) {
 					SNAKE_LENGTH += 1;
 				}
-				array_for_maze [column_snake][row_snake] = EMPTY;
-				array_for_maze [column_snake][row_snake - 1] = SNAKE;
-				row_snake -= 1;
+				if (SNAKE_LENGTH >= 1) {
+					array_for_maze [column_snake][row_snake] = SNAKE_LENGTH;
+					array_for_maze [column_snake][row_snake - 1] = SNAKE_LENGTH + 1;
+					row_snake -= 1;
+					for (int i = 0; i < 10; i++) {
+						for (int j = 0; j < 20; j++) {
+							if ((array_for_maze [i][j]) != 0){
+								if ((array_for_maze [i][j]) == WALL) {	
+									(array_for_maze [i][j]) = WALL;
+									
+								} 
+								else if ((array_for_maze[i][j])== PELLET) {
+									(array_for_maze [i][j]) = PELLET;
+								}
+								else if ((array_for_maze[i][j])== (int)(array_for_maze[i][j])) {
+									
+									(array_for_maze[i][j]) = (array_for_maze[i][j]) - 1;
+								}
+							}
+						}
+					}
+				}
 				boundary();	
 			}
+			
 			if (user_input.equalsIgnoreCase("w")){
 				if ((array_for_maze[column_snake - 1][row_snake])==(WALL)) {
 					System.out.println("GameOver");
@@ -205,10 +251,34 @@ public class Main {
 				if ((array_for_maze[column_snake - 1][row_snake])==(PELLET)) {
 					SNAKE_LENGTH += 1;
 				}
-				array_for_maze [column_snake][row_snake] = EMPTY;
-				array_for_maze [column_snake - 1][row_snake] = SNAKE;
-				column_snake -= 1;
+				
+				if (SNAKE_LENGTH >= 1) {
+					array_for_maze [column_snake][row_snake] = SNAKE_LENGTH;
+					array_for_maze [column_snake - 1][row_snake] = SNAKE_LENGTH + 1;
+					column_snake -= 1;
+					for (int i = 0; i < 10; i++) {
+						for (int j = 0; j < 20; j++) {
+							if ((array_for_maze [i][j]) != 0){
+								if ((array_for_maze [i][j]) == WALL) {	
+									(array_for_maze [i][j]) = WALL;
+									
+								} 
+								else if ((array_for_maze[i][j])== PELLET) {
+									(array_for_maze [i][j]) = PELLET;
+								}
+								else if ((array_for_maze[i][j])== (int)(array_for_maze[i][j])) {
+									
+									(array_for_maze[i][j]) = (array_for_maze[i][j]) - 1;
+								}
+							}
+						}
+					}
+					
+				}
+				
+
 				boundary();	
+				
 			}
 			if (user_input.equalsIgnoreCase("s")){
 				if ((array_for_maze[column_snake + 1][row_snake])==(WALL)) {
@@ -218,9 +288,28 @@ public class Main {
 				if ((array_for_maze[column_snake + 1][row_snake])==(PELLET)) {
 					SNAKE_LENGTH += 1;
 				}
-				array_for_maze [column_snake][row_snake] = EMPTY;
-				array_for_maze [column_snake + 1][row_snake] = SNAKE;
-				column_snake += 1;
+				if (SNAKE_LENGTH >=1) {
+					array_for_maze [column_snake][row_snake] = SNAKE_LENGTH;
+					array_for_maze [column_snake + 1][row_snake] = SNAKE_LENGTH +1;
+					column_snake += 1;
+					for (int i = 0; i < 10; i++) {
+						for (int j = 0; j < 20; j++) {
+							if ((array_for_maze [i][j]) != 0){
+								if ((array_for_maze [i][j]) == WALL) {	
+									(array_for_maze [i][j]) = WALL;
+									
+								} 
+								else if ((array_for_maze[i][j])== PELLET) {
+									(array_for_maze [i][j]) = PELLET;
+								}
+								else if ((array_for_maze[i][j])== (int)(array_for_maze[i][j])) {
+									
+									(array_for_maze[i][j]) = (array_for_maze[i][j]) - 1;
+								}
+							}
+						}
+					}
+				}
 				boundary();	
 			}
 
