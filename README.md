@@ -10,8 +10,11 @@ If “medium” or “hard” are selected you will be notified that these versi
  Upon selection of “easy”, a maze will appear and the user will be prompted to make a move using keys WASD. Upon selection of WASD you must press enter.
 
 W - is upwards
+
 A - is left
-S - is down 
+
+S - is down
+
 D - is right 
 
 The objective of the game is to collect all the pellets without running into the walls (#). When a pellet is collected the snake will grow. 
