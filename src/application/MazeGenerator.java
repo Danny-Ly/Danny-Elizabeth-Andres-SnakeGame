@@ -15,6 +15,7 @@ public class MazeGenerator {
 	public static int SNAKE = 1; 
 	public static char PELLET = 10000;
 	int[][] maze;
+	Rewards pellets;
 	
 	int difficulty = 0;
 	int numberOfobstactle = 0;
@@ -86,6 +87,14 @@ public class MazeGenerator {
 			maze [4][8] = WALL;
 			maze [4][10] = WALL;
 			
+			pellets = new Rewards(numberOfPellets);
+			pellets.randomPellet(maze);
+			for(int i=0; i<maze.length; i++) {
+				for(int j=0; j <maze[i].length; j++) {
+					//allows for the maze to be the same as the maze with pellets
+					maze[i][j] = pellets.tempMaze[i][j];
+				}
+			}
 			
 			/*
 			for(int i=0; i<maze.length; i++) {
@@ -112,9 +121,9 @@ public class MazeGenerator {
 					if (maze [i][j] == WALL) {	
 						System.out.print("#");
 					}
-					else if (rewards.pelletHere(locationarray)){
+					else if (/*rewards.temp*/maze[i][j] == PELLET ){
 						// make this maze equal to pellet.
-						maze[i][j] = PELLET;
+					//     maze[i][j] = PELLET;
 						System.out.print(".");
 					}
 					else if (maze[i][j]== EMPTY) {

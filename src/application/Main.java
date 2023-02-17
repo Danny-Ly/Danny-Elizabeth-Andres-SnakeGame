@@ -37,6 +37,7 @@ public class Main {
 					user_input="u";
 				}
 				if ((mazeCreation.maze[column_snake][row_snake + 1])==(PELLET)) {
+							
 					SNAKE_LENGTH += 1;
 					System.out.println("Extra");
 				}
@@ -99,6 +100,7 @@ public class Main {
 				}
 				if ((mazeCreation.maze[column_snake + 1][row_snake])==(P)) {
 					SNAKE_LENGTH += 1;
+					
 					System.out.println("Extra");
 				}
 				snakeMove = new Snake(column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
@@ -111,7 +113,7 @@ public class Main {
 
 		}
 	}
-	}
+}
 
 	
 	public void start() {
@@ -151,8 +153,15 @@ public class Main {
 			difficulty = 0;
 		}
 		
+		
 		mazeCreation = new MazeGenerator(difficulty);
-		pellets = new Rewards(mazeCreation);
+//		pellets = new Rewards();
+//		pellets.randomPellet(mazeCreation);
+//		for(int i=0; i<mazeCreation.maze.length; i++) {
+//			for(int j=0; j <mazeCreation.maze[i].length; j++) {
+//				mazeCreation.maze[i][j] = pellets.tempMaze[i][j];
+//			}
+//		}
 		mazeCreation.boundary(pellets);
 		
 		userInteraction();
