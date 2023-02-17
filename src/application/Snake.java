@@ -24,14 +24,15 @@ public class Snake {
 		userInput = useInput;
 		
 		column_movement = col_movement;
-		//System.out.println(column_movement);
+		System.out.println(column_movement);
 		row_movement = r_movement;
-		//System.out.println(row_movement);
+		System.out.println(row_movement);
 		column_snake = col_snake;
-		//System.out.println("column snake" +column_snake);
+		System.out.println("column snake" +column_snake);
 		row_snake = r_snake;
-		//System.out.println("row snake"+ row_snake);
+		System.out.println("row snake"+ row_snake);
 		SNAKE_LENGTH = snakeLength;
+		System.out.println(SNAKE_LENGTH);
 		
 
 	}
@@ -80,13 +81,34 @@ public class Snake {
 	public void runIntoWall (MazeGenerator mazeCreation ) {
 		if ((mazeCreation.maze[column_snake + column_movement][row_snake + row_movement])==(WALL)) {
 			System.out.println("GameOver");
-			row_snake = 9;
-			column_snake = 5;
-			SNAKE_LENGTH = 1;
+			
+			//set of if/else if used to reset the snake to default position.
+			if (row_movement == 1) {
+				row_snake = 8;
+				column_snake = 4;
+				SNAKE_LENGTH = 1;
+			}
+			else if (row_movement == -1) {
+				row_snake = 10;
+				column_snake = 4;
+				SNAKE_LENGTH = 1;
+			}
+			else if (column_movement == 1) {
+				row_snake = 9;
+				column_snake = 3;
+				SNAKE_LENGTH = 1;
+			}
+			else if (column_movement == -1) {
+				row_snake = 9;
+				column_snake = 5;
+				SNAKE_LENGTH = 1;
+			}
+			
+	
 			
 			
 			// this needs to be = instead of equalsIgnoreCase to work
-			userInput="quit";
+				userInput="quit";
 			;
 		}
 	}
@@ -111,6 +133,26 @@ public class Snake {
 					if((mazeCreation.maze[column_snake+column_movement][row_snake+ row_movement])!=SNAKE_LENGTH) {
 						System.out.println("GameOver");
 						// this needs to be = instead of equalsIgnoreCase to work
+						if (row_movement == 1) {
+							row_snake = 8;
+							column_snake = 4;
+							SNAKE_LENGTH = 1;
+						}
+						else if (row_movement == -1) {
+							row_snake = 10;
+							column_snake = 4;
+							SNAKE_LENGTH = 1;
+						}
+						else if (column_movement == 1) {
+							row_snake = 9;
+							column_snake = 3;
+							SNAKE_LENGTH = 1;
+						}
+						else if (column_movement == -1) {
+							row_snake = 9;
+							column_snake = 5;
+							SNAKE_LENGTH = 1;
+						}
 						userInput="quit";
 					}
 				}

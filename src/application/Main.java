@@ -37,6 +37,9 @@ public class Main {
 				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoWall(mazeCreation);
 				userInput = snakeMove.userInput;
+//				column_snake = snakeMove.column_snake;
+//				row_snake = snakeMove.row_snake;
+//				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
 				
 	
 				snakeMove.eatPellet(mazeCreation);
@@ -45,7 +48,9 @@ public class Main {
 				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoItself(mazeCreation);
 				userInput = snakeMove.userInput;
-			
+//				column_snake = snakeMove.column_snake;
+//				row_snake = snakeMove.row_snake;
+				
 				//mainAndClassInteraction(column_movement, row_movement,
 					//	 column_snake,  row_snake, SNAKE_LENGTH, pellets, mazeCreation, WALL, PELLET);
 				
@@ -63,7 +68,7 @@ public class Main {
 				int row_movement = (-1);
 				int column_movement = 0;
 				
-				// userInput = runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
+
 				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoWall(mazeCreation);
 				userInput = snakeMove.userInput;
@@ -75,6 +80,8 @@ public class Main {
 				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoItself(mazeCreation);
 				userInput = snakeMove.userInput;
+//				column_snake = snakeMove.column_snake;
+//				row_snake = snakeMove.row_snake;
 						
 
 				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
@@ -82,6 +89,7 @@ public class Main {
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
 				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+				
 				mazeCreation.boundary(pellets);		
 			}
 			
@@ -101,7 +109,7 @@ public class Main {
 				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoItself(mazeCreation);
 				userInput = snakeMove.userInput;
-		
+
 				
 				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
@@ -124,10 +132,9 @@ public class Main {
 				snakeMove.eatPellet(mazeCreation);
 				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
 				
-				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoItself(mazeCreation);
 				userInput = snakeMove.userInput;
-				
+
 				
 
 				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
