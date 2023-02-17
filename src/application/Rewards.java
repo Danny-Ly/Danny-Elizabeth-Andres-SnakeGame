@@ -35,8 +35,10 @@ public class Rewards {
 			int x = randomvalue.nextInt(10) ;
 			int y = randomvalue.nextInt(16)+2 ;
 			// checks if cordinate generated has an existing value 
-			if (maze2[x][y]!= WALL & maze2[x][y]!= SNAKE) {
+			if (maze2[x][y]!= WALL & maze2[x][y]!= SNAKE & maze2[x][y] != PELLET) {
 				maze2[x][y]= PELLET;
+				// incremetly increasing by 1
+				numberOfPellets++;
 			}
 			tempMaze = new int[10][20];
 			//https://stackoverflow.com/questions/5617016/how-do-i-copy-a-2-dimensional-array-in-java
@@ -47,11 +49,7 @@ public class Rewards {
 				}
 			} 	
 				// incremetly increasing by 1 
-				numberOfPellets++;
+				//numberOfPellets++;
 		}
 	}
 }
-
-		
-
-
