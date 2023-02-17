@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * This class is used in generating, customizing and creating a visual-like maze appearance 
- * that user can visually see change according to user input.
+ * This class is used in randomly generating pellets into the maze.
  * @author Written by Elizabeth, assisted and co-written by Andres and Danny.
  *
  */
 public class Rewards {
 	Random randomvalue = new Random();
+	// Declaring constant values.
 	public static final char WALL = 30000;
 	public static final int SNAKE = 1; 
 	public static final char PELLET = 10000;
@@ -23,13 +23,19 @@ public class Rewards {
 	public Rewards (int pelletsCount) {
 		numberOfPellets = pelletsCount;
 	}
-	
+	/**
+	 * Randomly places pellets into the maze
+	 * @param maze2 is the maze we want to randomly add pellets to.
+	 */
 	public void randomPellet(int[][]maze2) {
-		// someone change this idk how this works (make it so random is consistant)
-		while (numberOfPellets <30) {
+		// generates random posstion in maze passed in until wanted 
+		// number of pellets is reached
+		while (numberOfPellets <5) {
+			// randomly generate cordinates in parameter
 			int x = randomvalue.nextInt(10) ;
 			int y = randomvalue.nextInt(16)+2 ;
-			if (x==2 || x==5 || x==7) {
+			// checks if cordinate generated has an existing value 
+			if (maze2[x][y]!= WALL & maze2[x][y]!= SNAKE) {
 				maze2[x][y]= PELLET;
 			}
 			tempMaze = new int[10][20];
@@ -39,10 +45,9 @@ public class Rewards {
 				for(int j=0; j <maze2[i].length; j++) {
 					tempMaze[i][j] = maze2[i][j];
 				}
-			} 
-						
+			} 	
+				// incremetly increasing by 1 
 				numberOfPellets++;
-			
 		}
 	}
 }
