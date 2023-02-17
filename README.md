@@ -1,7 +1,7 @@
 # Danny-Elizabeth-Andres-SnakeGame
 A game in which snake and pac-man are combined.  
 
-Instructions
+INSTRUCTIONS
 
 Welcome to a game of SnakeMaze. To play, you must first press the play button in the top right corner. When this button is pressed you must press enter then 
 choose a difficulty of “easy”, “medium” or “hard”. Be careful to select one of these options. Otherwise you will be re-prompted to choose the correct user input. 
