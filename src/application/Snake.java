@@ -5,7 +5,7 @@ public class Snake {
 	public static char WALL = 30000;
 	public static char PELLET = 10000;
 	public int difficulty = 0;
-	//public int counter = 0;
+	public int counter = 0;
 	
 	public int SNAKE_LENGTH;
 
@@ -24,15 +24,15 @@ public class Snake {
 		userInput = useInput;
 		
 		column_movement = col_movement;
-		System.out.println(column_movement);
+		//System.out.println(column_movement);
 		row_movement = r_movement;
-		System.out.println(row_movement);
+		//System.out.println(row_movement);
 		column_snake = col_snake;
-		System.out.println("column snake" +column_snake);
+		//System.out.println("column snake" +column_snake);
 		row_snake = r_snake;
-		System.out.println("row snake"+ row_snake);
+		//System.out.println("row snake"+ row_snake);
 		SNAKE_LENGTH = snakeLength;
-		System.out.println(SNAKE_LENGTH);
+		//System.out.println(SNAKE_LENGTH);
 		
 
 	}
@@ -116,14 +116,22 @@ public class Snake {
 		if ((mazeCreation.maze[column_snake + column_movement][row_snake + row_movement])==(PELLET)) {
 			SNAKE_LENGTH+=1;
 			System.out.println("Extra");
-//			for (int i = 0; i < 10; i++) {
-//				for (int j = 0; j < 20; j++) {
-//					if (mazeCreation.maze[i][j]==PELLET) {
-//						counter +=1;
-//					}
-//				} 
-//			}
-				
+			for (int i = 0; i < 10; i++) {
+				for (int j = 0; j < 20; j++) {
+					if (mazeCreation.maze[i][j]==PELLET) {
+						
+						counter += 1;
+						//System.out.println(counter);
+						
+					}
+					
+				} 
+			}
+			
+			if (counter == 1) {
+				userInput ="quit";
+			System.out.println("YOU WIN!");
+			}
 		}
 	}
 	public void runIntoItself(MazeGenerator mazeCreation) {
