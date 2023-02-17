@@ -1,8 +1,8 @@
 package application;
 /**
- * This class is handles when the user inputs WASD, the snake will move accordinly. 
+ * This class is handles when the user inputs WASD, the snake will move accordingly. 
  * And will interact with the mazes randomly generated Walls and pellets,
- * that will infuelnce the snakes action perfomed. 
+ * that will infleunce the snakes action performed. 
  * @author Written by Danny, assisted and co-written by Andres and Elizabeth.
  *
  */
@@ -12,6 +12,7 @@ public class Snake {
 	public static char WALL = 30000;
 	public static char PELLET = 10000;
 	public int difficulty = 0;
+	public int counter = 0;
 	public int SNAKE_LENGTH;
 	public int row_snake;
 	public int column_snake;
@@ -21,12 +22,12 @@ public class Snake {
 	String userInput;
 	
 	/**
-	 * Constructor that is called in main that will infuence how the the snake is moving.
+	 * Constructor that is called in main that will influence how the the snake is moving.
 	 * @param useInput a string value of the user input (WASD)
-	 * @param col_movement integer value representing the y-axis movment of snake
+	 * @param col_movement integer value representing the y-axis movement of snake
 	 * @param r_movement integer value representing the x-axis movement of snake 
-	 * @param col_snake integer value representing the y-axis postion of snake 
-	 * @param r_snake integer value representing the x-axis postiotion of snake
+	 * @param col_snake integer value representing the y-axis position of snake 
+	 * @param r_snake integer value representing the x-axis position of snake
 	 * @param snakeLength length of snake
 	 */
 	public Snake(String useInput,int col_movement, int r_movement,int col_snake, int r_snake, int snakeLength) {
@@ -45,11 +46,11 @@ public class Snake {
 
 	}
 	// for the extension of the snake, this was inspired by reading Snake Task #5 on this website:
-	// https://www.kosbie.net/cmu/fall-11/15-112/handouts/snake/
-	//snake.html#:~:text=In%20the%20game%20of%20Snake,food%2C%20and%20thereby%20grows%20larger
+	// https://www.kosbie.net/cmu/fall-11/15-112/handouts/snake/snake.html#:~:text=In%20the%20game%20of%20Snake,food%2C%20and%20thereby%20grows%20larger
+	// no codes were taken from this, just got the idea to subtract and add integers in the 2D list. 
 	
 	/**
-	 * updates the postion/movment of snake in the maze based on user input
+	 * updates the position/movement of snake in the maze based on user input
 	 * and the walls or pellets
 	 * @param pellets is from Rewards class that represents the pellets in the maze
 	 * @param mazeCreation is from MazeGenerator class that represents the walls in the maze
@@ -92,37 +93,63 @@ public class Snake {
 		}
 	}
 	/**
-	 * This checks if the snake has the same cordinates as a wall
+	 * This checks if the snake has the same coordinates as a wall
 	 * @param mazeCreation is from MazeGenerator class that represent all objects in the maze
 	 */
 	public void runIntoWall (MazeGenerator mazeCreation ) {
 		if ((mazeCreation.maze[column_snake + column_movement][row_snake + row_movement])==(WALL)) {
 			System.out.println("GameOver");
-			// this needs to be = instead of equalsIgnoreCase to work
+			
+			//set of if/else if used to reset the snake to default position.
+            if (row_movement == 1) {
+                row_snake = 8;
+                column_snake = 4;
+                SNAKE_LENGTH = 1;
+            }
+            else if (row_movement == -1) {
+                row_snake = 10;
+                column_snake = 4;
+                SNAKE_LENGTH = 1;
+            }
+            else if (column_movement == 1) {
+                row_snake = 9;
+                column_snake = 3;
+                SNAKE_LENGTH = 1;
+            }
+            else if (column_movement == -1) {
+                row_snake = 9;
+                column_snake = 5;
+                SNAKE_LENGTH = 1;
+            }
 			userInput="quit";
 			;
 		}
 	}
 	/**
-	 * This checks if the snake has the same corrdinates as a pellet
+	 * This checks if the snake has the same coordinates as a pellet
 	 * @param mazeCreation is from MazeGenerator class that represent all objects in the maze
 	 */
 	public void eatPellet (MazeGenerator mazeCreation ) {
 		if ((mazeCreation.maze[column_snake + column_movement][row_snake + row_movement])==(PELLET)) {
 			SNAKE_LENGTH+=1;
-			System.out.println("Extra");
-//			for (int i = 0; i < 10; i++) {
-//				for (int j = 0; j < 20; j++) {
-//					if (mazeCreation.maze[i][j]==PELLET) {
-//						counter +=1;
-//					}
-//				} 
-//			}
-				
+			//this checks through the 2D array now many PELLETS are left
+			for (int i = 0; i < 10; i++) {
+				for (int j = 0; j < 20; j++) {
+					if (mazeCreation.maze[i][j]==PELLET) {
+						counter +=1;
+					}
+				} 
+			}		
+		}
+		// this tells us if there is one pellet left (when it is eaten)
+		// then it causes the program to quit and print a victory statement.
+		if (counter == 1) {
+			userInput = "quit";
+			System.out.println("YOU WIN!");
 		}
 	}
 	/**
-	 * This Checks if the snake has the same cordinates as itslef 
+	 * This Checks if the snake has the same coordinates as itself 
 	 * @param mazeCreation is from MazeGenerator class that represent all objects in the maze
 	 */
 	public void runIntoItself(MazeGenerator mazeCreation) {
@@ -131,7 +158,27 @@ public class Snake {
 				if((mazeCreation.maze[column_snake+column_movement][row_snake+ row_movement])<PELLET) {
 					if((mazeCreation.maze[column_snake+column_movement][row_snake+ row_movement])!=SNAKE_LENGTH) {
 						System.out.println("GameOver");
-						// this needs to be = instead of equalsIgnoreCase to work
+						//set of if/else if used to reset the snake to default position.
+			            if (row_movement == 1) {
+			                row_snake = 8;
+			                column_snake = 4;
+			                SNAKE_LENGTH = 1;
+			            }
+			            else if (row_movement == -1) {
+			                row_snake = 10;
+			                column_snake = 4;
+			                SNAKE_LENGTH = 1;
+			            }
+			            else if (column_movement == 1) {
+			                row_snake = 9;
+			                column_snake = 3;
+			                SNAKE_LENGTH = 1;
+			            }
+			            else if (column_movement == -1) {
+			                row_snake = 9;
+			                column_snake = 5;
+			                SNAKE_LENGTH = 1;
+			            }
 						userInput="quit";
 					}
 				}

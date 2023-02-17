@@ -42,7 +42,7 @@ public class Rewards {
 			}
 			tempMaze = new int[10][20];
 			//https://stackoverflow.com/questions/5617016/how-do-i-copy-a-2-dimensional-array-in-java
-			// short code on how to duplicate the 2D array
+			// short code on how to duplicate the 2D array by Sébastien reply. 
 			for(int i=0; i<maze2.length; i++) {
 				for(int j=0; j <maze2[i].length; j++) {
 					tempMaze[i][j] = maze2[i][j];
