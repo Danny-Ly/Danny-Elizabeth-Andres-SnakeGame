@@ -30,7 +30,7 @@ public class Main {
 				int row_movement = 1;
 				int column_movement = 0;
 				//creating new object of snake, to check if any
-				//further altering of map is needed based on this change in postion.
+				//further altering of map is needed based on this change in position.
 				
 				// instance of Snake class was called to deal with 
 				// running into a wall or itself, extending when eating a pellet,
@@ -60,7 +60,7 @@ public class Main {
 				int column_movement = 0;
 				// userInput = runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
 				
-				//creating new object of snake, to check if any further altering of map is needed based on this change in postion.
+				//creating new object of snake, to check if any further altering of map is needed based on this change in position.
 				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoWall(mazeCreation);
 				userInput = snakeMove.userInput;				
@@ -83,8 +83,10 @@ public class Main {
 				int column_movement = (-1);
 				
 				//runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
-				//creating new object of snake, to check if any further altering of map is needed based on this change in postion.
+				//creating new object of snake, to check if any further altering of map is needed based on this change in position.
 				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				
+				// calling snake class moving and handling running into wall, eating pellets, and running itself
 				snakeMove.runIntoWall(mazeCreation);
 				userInput = snakeMove.userInput;
 								
@@ -105,9 +107,11 @@ public class Main {
 				int row_movement = 0;
 				int column_movement = 1;
 				
-				//creating new object of snake, to check if any further altering of map is needed based on this change in postion.
+				//creating new object of snake, to check if any further altering of map is needed based on this change in position.
 				//runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
 				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				
+				// calling snake class moving and handling running into wall, eating pellets, and running itself
 				snakeMove.runIntoWall(mazeCreation);
 				userInput = snakeMove.userInput;
 		
@@ -132,7 +136,7 @@ public class Main {
 }
 
 	/**
-	 * This handles user input of when the program is first run, this is where the diffuclty us chosen,
+	 * This handles user input of when the program is first run, this is where the difficulty us chosen,
 	 * that will impact how the maze is created
 	 */
 	public void start() {
@@ -144,7 +148,7 @@ public class Main {
 			System.out.println("Press Enter To Start");
 			inp = new Scanner(System.in); // scans user input
 			String line = inp.nextLine(); // creates a string using the last user input
-			System.out.println("Your Input is:" + line);
+			System.out.println("Your Input is:" + line + " If invaild please press enter.");
 		
 
 		
@@ -157,7 +161,7 @@ public class Main {
 				}
 			}
 				
-				// Exit the while loop if !(line == "easy" || line == "medium" || line == "hard")
+				// Exit the while loop if !(line == "easy" )
 				
 			
 				while (!(line.equalsIgnoreCase("easy"))) {

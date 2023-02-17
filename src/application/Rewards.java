@@ -28,16 +28,16 @@ public class Rewards {
 	 * @param maze2 is the maze we want to randomly add pellets to.
 	 */
 	public void randomPellet(int[][]maze2) {
-		// generates random posstion in maze passed in until wanted 
+		// generates random position in maze passed in until wanted 
 		// number of pellets is reached
 		while (numberOfPellets <5) {
-			// randomly generate cordinates in parameter
+			// randomly generate coordinates in parameter
 			int x = randomvalue.nextInt(10) ;
 			int y = randomvalue.nextInt(16)+2 ;
-			// checks if cordinate generated has an existing value 
+			// checks if coordinate generated has an existing value 
 			if (maze2[x][y]!= WALL & maze2[x][y]!= SNAKE & maze2[x][y] != PELLET) {
 				maze2[x][y]= PELLET;
-				// incremetly increasing by 1
+				// increment increasing by 1
 				numberOfPellets++;
 			}
 			tempMaze = new int[10][20];
@@ -48,7 +48,7 @@ public class Rewards {
 					tempMaze[i][j] = maze2[i][j];
 				}
 			} 	
-				// incremetly increasing by 1 
+				// increment increasing by 1 
 				//numberOfPellets++;
 		}
 	}

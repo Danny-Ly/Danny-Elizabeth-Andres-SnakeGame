@@ -144,8 +144,28 @@ public class Snake {
 		// this tells us if there is one pellet left (when it is eaten)
 		// then it causes the program to quit and print a victory statement.
 		if (counter == 1) {
-			userInput = "quit";
-			System.out.println("YOU WIN!");
+            if (row_movement == 1) {
+                row_snake = 8;
+                column_snake = 4;
+                SNAKE_LENGTH = 1;
+            }
+            else if (row_movement == -1) {
+                row_snake = 10;
+                column_snake = 4;
+                SNAKE_LENGTH = 1;
+            }
+            else if (column_movement == 1) {
+                row_snake = 9;
+                column_snake = 3;
+                SNAKE_LENGTH = 1;
+            }
+            else if (column_movement == -1) {
+                row_snake = 9;
+                column_snake = 5;
+                SNAKE_LENGTH = 1;
+            }
+            userInput = "quit";
+            System.out.println("YOU WIN!");
 		}
 	}
 	/**
