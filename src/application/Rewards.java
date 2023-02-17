@@ -25,7 +25,7 @@ public class Rewards {
 	}
 	
 	public void randomPellet(int[][]maze2) {
-		while (numberOfPellets <9) {
+		while (numberOfPellets <30) {
 			int x = randomvalue.nextInt(10) ;
 			int y = randomvalue.nextInt(16)+2 ;
 			if (x==2 || x==5 || x==7) {

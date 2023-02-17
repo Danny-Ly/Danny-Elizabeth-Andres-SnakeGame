@@ -41,12 +41,27 @@ public class Main {
 					SNAKE_LENGTH += 1;
 					System.out.println("Extra");
 				}
+				if((mazeCreation.maze[column_snake][row_snake+1])!=0){
+					if((mazeCreation.maze[column_snake][row_snake+1])<WALL){
+						if((mazeCreation.maze[column_snake][row_snake+1])<PELLET) {
+							if((mazeCreation.maze[column_snake][row_snake+1])!=SNAKE_LENGTH) {
+								System.out.println("GameOver");
+								// this needs to be = instead of equalsIgnoreCase to work
+								user_input="u";
+							}
+						}	
+					}
+
+				}
 				//mainAndClassInteraction(column_movement, row_movement,
 					//	 column_snake,  row_snake, SNAKE_LENGTH, pellets, mazeCreation, WALL, PELLET);
 				snakeMove = new Snake(column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+				
+				
 				mazeCreation.boundary(pellets);		
 				
 			
@@ -63,11 +78,24 @@ public class Main {
 					SNAKE_LENGTH += 1;
 					System.out.println("Extra");
 				}
+				if((mazeCreation.maze[column_snake][row_snake-1])!=0){
+					if((mazeCreation.maze[column_snake][row_snake-1])<WALL){
+						if((mazeCreation.maze[column_snake][row_snake-1])<PELLET) {
+							if((mazeCreation.maze[column_snake][row_snake-1])!=SNAKE_LENGTH) {
+								System.out.println("GameOver");
+								// this needs to be = instead of equalsIgnoreCase to work
+								user_input="u";
+							}
+						}	
+					}
+
+				}
 
 				snakeMove = new Snake(column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
 				mazeCreation.boundary(pellets);		
 			}
 			
@@ -83,10 +111,24 @@ public class Main {
 					SNAKE_LENGTH += 1;
 					System.out.println("Extra");
 				}
+				if((mazeCreation.maze[column_snake-1][row_snake])!=0){
+					if((mazeCreation.maze[column_snake-1][row_snake])<WALL){
+						if((mazeCreation.maze[column_snake-1][row_snake])<PELLET) {
+							if((mazeCreation.maze[column_snake-1][row_snake])!=SNAKE_LENGTH) {
+								System.out.println("GameOver");
+								// this needs to be = instead of equalsIgnoreCase to work
+								user_input="u";
+							}
+						}	
+					}
+
+				}
+				
 				snakeMove = new Snake(column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
 				mazeCreation.boundary(pellets);	
 			}
 			
@@ -103,10 +145,23 @@ public class Main {
 					
 					System.out.println("Extra");
 				}
+				if((mazeCreation.maze[column_snake+1][row_snake])!=0){
+					if((mazeCreation.maze[column_snake+1][row_snake])<WALL){
+						if((mazeCreation.maze[column_snake+1][row_snake])<PELLET) {
+							if((mazeCreation.maze[column_snake+1][row_snake])!=SNAKE_LENGTH) {
+								System.out.println("GameOver");
+								// this needs to be = instead of equalsIgnoreCase to work
+								user_input="u";
+							}
+						}	
+					}
+
+				}
 				snakeMove = new Snake(column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
 				mazeCreation.boundary(pellets);	
 			
 			}
