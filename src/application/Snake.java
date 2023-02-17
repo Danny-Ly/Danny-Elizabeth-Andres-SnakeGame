@@ -45,6 +45,7 @@ public class Snake {
 			mazeCreation.maze [column_snake][row_snake] = SNAKE_LENGTH;
 			mazeCreation.maze [column_snake + column_movement][row_snake + row_movement] = SNAKE_LENGTH+1;
 			if (row_movement == 1) {
+
 				row_snake += 1;
 			}
 			if (row_movement == (-1)) {
@@ -79,6 +80,11 @@ public class Snake {
 	public void runIntoWall (MazeGenerator mazeCreation ) {
 		if ((mazeCreation.maze[column_snake + column_movement][row_snake + row_movement])==(WALL)) {
 			System.out.println("GameOver");
+			row_snake = 9;
+			column_snake = 5;
+			SNAKE_LENGTH = 1;
+			
+			
 			// this needs to be = instead of equalsIgnoreCase to work
 			userInput="quit";
 			;

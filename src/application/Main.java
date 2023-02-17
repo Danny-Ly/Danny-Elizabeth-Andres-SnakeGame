@@ -41,19 +41,15 @@ public class Main {
 	
 				snakeMove.eatPellet(mazeCreation);
 				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
-				
-//				if ((mazeCreation.maze[column_snake][row_snake + 1])==(PELLET)) {
-//							
-//					SNAKE_LENGTH += 1;
-//					System.out.println("Extra");
-//				}
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+
+				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoItself(mazeCreation);
 				userInput = snakeMove.userInput;
+			
 				//mainAndClassInteraction(column_movement, row_movement,
 					//	 column_snake,  row_snake, SNAKE_LENGTH, pellets, mazeCreation, WALL, PELLET);
 				
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
@@ -72,15 +68,16 @@ public class Main {
 				snakeMove.runIntoWall(mazeCreation);
 				userInput = snakeMove.userInput;
 				
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.eatPellet(mazeCreation);
 				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
 				
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoItself(mazeCreation);
 				userInput = snakeMove.userInput;
+						
 
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
@@ -97,15 +94,16 @@ public class Main {
 				snakeMove.runIntoWall(mazeCreation);
 				userInput = snakeMove.userInput;
 				
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.eatPellet(mazeCreation);
 				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
 				
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoItself(mazeCreation);
 				userInput = snakeMove.userInput;
+		
 				
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
@@ -122,27 +120,17 @@ public class Main {
 				snakeMove.runIntoWall(mazeCreation);
 				userInput = snakeMove.userInput;
 				
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.eatPellet(mazeCreation);
 				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
 				
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoItself(mazeCreation);
 				userInput = snakeMove.userInput;
 				
-//				if((mazeCreation.maze[column_snake+1][row_snake])!=0){
-//					if((mazeCreation.maze[column_snake+1][row_snake])<WALL){
-//						if((mazeCreation.maze[column_snake+1][row_snake])<PELLET) {
-//							if((mazeCreation.maze[column_snake+1][row_snake])!=SNAKE_LENGTH) {
-//								System.out.println("GameOver");
-//								// this needs to be = instead of equalsIgnoreCase to work
-//								user_input="u";
-//							}
-//						}	
-//					}
-//
-//				}
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				
+
+				//snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
@@ -171,6 +159,7 @@ public class Main {
 
 	
 	public void start() {
+		
 		difficulty = 0;
 		boolean loopOfGame = true;
 		while (loopOfGame == true){
@@ -180,8 +169,6 @@ public class Main {
 			inp = new Scanner(System.in); // scans user input
 			String line = inp.nextLine(); // creates a string using the last user input
 			System.out.println("Your Input is:" + line);
-		
-
 		
 			// this loop infinitely loops the game 
 			
@@ -224,22 +211,22 @@ public class Main {
 	
 	private Scanner inp; // scans user input
 	//these values were alters in the interest of the mazegenerator class
-	private static int EMPTY = 0;
-	private static int WALL = 30000;
-	private static int PELLET = 10000;
-	
-	private static char W =30000;
-	private static char P = 10000;
+//	private static int EMPTY = 0;
+//	private static int WALL = 30000;
+//	private static int PELLET = 10000;
+//	
+//	private static char W =30000;
+//	private static char P = 10000;
 	private static int SNAKE_LENGTH = 1;
 	private int difficulty;
 	//private int counter=0;
 
 	private static int row_snake = 9;
 	private static int column_snake = 4;
-	
-	private MazeGenerator mazeCreation;
-	private Rewards pellets;
-	private Snake snakeMove;
+
+	private static MazeGenerator mazeCreation;
+	private static Rewards pellets;
+	private static Snake snakeMove;
 	
 	
 	
