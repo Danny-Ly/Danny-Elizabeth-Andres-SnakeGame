@@ -1,9 +1,13 @@
 // Majority of this program's syntax is based off of the lecture videos 
 // and demos on the CPSC 219 D2L shell (WINTER 2019).
 package application;
-	
 import java.util.Scanner;
 
+/**
+ * The class that calls upon MazeGeneerator, Rewards and Snake class, to be able to all work in unison.
+ * @author Written by Elizabeth, Danny, and Andres
+ *
+ */
 public class Main {
 	private static final String String = null;
 	
@@ -17,11 +21,11 @@ public class Main {
 //			column_snake = snakeMove.column_snake;
 //			mazeCreation.boundary(pellets);
 //	}
-
-
-
+	/**
+	 * This handles when the user enters WASD, will handle these for cases of different inputs,
+	 *  and will call Snake class to to change thier values in the approprite way
+	 */
 	public void userInteraction(){
-		
 		String userInput = "";
 		if (difficulty == 0) {
 		while (!(userInput.equalsIgnoreCase("quit"))) {
@@ -169,7 +173,10 @@ public class Main {
 	}
 }
 
-	
+	/**
+	 * This handles user input of when the program is first run, this is where the diffuclty us chosen,
+	 * that will impact how the maze is created
+	 */
 	public void start() {
 		difficulty = 0;
 		boolean loopOfGame = true;
