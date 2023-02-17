@@ -236,13 +236,13 @@ public class Main {
 
 	
 	private Scanner inp; // scans user input
-	//these values were alters in the interest of the mazegenerator class
-	private static int EMPTY = 0;
-	private static int WALL = 30000;
-	private static int PELLET = 10000;
+	//these values were alters in the interest of the MazeGenerator class
+	//private static int EMPTY = 0;
+	//private static int WALL = 30000;
+	//private static int PELLET = 10000;
 	
-	private static char W =30000;
-	private static char P = 10000;
+	//private static char W =30000;
+	//private static char P = 10000;
 	private static int SNAKE_LENGTH = 1;
 	private int difficulty;
 	//private int counter=0;

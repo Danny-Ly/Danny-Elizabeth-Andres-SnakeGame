@@ -34,12 +34,12 @@ public class MazeGenerator {
 			if (difficulty >= 0) {
 				maze = new int[10][20];
 			}
-			obstacles(); // generates the obstactles the maze needs.
+			obstacles(); // generates the obstacles the maze needs.
 			
 		}
 		/**
 		 * Checks whether there is a wall in the specific location in the array.
-		 * @param location an array conaining the x and y cordinate of the location we 
+		 * @param location an array containing the x and y coordinate of the location we 
 		 * want to check.
 		 * @return true if there is a wall in location, false otherwise.
 		 */
@@ -86,7 +86,7 @@ public class MazeGenerator {
 					numberOfobstactle++;
 				}
 			}
-			// adding constant begining location of snake and Walls of every maze.
+			// adding constant beginning location of snake and Walls of every maze.
 			maze [4][9] = SNAKE;
 			maze [5][9] = WALL;
 			maze [5][8] = WALL;

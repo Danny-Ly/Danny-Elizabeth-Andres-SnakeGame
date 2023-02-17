@@ -1,13 +1,13 @@
 package application;
 /**
- * This class is handles when the user inputs WASD, the snake will move accordinly. 
+ * This class is handles when the user inputs WASD, the snake will move accordingly. 
  * And will interact with the mazes randomly generated Walls and pellets,
- * that will infuelnce the snakes action perfomed. 
+ * that will influence the snakes action performed. 
  * @author Written by Danny, assisted and co-written by Andres and Elizabeth.
  *
  */
 public class Snake {
-	// initializing all varibles that will be used in this class
+	// initializing all variables that will be used in this class
 	public static int EMPTY = 0;
 	public static char WALL = 30000;
 	public static char PELLET = 10000;
@@ -21,17 +21,17 @@ public class Snake {
 	String userInput;
 	
 	/**
-	 * Constructor that is called in main that will infuence how the the snake is moving.
+	 * Constructor that is called in main that will influence how the the snake is moving.
 	 * @param useInput a string value of the user input (WASD)
-	 * @param col_movement integer value representing the y-axis movment of snake
+	 * @param col_movement integer value representing the y-axis movement of snake
 	 * @param r_movement integer value representing the x-axis movement of snake 
-	 * @param col_snake integer value representing the y-axis postion of snake 
-	 * @param r_snake integer value representing the x-axis postiotion of snake
+	 * @param col_snake integer value representing the y-axis position of snake 
+	 * @param r_snake integer value representing the x-axis position of snake
 	 * @param snakeLength length of snake
 	 */
 	public Snake(String useInput,int col_movement, int r_movement,int col_snake, int r_snake, int snakeLength) {
+		// setting all parameter values to their local placeholder variables
 		userInput = useInput;
-		
 		column_movement = col_movement;
 		//System.out.println(column_movement);
 		row_movement = r_movement;
@@ -49,7 +49,7 @@ public class Snake {
 	//snake.html#:~:text=In%20the%20game%20of%20Snake,food%2C%20and%20thereby%20grows%20larger
 	
 	/**
-	 * updates the postion/movment of snake in the maze based on user input
+	 * updates the position/movement of snake in the maze based on user input
 	 * and the walls or pellets
 	 * @param pellets is from Rewards class that represents the pellets in the maze
 	 * @param mazeCreation is from MazeGenerator class that represents the walls in the maze
@@ -92,7 +92,7 @@ public class Snake {
 		}
 	}
 	/**
-	 * This checks if the snake has the same cordinates as a wall
+	 * This checks if the snake has the same coordinates as a wall
 	 * @param mazeCreation is from MazeGenerator class that represent all objects in the maze
 	 */
 	public void runIntoWall (MazeGenerator mazeCreation ) {
@@ -104,7 +104,7 @@ public class Snake {
 		}
 	}
 	/**
-	 * This checks if the snake has the same corrdinates as a pellet
+	 * This checks if the snake has the same coordinates as a pellet
 	 * @param mazeCreation is from MazeGenerator class that represent all objects in the maze
 	 */
 	public void eatPellet (MazeGenerator mazeCreation ) {
@@ -122,7 +122,7 @@ public class Snake {
 		}
 	}
 	/**
-	 * This Checks if the snake has the same cordinates as itslef 
+	 * This Checks if the snake has the same coordinates as itself 
 	 * @param mazeCreation is from MazeGenerator class that represent all objects in the maze
 	 */
 	public void runIntoItself(MazeGenerator mazeCreation) {
