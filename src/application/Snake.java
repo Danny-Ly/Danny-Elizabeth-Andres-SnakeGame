@@ -16,8 +16,12 @@ public class Snake {
 	
 	int [][] newSnakeMaze;
 	
+	String user_input;
 	
-	public Snake(int col_movement, int r_movement,int col_snake, int r_snake, int snakeLength) {
+	
+	public Snake(String use_input,int col_movement, int r_movement,int col_snake, int r_snake, int snakeLength) {
+		user_input = use_input;
+		
 		column_movement = col_movement;
 		//System.out.println(column_movement);
 		row_movement = r_movement;
@@ -28,9 +32,9 @@ public class Snake {
 		//System.out.println("row snake"+ row_snake);
 		SNAKE_LENGTH = snakeLength;
 		
-		
 
 	}
+	
 	
 	public void movementofSnake(Rewards pellets, MazeGenerator mazeCreation) {
 
@@ -69,4 +73,35 @@ public class Snake {
 			}
 		}
 	}
+	public void runIntoWall (MazeGenerator mazeCreation ) {
+		if ((mazeCreation.maze[column_snake + column_movement][row_snake + row_movement])==(WALL)) {
+			System.out.println("GameOver");
+			// this needs to be = instead of equalsIgnoreCase to work
+			user_input="quit";
+			;
+		}
+	}
+	public void eatPellet (MazeGenerator mazeCreation ) {
+		if ((mazeCreation.maze[column_snake + column_movement][row_snake + row_movement])==(PELLET)) {
+			SNAKE_LENGTH+=1;
+			System.out.println("Extra");
+			
+		}
+	}
+	public void runIntoItself(MazeGenerator mazeCreation) {
+		if ((mazeCreation.maze[column_snake + column_movement][row_snake + row_movement])!=EMPTY) {
+			if((mazeCreation.maze[column_snake+column_movement][row_snake+ row_movement])<WALL){
+				if((mazeCreation.maze[column_snake+column_movement][row_snake+ row_movement])<PELLET) {
+					if((mazeCreation.maze[column_snake+column_movement][row_snake+ row_movement])!=SNAKE_LENGTH) {
+						System.out.println("GameOver");
+						// this needs to be = instead of equalsIgnoreCase to work
+						user_input="quit";
+					}
+				}
+			}
+		}
+	}
 }
+
+
+

@@ -16,12 +16,13 @@ public class Main {
 //			mazeCreation.boundary(pellets);
 //	}
 
-	
+
+
 	public void userInteraction(){
 		
 		String user_input = "";
 		if (difficulty == 0) {
-		while (!(user_input.equalsIgnoreCase("u"))) {
+		while (!(user_input.equalsIgnoreCase("quit"))) {
 			System.out.println("Make a move");
 			inp = new Scanner(System.in);
 			user_input = inp.nextLine(); 
@@ -31,36 +32,30 @@ public class Main {
 				int row_movement = 1;
 				int column_movement = 0;
 				
-				if ((mazeCreation.maze[column_snake][row_snake + 1])==(WALL)) {
-					System.out.println("GameOver");
-					// this needs to be = instead of equalsIgnoreCase to work
-					user_input="u";
-				}
-				if ((mazeCreation.maze[column_snake][row_snake + 1])==(PELLET)) {
-							
-					SNAKE_LENGTH += 1;
-					System.out.println("Extra");
-				}
-				if((mazeCreation.maze[column_snake][row_snake+1])!=0){
-					if((mazeCreation.maze[column_snake][row_snake+1])<WALL){
-						if((mazeCreation.maze[column_snake][row_snake+1])<PELLET) {
-							if((mazeCreation.maze[column_snake][row_snake+1])!=SNAKE_LENGTH) {
-								System.out.println("GameOver");
-								// this needs to be = instead of equalsIgnoreCase to work
-								user_input="u";
-							}
-						}	
-					}
-
-				}
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.runIntoWall(mazeCreation);
+				user_input = snakeMove.user_input;
+				
+	
+				snakeMove.eatPellet(mazeCreation);
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+				
+//				if ((mazeCreation.maze[column_snake][row_snake + 1])==(PELLET)) {
+//							
+//					SNAKE_LENGTH += 1;
+//					System.out.println("Extra");
+//				}
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.runIntoItself(mazeCreation);
+				user_input = snakeMove.user_input;
 				//mainAndClassInteraction(column_movement, row_movement,
 					//	 column_snake,  row_snake, SNAKE_LENGTH, pellets, mazeCreation, WALL, PELLET);
-				snakeMove = new Snake(column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
 				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
-				
 				
 				mazeCreation.boundary(pellets);		
 				
@@ -70,28 +65,20 @@ public class Main {
 				int row_movement = (-1);
 				int column_movement = 0;
 				
-				if ((mazeCreation.maze[column_snake][row_snake - 1])==(WALL)) {
-					System.out.println("GameOver");
-					user_input="u";
-				}
-				if ((mazeCreation.maze[column_snake][row_snake - 1])==(PELLET)) {
-					SNAKE_LENGTH += 1;
-					System.out.println("Extra");
-				}
-				if((mazeCreation.maze[column_snake][row_snake-1])!=0){
-					if((mazeCreation.maze[column_snake][row_snake-1])<WALL){
-						if((mazeCreation.maze[column_snake][row_snake-1])<PELLET) {
-							if((mazeCreation.maze[column_snake][row_snake-1])!=SNAKE_LENGTH) {
-								System.out.println("GameOver");
-								// this needs to be = instead of equalsIgnoreCase to work
-								user_input="u";
-							}
-						}	
-					}
+				// userInput = runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.runIntoWall(mazeCreation);
+				user_input = snakeMove.user_input;
+				
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.eatPellet(mazeCreation);
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+				
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.runIntoItself(mazeCreation);
+				user_input = snakeMove.user_input;
 
-				}
-
-				snakeMove = new Snake(column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
@@ -103,28 +90,20 @@ public class Main {
 				int row_movement = 0;
 				int column_movement = (-1);
 				
-				if ((mazeCreation.maze[column_snake - 1][row_snake])==(WALL)) {
-					System.out.println("GameOver");
-					user_input="u";
-				}
-				if ((mazeCreation.maze[column_snake - 1][row_snake])==(PELLET)) {
-					SNAKE_LENGTH += 1;
-					System.out.println("Extra");
-				}
-				if((mazeCreation.maze[column_snake-1][row_snake])!=0){
-					if((mazeCreation.maze[column_snake-1][row_snake])<WALL){
-						if((mazeCreation.maze[column_snake-1][row_snake])<PELLET) {
-							if((mazeCreation.maze[column_snake-1][row_snake])!=SNAKE_LENGTH) {
-								System.out.println("GameOver");
-								// this needs to be = instead of equalsIgnoreCase to work
-								user_input="u";
-							}
-						}	
-					}
-
-				}
+				//runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.runIntoWall(mazeCreation);
+				user_input = snakeMove.user_input;
 				
-				snakeMove = new Snake(column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.eatPellet(mazeCreation);
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+				
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.runIntoItself(mazeCreation);
+				user_input = snakeMove.user_input;
+				
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
@@ -136,28 +115,32 @@ public class Main {
 				int row_movement = 0;
 				int column_movement = 1;
 				
-				if ((mazeCreation.maze[column_snake + 1][row_snake])==(W)) {
-					System.out.println("GameOver");
-					user_input="u";
-				}
-				if ((mazeCreation.maze[column_snake + 1][row_snake])==(P)) {
-					SNAKE_LENGTH += 1;
-					
-					System.out.println("Extra");
-				}
-				if((mazeCreation.maze[column_snake+1][row_snake])!=0){
-					if((mazeCreation.maze[column_snake+1][row_snake])<WALL){
-						if((mazeCreation.maze[column_snake+1][row_snake])<PELLET) {
-							if((mazeCreation.maze[column_snake+1][row_snake])!=SNAKE_LENGTH) {
-								System.out.println("GameOver");
-								// this needs to be = instead of equalsIgnoreCase to work
-								user_input="u";
-							}
-						}	
-					}
-
-				}
-				snakeMove = new Snake(column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				//runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.runIntoWall(mazeCreation);
+				user_input = snakeMove.user_input;
+				
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.eatPellet(mazeCreation);
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+				
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.runIntoItself(mazeCreation);
+				user_input = snakeMove.user_input;
+				
+//				if((mazeCreation.maze[column_snake+1][row_snake])!=0){
+//					if((mazeCreation.maze[column_snake+1][row_snake])<WALL){
+//						if((mazeCreation.maze[column_snake+1][row_snake])<PELLET) {
+//							if((mazeCreation.maze[column_snake+1][row_snake])!=SNAKE_LENGTH) {
+//								System.out.println("GameOver");
+//								// this needs to be = instead of equalsIgnoreCase to work
+//								user_input="u";
+//							}
+//						}	
+//					}
+//
+//				}
+				snakeMove = new Snake(user_input, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
 				column_snake = snakeMove.column_snake;
@@ -210,13 +193,6 @@ public class Main {
 		
 		
 		mazeCreation = new MazeGenerator(difficulty);
-//		pellets = new Rewards();
-//		pellets.randomPellet(mazeCreation);
-//		for(int i=0; i<mazeCreation.maze.length; i++) {
-//			for(int j=0; j <mazeCreation.maze[i].length; j++) {
-//				mazeCreation.maze[i][j] = pellets.tempMaze[i][j];
-//			}
-//		}
 		mazeCreation.boundary(pellets);
 		
 		userInteraction();
@@ -237,10 +213,11 @@ public class Main {
 
 	private static int row_snake = 9;
 	private static int column_snake = 4;
+	
 	private MazeGenerator mazeCreation;
 	private Rewards pellets;
-	//see if works
 	private Snake snakeMove;
+	//private Snake runWallSnake;
 	
 	
 	
