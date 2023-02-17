@@ -4,8 +4,9 @@ package application;
 import java.util.Scanner;
 
 /**
- * The class that calls upon MazeGeneerator, Rewards and Snake class, to be able to all work in unison.
- * @author Written by Elizabeth, Danny, and Andres
+ * The class that calls upon MazeGeneerator, Rewards and Snake class, 
+ * to allow all classes to function together properly in unison. 
+ * @author Written by Elizabeth, Danny, and Andres.
  *
  */
 public class Main {
@@ -22,8 +23,8 @@ public class Main {
 //			mazeCreation.boundary(pellets);
 //	}
 	/**
-	 * This handles when the user enters WASD, will handle these for cases of different inputs,
-	 *  and will call Snake class to to change thier values in the approprite way
+	 * This handles when the user enters WASD, will handle these four cases of different inputs,
+	 *  and will call Snake class to do their certain action, that is needed.
 	 */
 	public void userInteraction(){
 		String userInput = "";
@@ -37,12 +38,11 @@ public class Main {
 			if (userInput.equalsIgnoreCase("d")){
 				int row_movement = 1;
 				int column_movement = 0;
+				//creating new object of snake, to check if any further altering of map is needed based on this change in postion.
 				
 				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoWall(mazeCreation);
 				userInput = snakeMove.userInput;
-				
-	
 				snakeMove.eatPellet(mazeCreation);
 				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
 				
@@ -51,12 +51,12 @@ public class Main {
 //					SNAKE_LENGTH += 1;
 //					System.out.println("Extra");
 //				}
+				// do we need the line 55,60, or 57 can it be removed? ?
 				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoItself(mazeCreation);
 				userInput = snakeMove.userInput;
 				//mainAndClassInteraction(column_movement, row_movement,
 					//	 column_snake,  row_snake, SNAKE_LENGTH, pellets, mazeCreation, WALL, PELLET);
-				
 				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.movementofSnake(pellets, mazeCreation);
 				row_snake = snakeMove.row_snake;
@@ -70,8 +70,10 @@ public class Main {
 			if (userInput.equalsIgnoreCase("a")){
 				int row_movement = (-1);
 				int column_movement = 0;
-				
 				// userInput = runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
+				
+				//creating new object of snake, to check if any further altering of map is needed based on this change in postion.
+				// do we need line 81 85 87 or 89 ??
 				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoWall(mazeCreation);
 				userInput = snakeMove.userInput;
@@ -97,6 +99,8 @@ public class Main {
 				int column_movement = (-1);
 				
 				//runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
+				//creating new object of snake, to check if any further altering of map is needed based on this change in postion.
+				// do we need like 108, 112, 114,116?? 
 				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoWall(mazeCreation);
 				userInput = snakeMove.userInput;
@@ -121,6 +125,8 @@ public class Main {
 				int row_movement = 0;
 				int column_movement = 1;
 				
+				//creating new object of snake, to check if any further altering of map is needed based on this change in postion.
+				// do we need like 135 139 141 155??
 				//runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
 				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				snakeMove.runIntoWall(mazeCreation);
