@@ -16,17 +16,16 @@ public class MazeGenerator {
 	public static char PELLET = 10000;
 	int[][] maze;
 	Rewards pellets;
-	
 	int difficulty = 0;
 	int numberOfobstactle = 0;
 	int numberOfPellets = 0;
-	
-	//int counter = 0;
-	
 	Random randomvalue = new Random();
+	// int counter = 0;
 	
 		/**
-		 * Creating a new 10 by 20 array that will behave as our maze.
+		 * Constructer for MazeGenerator class, that creates a new 10 by 20 array 
+		 * that behaves as our maze
+		 * @param difficuty_paramter an integer that represents the difficulty the maze has
 		 */
 		public MazeGenerator(int difficuty_paramter){
 			
@@ -35,10 +34,15 @@ public class MazeGenerator {
 			if (difficulty >= 0) {
 				maze = new int[10][20];
 			}
-			obstacles();
+			obstacles(); // generates the obstactles the maze needs.
 			
 		}
-		
+		/**
+		 * Checks whether there is a wall in the specific location in the array.
+		 * @param location an array conaining the x and y cordinate of the location we 
+		 * want to check.
+		 * @return true if there is a wall in location, false otherwise.
+		 */
 		public boolean wallHere(int[] location){
 			if (maze[location[0]][location[1]] == WALL) {
 				return true;
@@ -82,7 +86,7 @@ public class MazeGenerator {
 					numberOfobstactle++;
 				}
 			}
-			// constant structure of every maze.
+			// adding constant begining location of snake and Walls of every maze.
 			maze [4][9] = SNAKE;
 			maze [5][9] = WALL;
 			maze [5][8] = WALL;
@@ -111,8 +115,9 @@ public class MazeGenerator {
 
 		}
 		
-		/*
-		 * Changing the numeric values altered into a visual representation of each value 
+		/**
+		 * Changing the numeric values altered into a visual represnetation of each 
+		 * @param rewards generated from rewards class to represent the pellets in array.
 		 */
 		public void boundary(Rewards rewards){
 			// looping through entire array changing each element into 1 of the four possible options.
