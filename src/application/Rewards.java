@@ -14,7 +14,7 @@ public class Rewards {
 	public static final char WALL = 30000;
 	public static final int SNAKE = 1; 
 	public static final char PELLET = 10000;
-	private ArrayList<int[]> arrayofPellets = new ArrayList<int[]>();
+	//private ArrayList<int[]> arrayofPellets = new ArrayList<int[]>();
 	
 	int numberOfPellets;
 	int[][] tempMaze;
@@ -25,6 +25,7 @@ public class Rewards {
 	}
 	
 	public void randomPellet(int[][]maze2) {
+		// someone change this idk how this works (make it so random is consistant)
 		while (numberOfPellets <30) {
 			int x = randomvalue.nextInt(10) ;
 			int y = randomvalue.nextInt(16)+2 ;

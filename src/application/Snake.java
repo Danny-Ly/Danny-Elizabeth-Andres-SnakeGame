@@ -5,6 +5,7 @@ public class Snake {
 	public static char WALL = 30000;
 	public static char PELLET = 10000;
 	public int difficulty = 0;
+	//public int counter = 0;
 	
 	public int SNAKE_LENGTH;
 
@@ -16,11 +17,11 @@ public class Snake {
 	
 	int [][] newSnakeMaze;
 	
-	String user_input;
+	String userInput;
 	
 	
-	public Snake(String use_input,int col_movement, int r_movement,int col_snake, int r_snake, int snakeLength) {
-		user_input = use_input;
+	public Snake(String useInput,int col_movement, int r_movement,int col_snake, int r_snake, int snakeLength) {
+		userInput = useInput;
 		
 		column_movement = col_movement;
 		//System.out.println(column_movement);
@@ -34,7 +35,9 @@ public class Snake {
 		
 
 	}
-	
+	// for the extension of the snake, this was inspired by reading Snake Task #5 on this website:
+	// https://www.kosbie.net/cmu/fall-11/15-112/handouts/snake/
+	//snake.html#:~:text=In%20the%20game%20of%20Snake,food%2C%20and%20thereby%20grows%20larger
 	
 	public void movementofSnake(Rewards pellets, MazeGenerator mazeCreation) {
 
@@ -77,7 +80,7 @@ public class Snake {
 		if ((mazeCreation.maze[column_snake + column_movement][row_snake + row_movement])==(WALL)) {
 			System.out.println("GameOver");
 			// this needs to be = instead of equalsIgnoreCase to work
-			user_input="quit";
+			userInput="quit";
 			;
 		}
 	}
@@ -85,7 +88,14 @@ public class Snake {
 		if ((mazeCreation.maze[column_snake + column_movement][row_snake + row_movement])==(PELLET)) {
 			SNAKE_LENGTH+=1;
 			System.out.println("Extra");
-			
+//			for (int i = 0; i < 10; i++) {
+//				for (int j = 0; j < 20; j++) {
+//					if (mazeCreation.maze[i][j]==PELLET) {
+//						counter +=1;
+//					}
+//				} 
+//			}
+				
 		}
 	}
 	public void runIntoItself(MazeGenerator mazeCreation) {
@@ -95,7 +105,7 @@ public class Snake {
 					if((mazeCreation.maze[column_snake+column_movement][row_snake+ row_movement])!=SNAKE_LENGTH) {
 						System.out.println("GameOver");
 						// this needs to be = instead of equalsIgnoreCase to work
-						user_input="quit";
+						userInput="quit";
 					}
 				}
 			}

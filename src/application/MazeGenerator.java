@@ -20,6 +20,9 @@ public class MazeGenerator {
 	int difficulty = 0;
 	int numberOfobstactle = 0;
 	int numberOfPellets = 0;
+	
+	//int counter = 0;
+	
 	Random randomvalue = new Random();
 	
 		/**
@@ -125,9 +128,11 @@ public class MazeGenerator {
 						// make this maze equal to pellet.
 					//     maze[i][j] = PELLET;
 						System.out.print(".");
+						
 					}
 					else if (maze[i][j]== EMPTY) {
 						System.out.print(" ");
+						//counter += 1;
 					}	
 					else if (maze[i][j]== (int)maze[i][j]) {
 						if (maze [i][j] != 0) {
