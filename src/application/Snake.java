@@ -2,10 +2,11 @@ package application;
 
 public class Snake {
 	public static int EMPTY = 0;
-	public static char WALL = 'W';
-	public static char PELLET = 'P';
+	public static char WALL = 30000;
+	public static char PELLET = 10000;
+	public int difficulty = 0;
 	
-	public static int SNAKE_LENGTH = 1;
+	public int SNAKE_LENGTH;
 
 	public int row_snake;
 	public int column_snake;
@@ -13,15 +14,26 @@ public class Snake {
 	public int column_movement;
 	public int row_movement;
 	
+	int [][] newSnakeMaze;
 	
-	public Snake(int col_movement, int r_movement,MazeGenerator mazeCreation) {
+	
+	public Snake(int col_movement, int r_movement,int col_snake, int r_snake, int snakeLength) {
 		column_movement = col_movement;
+		//System.out.println(column_movement);
 		row_movement = r_movement;
+		//System.out.println(row_movement);
+		column_snake = col_snake;
+		//System.out.println("column snake" +column_snake);
+		row_snake = r_snake;
+		//System.out.println("row snake"+ row_snake);
+		SNAKE_LENGTH = snakeLength;
+		
+		
+
 	}
 	
-	public void movementofSnake() {
-		
-		
+	public void movementofSnake(Rewards pellets, MazeGenerator mazeCreation) {
+
 		if (SNAKE_LENGTH >= 1) {
 			mazeCreation.maze [column_snake][row_snake] = SNAKE_LENGTH;
 			mazeCreation.maze [column_snake + column_movement][row_snake + row_movement] = SNAKE_LENGTH+1;
@@ -32,6 +44,7 @@ public class Snake {
 				row_snake -= 1;
 			}
 			if (column_movement == 1) {
+				
 				column_snake += 1;
 			}
 			if (column_movement == (-1)) {
@@ -57,32 +70,3 @@ public class Snake {
 		}
 	}
 }
-//		for(int i=0; i<mazeCreation.maze.length; i++) {
-//			for(int j=0; j <mazeCreation.maze[i].length; j++) {
-//				int[] locationarray = new int[2];
-//				locationarray[0]=i;
-//				locationarray[1]= j;
-//				if (mazeCreation.maze [i][j] == WALL) {	
-//					System.out.print("#");
-//				}
-//				else if (mazeCreation.maze[i][j] == PELLET){
-//					// make this maze equal to pellet.
-//					mazeCreation.maze[i][j] = PELLET;
-//					System.out.print(".");
-//				}
-//				else if (mazeCreation.maze[i][j]== EMPTY) {
-//					System.out.print(" ");
-//				}	
-//				else if (mazeCreation.maze[i][j]== (int)mazeCreation.maze[i][j]) {
-//					if (mazeCreation.maze [i][j] != 0) {
-//						System.out.print("O");	
-//					}
-//				
-//				}
-//			}	
-//		
-//			System.out.println();
-//		}
-//	}
-//}
-	
