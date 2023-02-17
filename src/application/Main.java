@@ -1,212 +1,210 @@
+// Majority of this program's syntax is based off of the lecture videos 
+// and demos on the CPSC 219 D2L shell (WINTER 2019).
 package application;
-	
 import java.util.Scanner;
 
+/**
+ * The class that calls upon MazeGeneerator, Rewards and Snake class, 
+ * to allow all classes to function together properly in unison. 
+ * @author Written by Elizabeth, Danny, and Andres.
+ *
+ */
 public class Main {
 	private static final String String = null;
-
-
-
-	public void start() {
-		System.out.println("SnakeMaze");
-		System.out.println("Press Enter To Start");
-		inp = new Scanner(System.in); // scans user input
-		String line = inp.nextLine(); // creates a string using the last user input
-		System.out.println("Your Input is:" + line);
-		difficulty = 0;
-		
-		
-		while (line != "") {
-			line = inp.nextLine();
-			if (line != ""){
-				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to existing string and displays result
-			}
-		}
-		System.out.println("Select difficulty:\n easy \n medium \n hard");
-		// Exit the while loop if !(line == "easy" || line == "medium" || line == "hard")
-		line.compareTo("easy");
-		while (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium") ||line.equalsIgnoreCase("hard"))){
-			line = inp.nextLine();
-			line = line.toLowerCase().trim();
-			if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard"))){
-				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to existing string and displays result
-			}
-		}
-		
-		if (line.equalsIgnoreCase("easy")) {
-			difficulty = 0;
-			array_for_maze = new int[column_map][row_map];
-			
-			for (int i = 0; i < 20; i++) {
-				array_for_maze[0][i] = WALL;
-				
-			}
-			for (int i = 0; i < 10; i++) {
-				array_for_maze[i][0] = WALL;
-			}
-			for (int i = 0; i < 20; i++) {
-				array_for_maze[9][i] = WALL;
-			}
-			for (int i = 0; i < 10; i++) {
-				array_for_maze[i][19] = WALL;
-			}
-			
-			array_for_maze [2][2] = WALL; // y then x
-			array_for_maze [2][3] = WALL;
-			array_for_maze [2][4] = WALL;
-			array_for_maze [2][5] = WALL;
-			array_for_maze [3][2] = WALL;
-			array_for_maze [4][2] = WALL;
-			
-			array_for_maze [2][15] = WALL; 
-			array_for_maze [2][16] = WALL;
-			array_for_maze [3][16] = WALL;
-			array_for_maze [4][16] = WALL;
-			array_for_maze [5][15] = WALL;
-			array_for_maze [5][16] = WALL;
-
-			array_for_maze [5][9] = WALL;
-			array_for_maze [5][8] = WALL;
-			array_for_maze [5][10] = WALL;
-			array_for_maze [4][8] = WALL;
-			array_for_maze [4][10] = WALL;
-			
-			array_for_maze [6][2] = WALL; 
-			array_for_maze [6][3] = WALL;
-			array_for_maze [6][4] = WALL;
-			array_for_maze [7][4] = WALL;
-
-			array_for_maze [7][14] = WALL; 
-			array_for_maze [7][17] = WALL;
-			array_for_maze [7][16] = WALL;
-			array_for_maze [7][15] = WALL;
-			
-			array_for_maze [column_snake][row_snake] = SNAKE;
-
-			boundary();
-		}
-		
-		if (line.equalsIgnoreCase("medium")) {
-			difficulty = 1;
-			System.out.println("This Version is still in progress");
-		}
-		if (line.equalsIgnoreCase("hard")){
-			difficulty = 2;
-			System.out.println("This Version is still in progress");
-		}
-		
-		snake();
-	}
 	
-	public void boundary(){
-		 
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 20; j++) {
-				if (array_for_maze [i][j] == WALL) {	
-					System.out.print("#");
-				}
-				if (array_for_maze[i][j]== PELLET) {
-					System.out.print(".");
-				}
-				if (array_for_maze[i][j]== SNAKE) {
-					System.out.print("O");
-				}
-				if (array_for_maze[i][j]== EMPTY) {
-					System.out.print(" ");
-				}
-			}
-			
-			System.out.println();				
-		}	
-	}
-	
-	public void snake(){
-		
-		String user_input = "";
-		while (!(user_input.equalsIgnoreCase("0"))) {
+	/**
+	 * This handles when the user enters WASD, will handle these four cases of different inputs,
+	 *  and will call Snake class to do their certain action, that is needed.
+	 */
+	public void userInteraction(){
+		String userInput = "";
+		if (difficulty == 0) {
+		while (!(userInput.equalsIgnoreCase("quit"))) {
 			System.out.println("Make a move");
 			inp = new Scanner(System.in);
-			user_input = inp.nextLine(); 
-			//System.out.println (user_input);
+			userInput = inp.nextLine(); 
 			
-			if (user_input.equalsIgnoreCase("d")){
-				//array_for_maze [column_snake][row_snake] = EMPTY; //change 
-				array_for_maze [column_snake][row_snake + 1] = SNAKE;
-				row_snake += 1;
-				boundary();	
-				int[] arrayMoveSnake = new int [2];
-				arrayMoveSnake[0] = column_snake;
-				arrayMoveSnake[1] = row_snake + 1;
-				int[] arrayForSnakeNew = snakeMove.moveSnake(arrayMoveSnake); //WRONG coordinates
-				array_for_maze[arrayMoveSnake[0]][arrayMoveSnake[1]] = EMPTY;
+			//there is the input of a(right), d(left), w(up), and s(down)
+			// that call the snake class to allow for it to function.
+			if (userInput.equalsIgnoreCase("d")){
+				int row_movement = 1;
+				int column_movement = 0;
+				//creating new object of snake, to check if any
+				//further altering of map is needed based on this change in position.
 				
+				// instance of Snake class was called to deal with 
+				// running into a wall or itself, extending when eating a pellet,
+				// and the movement of the snake itself. 
+				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.runIntoWall(mazeCreation);
+				userInput = snakeMove.userInput;
 				
+				snakeMove.eatPellet(mazeCreation);
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
 				
-			}
-			else if (user_input.equalsIgnoreCase("a")){
-				array_for_maze [column_snake][row_snake] = EMPTY;
-				array_for_maze [column_snake][row_snake - 1] = SNAKE;
-				row_snake -= 1;
-				boundary();	
-			}
-			else if (user_input.equalsIgnoreCase("w")){
-				array_for_maze [column_snake][row_snake] = EMPTY;
-				array_for_maze [column_snake - 1][row_snake] = SNAKE;
-				column_snake -= 1;
-				boundary();	
-			}
-			else if (user_input.equalsIgnoreCase("s")){
-				array_for_maze [column_snake][row_snake] = EMPTY;
-				array_for_maze [column_snake + 1][row_snake] = SNAKE;
-				column_snake += 1;
-				boundary();	
-			}
-			//have to make this more efficient.
-			// This codes for if you run into the right upside-down L structure you lose. 
-			if (array_for_maze [column_snake][row_snake] == array_for_maze [2][2]) {
-				System.out.println("GAMEOVER");
-				user_input.equalsIgnoreCase("0");
-			}
-			else if (array_for_maze [column_snake][row_snake] == array_for_maze [2][3]) {
-				System.out.println("GAMEOVER");
-				user_input.equalsIgnoreCase("0");
-			}
-			else if (array_for_maze [column_snake][row_snake] == array_for_maze [2][4]) {
-				System.out.println("GAMEOVER");
-				user_input.equalsIgnoreCase("0");
-			}
-			else if (array_for_maze [column_snake][row_snake] == array_for_maze [2][5]) {
-				System.out.println("GAMEOVER");
-				user_input.equalsIgnoreCase("0");
-			}
-			else if (array_for_maze [column_snake][row_snake] == array_for_maze [3][2]) {
-				System.out.println("GAMEOVER");
-				user_input.equalsIgnoreCase("0");
-			}
-			else if (array_for_maze [column_snake][row_snake] == array_for_maze [4][2]) {
-				System.out.println("GAMEOVER");
-				user_input.equalsIgnoreCase("0");
+				snakeMove.runIntoItself(mazeCreation);
+				userInput = snakeMove.userInput;
+		
+				
+				snakeMove.movementofSnake(pellets, mazeCreation);
+				row_snake = snakeMove.row_snake;
+				column_snake = snakeMove.column_snake;
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+				
+				mazeCreation.boundary(pellets);		
+				
 			
-			}
 		}
-		
-		
-	}
-	
-	private Scanner inp; // scans user input		
-	private static int EMPTY = 3;
-	private static int SNAKE = 1; 
-	private static int WALL = 2;
-	private static int PELLET = 0;
-	private int difficulty;
-	private int[][] array_for_maze;
-	private Snake snakeMove = new Snake();
+			if (userInput.equalsIgnoreCase("a")){
+				int row_movement = (-1);
+				int column_movement = 0;
+				// userInput = runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
+				
+				//creating new object of snake, to check if any further altering of map is needed based on this change in position.
+				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				snakeMove.runIntoWall(mazeCreation);
+				userInput = snakeMove.userInput;				
+				
+				snakeMove.eatPellet(mazeCreation);
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+			
+				snakeMove.runIntoItself(mazeCreation);
+				userInput = snakeMove.userInput;
 
-	private static int row_map = 20;
-	private static int column_map = 10;
+				snakeMove.movementofSnake(pellets, mazeCreation);
+				row_snake = snakeMove.row_snake;
+				column_snake = snakeMove.column_snake;
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+				mazeCreation.boundary(pellets);		
+			}
+			
+			if (userInput.equalsIgnoreCase("w")){
+				int row_movement = 0;
+				int column_movement = (-1);
+				
+				//runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
+				//creating new object of snake, to check if any further altering of map is needed based on this change in position.
+				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				
+				// calling snake class moving and handling running into wall, eating pellets, and running itself
+				snakeMove.runIntoWall(mazeCreation);
+				userInput = snakeMove.userInput;
+								
+				snakeMove.eatPellet(mazeCreation);
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+								
+				snakeMove.runIntoItself(mazeCreation);
+				userInput = snakeMove.userInput;
+								
+				snakeMove.movementofSnake(pellets, mazeCreation);
+				row_snake = snakeMove.row_snake;
+				column_snake = snakeMove.column_snake;
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+				mazeCreation.boundary(pellets);	
+			}
+			
+			if (userInput.equalsIgnoreCase("s")){
+				int row_movement = 0;
+				int column_movement = 1;
+				
+				//creating new object of snake, to check if any further altering of map is needed based on this change in position.
+				//runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
+				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
+				
+				// calling snake class moving and handling running into wall, eating pellets, and running itself
+				snakeMove.runIntoWall(mazeCreation);
+				userInput = snakeMove.userInput;
+		
+				snakeMove.eatPellet(mazeCreation);
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+				
+				snakeMove.runIntoItself(mazeCreation);
+				userInput = snakeMove.userInput;
+				
+				snakeMove.movementofSnake(pellets, mazeCreation);
+				row_snake = snakeMove.row_snake;
+				column_snake = snakeMove.column_snake;
+				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
+
+				mazeCreation.boundary(pellets);	
+				
+			
+			}
+
+		}
+	}
+}
+
+	/**
+	 * This handles user input of when the program is first run, this is where the difficulty us chosen,
+	 * that will impact how the maze is created
+	 */
+	public void start() {
+		difficulty = 0;
+		boolean loopOfGame = true;
+		while (loopOfGame == true){
+			System.out.println("__________________");
+			System.out.println("SnakeMaze");
+			System.out.println("Press Enter To Start");
+			inp = new Scanner(System.in); // scans user input
+			String line = inp.nextLine(); // creates a string using the last user input
+			System.out.println("Your Input is:" + line + " If invaild please press enter.");
+		
+
+		
+			// this loop infinitely loops the game 
+			
+			while (line != "") {
+				line = inp.nextLine();
+				if (line != ""){
+					System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to existing string and displays result
+				}
+			}
+				
+				// Exit the while loop if !(line == "easy" )
+				
+			
+				while (!(line.equalsIgnoreCase("easy"))) {
+					System.out.println("Select difficulty:\n easy \n medium \n hard");
+					line = inp.nextLine();
+					line = line.toLowerCase().trim();
+					if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard"))){
+							System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to existing string and displays result
+							}
+						
+					if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
+							difficulty = 1;
+							System.out.println("This Version is still in progress");
+						
+						}
+					}
+				
+				if (line.equalsIgnoreCase("easy")) {
+					difficulty = 0;
+				}
+				//generation of the MazeGenerator and printing of maze
+				mazeCreation = new MazeGenerator(difficulty);
+				mazeCreation.boundary(pellets);
+				
+				userInteraction();
+			} 
+	}
+
 	
+	private Scanner inp; // scans user input
+	//these values were alters in the interest of the mazeGenerator class
+
+	private static int SNAKE_LENGTH = 1;
+	private int difficulty;
+
 	private static int row_snake = 9;
 	private static int column_snake = 4;
+	
+	private MazeGenerator mazeCreation;
+	private Rewards pellets;
+	private Snake snakeMove;
+	
+	
 	
 	public static void main(String[] args) {
 		
