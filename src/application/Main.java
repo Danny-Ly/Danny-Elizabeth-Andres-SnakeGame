@@ -201,7 +201,7 @@ public class Main {
 	private static int column_snake = 4;
 	
 	private MazeGenerator mazeCreation;
-	private Rewards pellets;
+	private ItemGenerator pellets;
 	private Snake snakeMove;
 	
 	

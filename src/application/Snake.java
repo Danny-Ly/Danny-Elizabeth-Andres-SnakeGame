@@ -55,7 +55,7 @@ public class Snake {
 	 * @param pellets is from Rewards class that represents the pellets in the maze
 	 * @param mazeCreation is from MazeGenerator class that represents the walls in the maze
 	 */
-	public void movementofSnake(Rewards pellets, MazeGenerator mazeCreation) {
+	public void movementofSnake(ItemGenerator pellets, MazeGenerator mazeCreation) {
 
 		if (SNAKE_LENGTH >= 1) {
 			mazeCreation.maze [column_snake][row_snake] = SNAKE_LENGTH;
