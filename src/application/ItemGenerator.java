@@ -10,6 +10,7 @@ import java.util.Arrays;
  */
 
 public class ItemGenerator {
+	int numberOfBombs = 0;
 	int numberOfobstactle = 0;
 	Random randomvalue = new Random();
 	//private ArrayList<int[]> arrayofPellets = new ArrayList<int[]>();
@@ -20,6 +21,17 @@ public class ItemGenerator {
 	//constructor takes the number of pellets
 	public ItemGenerator (int pelletsCount) {
 		numberOfPellets = pelletsCount;
+	}
+	
+	public void randomBomb(MazeItems[][] maze2) {
+		while(numberOfBombs < 2) {
+			int x = randomvalue.nextInt(10) ;
+			int y = randomvalue.nextInt(16)+2 ;
+			if (maze2[x][y]== null) {
+				maze2[x][y] = new Bombs();
+				numberOfBombs++;
+			}
+		}
 	}
 	/**
 	 * Randomly places pellets into the maze

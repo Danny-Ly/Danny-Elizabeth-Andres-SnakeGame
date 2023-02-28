@@ -69,6 +69,7 @@ public class MazeGenerator {
 			pellets = new ItemGenerator(numberOfPellets);
 			pellets.randomWall(maze);
 			pellets.randomPellet(maze);
+			pellets.randomBomb(maze);
 
 			}
 			
