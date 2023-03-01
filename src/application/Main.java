@@ -11,7 +11,6 @@ import java.util.Scanner;
  */
 public class Main {
 	private static final String String = null;
-	
 	/**
 	 * This handles when the user enters WASD, will handle these four cases of different inputs,
 	 *  and will call Snake class to do their certain action, that is needed.
@@ -35,23 +34,7 @@ public class Main {
 				// instance of Snake class was called to deal with 
 				// running into a wall or itself, extending when eating a pellet,
 				// and the movement of the snake itself. 
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
-				snakeMove.runIntoWall(mazeCreation);
-				userInput = snakeMove.userInput;
 				
-				snakeMove.eatPellet(mazeCreation);
-				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
-				
-				snakeMove.runIntoItself(mazeCreation);
-				userInput = snakeMove.userInput;
-		
-				
-				snakeMove.movementofSnake(pellets, mazeCreation);
-				row_snake = snakeMove.row_snake;
-				column_snake = snakeMove.column_snake;
-				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
-				
-				mazeCreation.boundary(pellets);		
 				
 			
 		}
@@ -61,21 +44,7 @@ public class Main {
 				// userInput = runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
 				
 				//creating new object of snake, to check if any further altering of map is needed based on this change in position.
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
-				snakeMove.runIntoWall(mazeCreation);
-				userInput = snakeMove.userInput;				
-				
-				snakeMove.eatPellet(mazeCreation);
-				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
-			
-				snakeMove.runIntoItself(mazeCreation);
-				userInput = snakeMove.userInput;
-
-				snakeMove.movementofSnake(pellets, mazeCreation);
-				row_snake = snakeMove.row_snake;
-				column_snake = snakeMove.column_snake;
-				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
-				mazeCreation.boundary(pellets);		
+					
 			}
 			
 			if (userInput.equalsIgnoreCase("w")){
@@ -84,51 +53,17 @@ public class Main {
 				
 				//runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
 				//creating new object of snake, to check if any further altering of map is needed based on this change in position.
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				
-				// calling snake class moving and handling running into wall, eating pellets, and running itself
-				snakeMove.runIntoWall(mazeCreation);
-				userInput = snakeMove.userInput;
-								
-				snakeMove.eatPellet(mazeCreation);
-				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
-								
-				snakeMove.runIntoItself(mazeCreation);
-				userInput = snakeMove.userInput;
-								
-				snakeMove.movementofSnake(pellets, mazeCreation);
-				row_snake = snakeMove.row_snake;
-				column_snake = snakeMove.column_snake;
-				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
-				mazeCreation.boundary(pellets);	
 			}
 			
 			if (userInput.equalsIgnoreCase("s")){
 				int row_movement = 0;
 				int column_movement = 1;
 				
+				
 				//creating new object of snake, to check if any further altering of map is needed based on this change in position.
 				//runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
-				snakeMove = new Snake(userInput, column_movement, row_movement,column_snake, row_snake, SNAKE_LENGTH);
 				
-				// calling snake class moving and handling running into wall, eating pellets, and running itself
-				snakeMove.runIntoWall(mazeCreation);
-				userInput = snakeMove.userInput;
-		
-				snakeMove.eatPellet(mazeCreation);
-				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
-				
-				snakeMove.runIntoItself(mazeCreation);
-				userInput = snakeMove.userInput;
-				
-				snakeMove.movementofSnake(pellets, mazeCreation);
-				row_snake = snakeMove.row_snake;
-				column_snake = snakeMove.column_snake;
-				SNAKE_LENGTH = snakeMove.SNAKE_LENGTH;
-
-				mazeCreation.boundary(pellets);	
-				
-			
 			}
 
 		}
@@ -184,6 +119,7 @@ public class Main {
 				}
 				//generation of the MazeGenerator and printing of maze
 				mazeCreation = new MazeGenerator(difficulty);
+				snake = new Snake(mazeCreation);
 				mazeCreation.boundary(pellets);
 				
 				userInteraction();
@@ -201,8 +137,8 @@ public class Main {
 	private static int column_snake = 4;
 	
 	private MazeGenerator mazeCreation;
+	private Snake snake;
 	private ItemGenerator pellets;
-	private Snake snakeMove;
 	
 	
 	

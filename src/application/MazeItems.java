@@ -7,6 +7,7 @@ public interface MazeItems {
 	public void eat(Snake snake, MazeGenerator generator);
 	
 	public boolean isWall();
+	
 
 
 	
@@ -50,4 +51,33 @@ class Wall implements MazeItems{
 	}	
 	
 }
-//segemnt
+
+
+ class SnakeSegment implements MazeItems{
+	int row;
+	int column;	
+	public SnakeSegment(int y, int x) {
+		row = y; 
+		column = x;
+		
+		
+	}
+	public boolean isWall(){
+		return false;
+	}
+	public void printItem(){
+		System.out.print("o");	
+	}
+	public void eat(Snake snake, MazeGenerator generator){
+		throw new RuntimeException("SNAKES CAN'T EAT SNAKES");
+	}	
+	public int[] location(){
+		int[] location = new int[2];
+		location[1]=column;
+		location[0]=row;
+		return location;
+		
+	}
+	
+}
+ 

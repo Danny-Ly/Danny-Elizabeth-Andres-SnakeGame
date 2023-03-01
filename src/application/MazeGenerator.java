@@ -116,4 +116,9 @@ public class MazeGenerator {
 				System.out.println();
 		}
 		}
+		public void add(SnakeSegment snakeSeg) {
+			int[] arrayofints = snakeSeg.location();
+			maze[arrayofints[0]][arrayofints[1]]= snakeSeg;
+			
+		}
 }
