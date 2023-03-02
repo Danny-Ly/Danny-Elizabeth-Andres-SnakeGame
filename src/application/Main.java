@@ -26,8 +26,10 @@ public class Main {
 			//there is the input of a(right), d(left), w(up), and s(down)
 			// that call the snake class to allow for it to function.
 			if (userInput.equalsIgnoreCase("d")){
-				int row_movement = 1;
-				int column_movement = 0;
+				int row_movement = 0;
+				int column_movement = 1;
+				snake.moveSnake(mazeCreation, row_movement, column_movement);
+				mazeCreation.boundary();
 				//creating new object of snake, to check if any
 				//further altering of map is needed based on this change in position.
 				
@@ -39,8 +41,11 @@ public class Main {
 			
 		}
 			if (userInput.equalsIgnoreCase("a")){
-				int row_movement = (-1);
-				int column_movement = 0;
+				int row_movement = 0;
+				int column_movement = -1;
+				snake.moveSnake(mazeCreation, row_movement, column_movement);
+				mazeCreation.boundary();
+			
 				// userInput = runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
 				
 				//creating new object of snake, to check if any further altering of map is needed based on this change in position.
@@ -48,18 +53,20 @@ public class Main {
 			}
 			
 			if (userInput.equalsIgnoreCase("w")){
-				int row_movement = 0;
-				int column_movement = (-1);
-				
+				int row_movement = -1;
+				int column_movement = 0;
+				snake.moveSnake(mazeCreation, row_movement, column_movement);
+				mazeCreation.boundary();
 				//runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
 				//creating new object of snake, to check if any further altering of map is needed based on this change in position.
 				
 			}
 			
 			if (userInput.equalsIgnoreCase("s")){
-				int row_movement = 0;
-				int column_movement = 1;
-				
+				int row_movement = 1;
+				int column_movement = 0;
+				snake.moveSnake(mazeCreation, row_movement, column_movement);
+				mazeCreation.boundary();
 				
 				//creating new object of snake, to check if any further altering of map is needed based on this change in position.
 				//runIntoWall (user_input,column_snake, row_snake, WALL, row_movement,column_movement);
@@ -120,7 +127,7 @@ public class Main {
 				//generation of the MazeGenerator and printing of maze
 				mazeCreation = new MazeGenerator(difficulty);
 				snake = new Snake(mazeCreation);
-				mazeCreation.boundary(pellets);
+				mazeCreation.boundary();
 				
 				userInteraction();
 			} 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public class Snake {
 	ArrayList <SnakeSegment> arraySnakeSegment;
+	SnakeSegment oldTail;
 	
 	
 	public Snake(MazeGenerator mazeCreation) {
@@ -24,8 +25,21 @@ public class Snake {
 	public void moveSnake(MazeGenerator mazeCreation, int row_movement, int column_movement){
 		SnakeSegment head = arraySnakeSegment.get(0);
 		int[] headArray = head.location();
+		int updatedLocationRow = headArray[0] + row_movement;
+		int updatedLocationColumn = headArray[1] + column_movement;
+		SnakeSegment updatedHead =  new SnakeSegment(updatedLocationRow,updatedLocationColumn);
+		arraySnakeSegment.add(0,updatedHead);
+		oldTail = arraySnakeSegment.remove(arraySnakeSegment.size() - 1);
+		MazeItems oldItem = mazeCreation.add(updatedHead);
+		mazeCreation.remove(oldTail);
+		if (oldItem != null) {
+			oldItem.eat(this, mazeCreation);
+			}
 		
 		
+		
+		
+
 	}
 	
 

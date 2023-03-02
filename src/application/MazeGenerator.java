@@ -90,7 +90,7 @@ public class MazeGenerator {
 		 * Changing the numeric values altered into a visual representation of each 
 		 * @param rewards generated from rewards class to represent the pellets in array.
 		 */
-		public void boundary(ItemGenerator rewards){
+		public void boundary(){
 			// looping through entire array changing each element into 1 of the four possible options.
 			for(int i=0; i<maze.length; i++) {
 				for(int j=0; j <maze[i].length; j++) {
@@ -116,9 +116,18 @@ public class MazeGenerator {
 				System.out.println();
 		}
 		}
-		public void add(SnakeSegment snakeSeg) {
-			int[] arrayofints = snakeSeg.location();
-			maze[arrayofints[0]][arrayofints[1]]= snakeSeg;
+		public MazeItems add(SnakeSegment snakeSeg) {
+			int[] arrayOfSnakeLocation = snakeSeg.location();
+			MazeItems oldItem = maze[arrayOfSnakeLocation[0]][arrayOfSnakeLocation[1]];
+			maze[arrayOfSnakeLocation[0]][arrayOfSnakeLocation[1]]= snakeSeg;
+			return oldItem;
+			
+		}
+		public void remove(SnakeSegment oldTail) {
+			int[] arrayOfSnakeLocation = oldTail.location();
+			maze[arrayOfSnakeLocation[0]][arrayOfSnakeLocation[1]] = null;
+			
+			// TODO Auto-generated method stub
 			
 		}
 }
