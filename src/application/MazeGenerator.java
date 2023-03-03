@@ -10,16 +10,16 @@ import java.util.Random;
 public class MazeGenerator {
 	// Initializing/declaring variables that will be used in the creation, 
 	// And customization of the maze
-	private static final char WALL = 30000;
-	private static final int EMPTY = 0;
-	private static final int SNAKE = 1; 
-	private static final char PELLET = 10000;
-	MazeItems[][] maze;
-	ItemGenerator pellets;
-	int difficulty = 0;
-	int numberOfobstactle = 0;
-	int numberOfPellets = 0;
-	Random randomvalue = new Random();
+	//private static final char WALL = 30000;
+	//private static final int EMPTY = 0;
+	//private static final int SNAKE = 1; 
+	//private static final char PELLET = 10000;
+	private MazeItems[][] maze;
+	private ItemGenerator pellets;
+	private int difficulty = 0;
+	//private int numberOfobstactle = 0;
+	private int numberOfPellets = 0;
+	//private Random randomvalue = new Random();
 	// int counter = 0;
 	
 		/**

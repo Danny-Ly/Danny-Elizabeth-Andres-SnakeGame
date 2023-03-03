@@ -11,6 +11,18 @@ import java.util.Scanner;
  */
 public class Main {
 	private static final String String = null;
+	private Scanner inp; // scans user input
+	//these values were alters in the interest of the mazeGenerator class
+
+	private static int SNAKE_LENGTH = 1;
+	private int difficulty;
+
+	private static int row_snake = 9;
+	private static int column_snake = 4;
+	
+	private MazeGenerator mazeCreation;
+	private Snake snake;
+	private ItemGenerator pellets;
 	/**
 	 * This handles when the user enters WASD, will handle these four cases of different inputs,
 	 *  and will call Snake class to do their certain action, that is needed.
@@ -82,7 +94,7 @@ public class Main {
 	 * that will impact how the maze is created
 	 */
 	public void start() {
-		difficulty = 0;
+		//difficulty = 0;
 		boolean loopOfGame = true;
 		while (loopOfGame == true){
 			System.out.println("__________________");
@@ -132,23 +144,6 @@ public class Main {
 				userInteraction();
 			} 
 	}
-
-	
-	private Scanner inp; // scans user input
-	//these values were alters in the interest of the mazeGenerator class
-
-	private static int SNAKE_LENGTH = 1;
-	private int difficulty;
-
-	private static int row_snake = 9;
-	private static int column_snake = 4;
-	
-	private MazeGenerator mazeCreation;
-	private Snake snake;
-	private ItemGenerator pellets;
-	
-	
-	
 	public static void main(String[] args) {
 		
 		Main application = new Main();
