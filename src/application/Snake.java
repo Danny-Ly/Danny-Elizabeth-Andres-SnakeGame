@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * accordingly. And will interact with the mazes randomly generated Walls and
  * pellets, that will infleunce the snakes action performed.
  * 
- * @author Written by Danny, assisted and co-written by Andres and Elizabeth.
+ * @author Written by Elizabeth, assisted and co-written by Andres and Danny.
  *
  */
 public class Snake {
