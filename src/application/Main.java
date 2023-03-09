@@ -3,15 +3,21 @@
 package application;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Scanner;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.Node;
 
 /**
  * The class that calls upon MazeGeneerator, Rewards and Snake class, to allow
@@ -21,6 +27,25 @@ import javafx.scene.layout.VBox;
  *
  */
 public class Main extends Application{
+	
+	private Stage stage;
+	private Scene scene;
+	private Parent root;
+	
+	// I got this code to switch the scene from this video from Bro Code.
+	// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
+	@FXML 
+    public void startGameInput(ActionEvent event) throws IOException {
+		System.out.println("Start button pressed (should switch to a difficulty selector scene)");
+		
+		Parent root = FXMLLoader.load(getClass().getResource("DifficultySelector.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		
+	}
+	
 	@Override
 	public void start(Stage primaryStage) {
 		difficulty = 0;
@@ -29,13 +54,13 @@ public class Main extends Application{
 		// from the creating GUI using JavaFX demos
 		// generates the initial GUI scene
 		
-		/*try {
+		try {
 			//BorderPane root = new BorderPane();
 			// from demo 2 (adding a FXML document to the project)
 			FXMLLoader loader = new FXMLLoader();
 			VBox root = loader.load(new FileInputStream("src/application/SnakeGameDisplay.fxml"));
 			
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,1000,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Snake Game");
@@ -43,74 +68,66 @@ public class Main extends Application{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-	*/
-		//from the lecture of creating GUI using Java FX
-		VBox root = new VBox();
-		Button easyButton = new Button("easy(test)");
-		
-		root.getChildren().add(easyButton);
-		
-		Scene scene = new Scene (root,600,300);
-		primaryStage.setTitle("Snake Game");
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		
 		
 		System.out.println("__________________");
 		System.out.println("SnakeMaze");
 		System.out.println("Press Enter To Start");
-		inp = new Scanner(System.in); // scans user input
-		String line = inp.nextLine(); // creates a string using the last user input
-		System.out.println("Your Input is:" + line + " If invaild please press enter.");
+		
+
+		
+//		inp = new Scanner(System.in); // scans user input
+//		String line = inp.nextLine(); // creates a string using the last user input
+//		System.out.println("Your Input is:" + line + " If invaild please press enter.");
+		
 
 		// this loop infinitely loops the wrong user input game
 
-		while (line != "") {
-			line = inp.nextLine();
-			if (line != "") {
-				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
-																							// existing string and
-																							// displays result
-			}
-		}
-		while (loopOfGame == true) {
-
-			// Exit the while loop if !(line == "easy" )
-
-			while (!(line.equalsIgnoreCase("easy"))) {
-				System.out.println("Select difficulty:\n easy \n medium \n hard");
-				line = inp.nextLine();
-				line = line.toLowerCase().trim();
-				if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium")
-						|| line.equalsIgnoreCase("hard"))) {
-					System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
-																								// existing string and
-																								// displays result
-				}
-
-				if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
-					difficulty = 1;
-					System.out.println("This Version is still in progress");
-
-				}
-			}
-
-			if (line.equalsIgnoreCase("easy")) {
-				difficulty = 0;
-			}
-			// generation of the MazeGenerator and printing of maze
-			mazeCreation = new MazeGenerator(difficulty);
-			snake = new Snake(mazeCreation);
-			mazeCreation.boundary();
-
-			try {
-				userInteraction();
-				System.out.println("WINNER");
-			} catch (RuntimeException ERROR) {
-				System.out.println("GAME OVER");
-			}
-			line = "";
-		}
+//		while (line != "") {
+//			line = inp.nextLine();
+//			if (line != "") {
+//				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
+//																							// existing string and
+//																							// displays result
+//			}
+//		}
+//		while (loopOfGame == true) {
+//
+//			// Exit the while loop if !(line == "easy" )
+//
+//			while (!(line.equalsIgnoreCase("easy"))) {
+//				System.out.println("Select difficulty:\n easy \n medium \n hard");
+//				line = inp.nextLine();
+//				line = line.toLowerCase().trim();
+//				if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium")
+//						|| line.equalsIgnoreCase("hard"))) {
+//					System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
+//																								// existing string and
+//																								// displays result
+//				}
+//
+//				if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
+//					difficulty = 1;
+//					System.out.println("This Version is still in progress");
+//
+//				}
+//			}
+//
+//			if (line.equalsIgnoreCase("easy")) {
+//				difficulty = 0;
+//			}
+//			// generation of the MazeGenerator and printing of maze
+//			mazeCreation = new MazeGenerator(difficulty);
+//			snake = new Snake(mazeCreation);
+//			mazeCreation.boundary();
+//
+//			try {
+//				userInteraction();
+//				System.out.println("WINNER");
+//			} catch (RuntimeException ERROR) {
+//				System.out.println("GAME OVER");
+//			}
+//			line = "";
+//		}
 	}
 
 	// for the above, this now extends application, do we need to note this?
