@@ -12,13 +12,14 @@ import java.util.Arrays;
  */
 
 public class ItemGenerator {
-	int numberOfBombs = 0;
-	int numberOfobstactle = 0;
-	Random randomvalue = new Random();
+	private int numberOfBombs = 0;
+	private int numberOfobstactle = 0;
+	private Random randomvalue = new Random();
 	// private ArrayList<int[]> arrayofPellets = new ArrayList<int[]>();
 
-	int numberOfPellets;
-	int[][] tempMaze;
+	private int numberOfPellets;
+	//private int numberOfPelletsMaze= 0 ;
+	private int[][] tempMaze;
 
 	// constructor takes the number of pellets
 	public ItemGenerator(int pelletsCount) {
@@ -53,9 +54,20 @@ public class ItemGenerator {
 				maze2[x][y] = new Pellets();
 				// increment increasing by 1
 				numberOfPellets++;
+				//numberOfPelletsMaze++;
 			}
-
+		
 		}
+		//return numberOfPelletsMaze;
+	}
+	public int getPelletamount() {
+		return numberOfPellets;
+		
+	}
+	public int setPelletamount(int pelletinital) {
+		numberOfPellets = pelletinital;
+		return numberOfPellets;
+		
 	}
 	
 	public void clearMaze (MazeItems[][] maze) {

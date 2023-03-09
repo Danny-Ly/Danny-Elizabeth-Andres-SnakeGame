@@ -20,6 +20,7 @@ public class Main {
 	 * is needed.
 	 */
 	public void userInteraction() {
+		int difficulty = 0;
 		String userInput = "";
 		if (difficulty == 0) {
 			while (!(userInput.equalsIgnoreCase("quit"))) {
@@ -81,9 +82,6 @@ public class Main {
 				}
 				if (mazeCreation.ifVictory() == false) {
 					return;
-					
-					
-					
 				}
 			}
 		}
@@ -94,7 +92,7 @@ public class Main {
 	 * difficulty us chosen, that will impact how the maze is created
 	 */
 	public void start() {
-		difficulty = 0;
+		int difficultylocal = 0;
 		boolean loopOfGame = true;
 		System.out.println("__________________");
 		System.out.println("SnakeMaze");
@@ -129,17 +127,18 @@ public class Main {
 				}
 
 				if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
-					difficulty = 1;
+					difficultylocal = 1;
 					System.out.println("This Version is still in progress");
 
 				}
 			}
 
 			if (line.equalsIgnoreCase("easy")) {
-				difficulty = 0;
+				difficultylocal = 0;
 			}
 			// generation of the MazeGenerator and printing of maze
-			mazeCreation = new MazeGenerator(difficulty);
+			mazeCreation = new MazeGenerator(difficultylocal);
+			mazeCreation.setdifficulty(difficultylocal);
 			snake = new Snake(mazeCreation);
 			mazeCreation.boundary();
 
@@ -155,12 +154,6 @@ public class Main {
 
 	private Scanner inp; // scans user input
 	// these values were alters in the interest of the mazeGenerator class
-
-	private static int SNAKE_LENGTH = 1;
-	private int difficulty;
-
-	private static int row_snake = 9;
-	private static int column_snake = 4;
 
 	private MazeGenerator mazeCreation;
 	private Snake snake;

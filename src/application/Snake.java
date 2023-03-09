@@ -11,8 +11,8 @@ import java.util.ArrayList;
  *
  */
 public class Snake {
-	ArrayList<SnakeSegment> arraySnakeSegment;
-	SnakeSegment oldTail;
+	private ArrayList<SnakeSegment> arraySnakeSegment;
+	private SnakeSegment oldTail;
 
 	public Snake(MazeGenerator mazeCreation) {
 		int y = 4;

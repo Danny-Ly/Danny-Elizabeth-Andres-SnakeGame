@@ -12,18 +12,26 @@ import java.util.Random;
 public class MazeGenerator {
 	// Initializing/declaring variables that will be used in the creation,
 	// And customization of the maze
-	private static final char WALL = 30000;
-	private static final int EMPTY = 0;
-	private static final int SNAKE = 1;
-	private static final char PELLET = 10000;
-	MazeItems[][] maze;
-	ItemGenerator pellets;
-	int difficulty = 0;
-	int numberOfobstactle = 0;
-	int numberOfPellets = 0;
-	Random randomvalue = new Random();
+	//private static final char WALL = 30000;
+	//private static final int EMPTY = 0;
+	//private static final int SNAKE = 1;
+	//private static final char PELLET = 10000;
+	private MazeItems[][] maze;
+	private ItemGenerator pellets;
+	private int difficulty;
+	//private int numberOfobstactle = 0;
+	//private int numberOfPellets = 0;
+	//private Random randomvalue = new Random();
 	// int counter = 0;
-
+	
+	public int getdifficulty() {
+		return this.difficulty;
+	}
+	public int setdifficulty(int value) {
+		difficulty = value;
+		return this.difficulty;
+	}
+	
 	/**
 	 * Constructor for MazeGenerator class, that creates a new 10 by 20 array that
 	 * behaves as our maze
@@ -31,9 +39,8 @@ public class MazeGenerator {
 	 * @param difficuty_paramter an integer that represents the difficulty the maze
 	 *                           has
 	 */
-	public MazeGenerator(int difficuty_paramter) {
-
-		difficulty = difficuty_paramter;
+	public MazeGenerator( int difficulty_parameter) {
+		difficulty = difficulty_parameter;
 		// all difficulties generate specific size array
 		if (difficulty >= 0) {
 			maze = new MazeItems[10][20];
@@ -68,7 +75,8 @@ public class MazeGenerator {
 	 * maze.
 	 */
 	public void regnerateMaze() {
-		pellets = new ItemGenerator(numberOfPellets);
+		pellets = new ItemGenerator(0);
+		pellets.getPelletamount();
 		pellets.clearWalls(maze);
 		pellets.randomWall(maze);
 
@@ -76,7 +84,8 @@ public class MazeGenerator {
 
 	public void obstacles() {
 
-		pellets = new ItemGenerator(numberOfPellets);
+		pellets = new ItemGenerator(0);
+		pellets.getPelletamount();
 		pellets.clearMaze(maze);
 		pellets.randomWall(maze);
 		pellets.randomPellet(maze);
