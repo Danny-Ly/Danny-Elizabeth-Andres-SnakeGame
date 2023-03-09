@@ -34,6 +34,7 @@ public class Main extends Application{
 	
 	// I got this code to switch the scene from this video from Bro Code.
 	// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
+	// code allows for switching of scene.
 	@FXML 
     public void startGameInput(ActionEvent event) throws IOException {
 		System.out.println("Start button pressed (should switch to a difficulty selector scene)");
@@ -45,6 +46,44 @@ public class Main extends Application{
 		stage.show();
 		
 	}
+	
+	@FXML
+    public void easyButtonPressed(ActionEvent event) throws IOException {
+		difficulty = 0;
+		boolean loopOfGame = true;
+		
+		System.out.println("Easy button pressed (should switch to a snake game scene)");
+		
+		Parent root = FXMLLoader.load(getClass().getResource("GameplayDisplay.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		
+		String line = "easy";
+		
+		while (loopOfGame == true) {
+
+			if (line.equalsIgnoreCase("easy")) {
+				difficulty = 0;
+			}
+			// generation of the MazeGenerator and printing of maze
+			mazeCreation = new MazeGenerator(difficulty);
+			snake = new Snake(mazeCreation);
+			mazeCreation.boundary();
+
+			try {
+				userInteraction();
+				System.out.println("WINNER");
+			} catch (RuntimeException ERROR) {
+				System.out.println("GAME OVER");
+			}
+			line = "";
+		}
+	}
+	
+	
+	
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -58,7 +97,7 @@ public class Main extends Application{
 			//BorderPane root = new BorderPane();
 			// from demo 2 (adding a FXML document to the project)
 			FXMLLoader loader = new FXMLLoader();
-			VBox root = loader.load(new FileInputStream("src/application/SnakeGameDisplay.fxml"));
+			VBox root = loader.load(new FileInputStream("src/application/SnakeGameTitle.fxml"));
 			
 			Scene scene = new Scene(root,1000,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
