@@ -1,6 +1,5 @@
 package application;
 
-import java.util.Random;
 
 /**
  * This class is used in generating, customizing and creating a visual-like maze
@@ -17,8 +16,10 @@ public class MazeGenerator {
 	//private static final int SNAKE = 1;
 	//private static final char PELLET = 10000;
 	private MazeItems[][] maze;
-	private ItemGenerator pellets;
+	private ItemGenerator item;
 	private int difficulty;
+	private BombGenerator bomb;
+	private PelletGenerator pellet;
 	//private int numberOfobstactle = 0;
 	//private int numberOfPellets = 0;
 	//private Random randomvalue = new Random();
@@ -75,21 +76,23 @@ public class MazeGenerator {
 	 * maze.
 	 */
 	public void regnerateMaze() {
-		pellets = new ItemGenerator(0);
-		pellets.getPelletamount();
-		pellets.clearWalls(maze);
-		pellets.randomWall(maze);
+		item = new ItemGenerator();
+		item.clearWalls(maze);
+		item.randomWall(maze);
 
 	}
 
 	public void obstacles() {
 
-		pellets = new ItemGenerator(0);
-		pellets.getPelletamount();
-		pellets.clearMaze(maze);
-		pellets.randomWall(maze);
-		pellets.randomPellet(maze);
-		pellets.randomBomb(maze);
+		item = new ItemGenerator();
+		item.clearMaze(maze);
+		item.randomWall(maze);
+		
+		bomb = new BombGenerator();
+		bomb.randomBomb(maze);
+		
+		pellet = new PelletGenerator();
+		pellet.randomPellet(maze);
 	}
 
 	public boolean ifVictory() {

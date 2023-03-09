@@ -157,7 +157,7 @@ public class Main {
 
 	private MazeGenerator mazeCreation;
 	private Snake snake;
-	private ItemGenerator pellets;
+	//private ItemGenerator pellets;
 
 	public static void main(String[] args) {
 

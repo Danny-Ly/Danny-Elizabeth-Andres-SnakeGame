@@ -1,8 +1,7 @@
 package application;
 
-import java.util.Random;
-import java.util.ArrayList;
-import java.util.Arrays;
+
+
 
 /**
  * This class is used in randomly generating pellets into the maze.
@@ -11,64 +10,63 @@ import java.util.Arrays;
  *
  */
 
-public class ItemGenerator {
-	private int numberOfBombs = 0;
+public class ItemGenerator extends RandomNumberGenerator {
+	//private int numberOfBombs = 0;
 	private int numberOfobstactle = 0;
-	private Random randomvalue = new Random();
+	//private Random randomvalue = new Random();
 	// private ArrayList<int[]> arrayofPellets = new ArrayList<int[]>();
 
-	private int numberOfPellets;
+	//private int numberOfPellets;
 	//private int numberOfPelletsMaze= 0 ;
 	private int[][] tempMaze;
 
 	// constructor takes the number of pellets
-	public ItemGenerator(int pelletsCount) {
-		numberOfPellets = pelletsCount;
+	public ItemGenerator() {
 	}
 
-	public void randomBomb(MazeItems[][] maze2) {
-		while (numberOfBombs < 2) {
-			int x = randomvalue.nextInt(10);
-			int y = randomvalue.nextInt(16) + 2;
-			if (maze2[x][y] == null) {
-				maze2[x][y] = new Bombs();
-				numberOfBombs++;
-			}
-		}
-	}
+//	public void randomBomb(MazeItems[][] maze2) {
+//		while (numberOfBombs < 2) {
+//			int x = randomvalue.nextInt(10);
+//			int y = randomvalue.nextInt(16) + 2;
+//			if (maze2[x][y] == null) {
+//				maze2[x][y] = new Bombs();
+//				numberOfBombs++;
+//			}
+//		}
+//	}
 
 	/**
 	 * Randomly places pellets into the maze
 	 * 
 	 * @param maze2 is the maze we want to randomly add pellets to.
 	 */
-	public void randomPellet(MazeItems[][] maze2) {
+//	public void randomPellet(MazeItems[][] maze2) {
 		// generates random position in maze passed in until wanted
 		// number of pellets is reached
-		while (numberOfPellets < 5) {
+//		while (numberOfPellets < 5) {
 			// randomly generate coordinates in parameter
-			int x = randomvalue.nextInt(10);
-			int y = randomvalue.nextInt(16) + 2;
+//			int x = randomvalue.nextInt(10);
+//			int y = randomvalue.nextInt(16) + 2;
 			// checks if coordinate generated has an existing value
-			if (maze2[x][y] == null) {
-				maze2[x][y] = new Pellets();
+//			if (maze2[x][y] == null) {
+//				maze2[x][y] = new Pellets();
 				// increment increasing by 1
-				numberOfPellets++;
+//				numberOfPellets++;
 				//numberOfPelletsMaze++;
-			}
+//			}
 		
-		}
+//		}
 		//return numberOfPelletsMaze;
-	}
-	public int getPelletamount() {
-		return numberOfPellets;
+//	}
+//	public int getPelletamount() {
+//		return numberOfPellets;
 		
-	}
-	public int setPelletamount(int pelletinital) {
-		numberOfPellets = pelletinital;
-		return numberOfPellets;
+//	}
+//	public int setPelletamount(int pelletinital) {
+//		numberOfPellets = pelletinital;
+//		return numberOfPellets;
 		
-	}
+//	}
 	
 	public void clearMaze (MazeItems[][] maze) {
 		for (int i = 0; i < maze.length; i++) {
@@ -106,8 +104,8 @@ public class ItemGenerator {
 		 */
 
 		while (numberOfobstactle < 20) {
-			int x = randomvalue.nextInt(10);
-			int y = randomvalue.nextInt(16) + 2;
+			int x = RandomNumberGeneratorXcord();
+			int y = RandomNumberGeneratorYcord();
 			if (maze[x][y] == null || maze[x][y] instanceof Wall) {
 				if (x == 2 || x == 5 || x == 7) {
 					maze[x][y] = new Wall();
