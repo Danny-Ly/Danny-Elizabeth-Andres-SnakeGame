@@ -61,8 +61,7 @@ public class MazeGenerator {
 	}
 
 	/**
-	 * Altering the created 10 by 20 array into respective values to act like a
-	 * maze.
+	 * clears walls and regenerates random walls in maze
 	 */
 	public void regnerateMaze() {
 		pellets = new ItemGenerator(numberOfPellets);
@@ -71,6 +70,10 @@ public class MazeGenerator {
 
 	}
 
+	/**
+	 * clears old maze if it exist and generates random walls, random pellets, and
+	 * random bombs.
+	 */
 	public void obstacles() {
 
 		pellets = new ItemGenerator(numberOfPellets);
@@ -80,6 +83,11 @@ public class MazeGenerator {
 		pellets.randomBomb(maze);
 	}
 
+	/**
+	 * checks to see if pellets are in maze
+	 * 
+	 * @return true is there is a pellet and false if not
+	 */
 	public boolean ifVictory() {
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze[i].length; j++) {
@@ -92,16 +100,12 @@ public class MazeGenerator {
 		}
 		// bring to main
 		return false;
-		
+
 	}
 
-
-
 	/**
-	 * Changing the numeric values altered into a visual representation of each
+	 * Creates the initial maze
 	 * 
-	 * @param rewards generated from rewards class to represent the pellets in
-	 *                array.
 	 */
 	public void boundary() {
 		// looping through entire array changing each element into 1 of the four
@@ -116,29 +120,31 @@ public class MazeGenerator {
 					maze[i][j].printItem();
 				} else
 					System.out.print(" ");
-
-				// else if (maze[i][j]== (int)maze[i][j]) {
-				// if (maze [i][j] != 0) {
-
 			}
 
 			System.out.println();
 		}
 	}
 
+	/**
+	 * adds new snake seg to maze and return old item
+	 */
 	public MazeItems add(SnakeSegment snakeSeg) {
 		int[] arrayOfSnakeLocation = snakeSeg.location();
+		// old snake location saved in variable
 		MazeItems oldItem = maze[arrayOfSnakeLocation[0]][arrayOfSnakeLocation[1]];
+		// update snake position in maze array
 		maze[arrayOfSnakeLocation[0]][arrayOfSnakeLocation[1]] = snakeSeg;
 		return oldItem;
 
 	}
 
+	/**
+	 * removes old snake seg from maze
+	 */
 	public void remove(SnakeSegment oldTail) {
 		int[] arrayOfSnakeLocation = oldTail.location();
 		maze[arrayOfSnakeLocation[0]][arrayOfSnakeLocation[1]] = null;
-
-		// TODO Auto-generated method stub
 
 	}
 }

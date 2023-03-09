@@ -1,15 +1,41 @@
 package application;
 
+/**
+ * This interface is used to create an array of type Mazeitems.
+ * 
+ * @author Written by Elizabeth, assisted and co-written by Andres and Danny.
+ *
+ */
 public interface MazeItems {
 
+	/*
+	 * prints desired program output for each maze item
+	 */
 	public void printItem();
 
+	/*
+	 * when the snake runs into the mazeitem each item will execute their said
+	 * fuctions
+	 * 
+	 * @param Snake to determine how each object will affect the snake and
+	 * 
+	 * @param generator to determine how each object will affect the maze
+	 */
 	public void eat(Snake snake, MazeGenerator generator);
 
+	/*
+	 * checks to see if each maze item is a wall
+	 */
 	public boolean isWall();
 
 }
 
+/*
+ * Bombs class will print the desired output Regenerate maze if snake touches
+ * the bomb and
+ * 
+ * @return false for if its a wall
+ */
 class Bombs implements MazeItems {
 	public void printItem() {
 		System.out.print("@");
@@ -25,6 +51,12 @@ class Bombs implements MazeItems {
 	}
 }
 
+/*
+ * Pellets class will print the desired output Extend the snake if it touches
+ * the pellet
+ * 
+ * @return false for if its a wall
+ */
 class Pellets implements MazeItems {
 	public void printItem() {
 		System.out.print(".");
@@ -39,6 +71,10 @@ class Pellets implements MazeItems {
 	}
 }
 
+/*
+ * @return true for if its a wall Wall class will print the desired output and
+ * throw and exception (caught in main) if the snake runs into the wall
+ */
 class Wall implements MazeItems {
 	public boolean isWall() {
 		return true;
@@ -54,6 +90,13 @@ class Wall implements MazeItems {
 
 }
 
+/*
+ * SnakeSegement class will print the desired output assigns x and y values for
+ * the position of the snake seg
+ * 
+ * @return false for if its a wall and throw and exception (caught in main) if
+ * the snake runs into itself
+ */
 class SnakeSegment implements MazeItems {
 	int row;
 	int column;
@@ -76,6 +119,7 @@ class SnakeSegment implements MazeItems {
 		throw new RuntimeException("SNAKES CAN'T EAT SNAKES");
 	}
 
+	// makes an array to keep track of the location of the snake
 	public int[] location() {
 		int[] location = new int[2];
 		location[1] = column;
@@ -83,6 +127,5 @@ class SnakeSegment implements MazeItems {
 		return location;
 
 	}
-
 
 }

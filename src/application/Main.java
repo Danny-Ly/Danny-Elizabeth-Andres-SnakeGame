@@ -27,21 +27,20 @@ public class Main {
 				userInput = inp.nextLine();
 
 				// there is the input of a(right), d(left), w(up), and s(down)
-				// that call the snake class to allow for it to function.
+				// that call the snake class for the movement of the snake
+				// call mazecreation for maze to generate
 				if (userInput.equalsIgnoreCase("d")) {
 					int row_movement = 0;
 					int column_movement = 1;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
-					
+
 				}
 				if (userInput.equalsIgnoreCase("a")) {
 					int row_movement = 0;
 					int column_movement = -1;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
-
-					
 
 				}
 
@@ -50,7 +49,6 @@ public class Main {
 					int column_movement = 0;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
-					
 
 				}
 
@@ -60,14 +58,11 @@ public class Main {
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
 
-		
-
 				}
+				// continues game if pellets are still in game
 				if (mazeCreation.ifVictory() == false) {
 					return;
-					
-					
-					
+
 				}
 			}
 		}
@@ -99,7 +94,7 @@ public class Main {
 		}
 		while (loopOfGame == true) {
 
-			// Exit the while loop if !(line == "easy" )
+			// Exit the while loop if (line == "easy" )
 
 			while (!(line.equalsIgnoreCase("easy"))) {
 				System.out.println("Select difficulty:\n easy \n medium \n hard");
@@ -127,6 +122,7 @@ public class Main {
 			snake = new Snake(mazeCreation);
 			mazeCreation.boundary();
 
+			// evaluates if game is lost or won then restarts game
 			try {
 				userInteraction();
 				System.out.println("WINNER");
@@ -140,13 +136,10 @@ public class Main {
 	private Scanner inp; // scans user input
 	// these values were alters in the interest of the mazeGenerator class
 
-
 	private int difficulty;
-
 
 	private MazeGenerator mazeCreation;
 	private Snake snake;
-
 
 	public static void main(String[] args) {
 
