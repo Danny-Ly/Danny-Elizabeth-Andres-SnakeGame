@@ -24,11 +24,20 @@ public class ItemGenerator {
 	public ItemGenerator(int pelletsCount) {
 		numberOfPellets = pelletsCount;
 	}
-
+	
+	/**
+	 * Randomly places bombs into the maze
+	 * 
+	 * @param maze2 is the maze we want to randomly add bombs to.
+	 */
 	public void randomBomb(MazeItems[][] maze2) {
+		// generates random position in maze passed in until wanted
+		// number of bombs is reached
 		while (numberOfBombs < 2) {
+			// randomly generate coordinates in parameter
 			int x = randomvalue.nextInt(10);
 			int y = randomvalue.nextInt(16) + 2;
+			// checks if coordinate generated has an existing value
 			if (maze2[x][y] == null) {
 				maze2[x][y] = new Bombs();
 				numberOfBombs++;
@@ -58,14 +67,28 @@ public class ItemGenerator {
 		}
 	}
 	
+	/**
+	 * Clears the maze from all Mazeitems and changes to null space
+	 * 
+	 * @param maze is the 2 dimensional array we want to clear .
+	 */
 	public void clearMaze (MazeItems[][] maze) {
+		// looping through entire maze array changing each Mazeitem into null
+		// possible options.
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze[i].length; j++) {
 				maze[i][j] = null;
 			}
 		}
 	}
+	/**
+	 * Clears the maze from all Mazeitems that is an instance of "Wall" and changes to null space
+	 * 
+	 * @param maze is the 2 dimensional array we want to clear Wall from.
+	 */
 	public void clearWalls (MazeItems[][] maze) {
+		// looping through entire maze array changing each Mazeitem Wall into null
+		// possible options.
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze[i].length; j++) {
 				if (maze[i][j] instanceof Wall)
@@ -73,7 +96,13 @@ public class ItemGenerator {
 			}
 		}
 	}
-
+	
+	
+	/**
+	 * Generates random walls through the maze
+	 * 
+	 * @param maze is the 2 dimensional array that we will add walls to .
+	 */
 	public void randomWall(MazeItems[][] maze) {
 		/*
 		 * Changing all initial values of the maze into empty spots.

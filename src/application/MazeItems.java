@@ -84,6 +84,5 @@ class SnakeSegment implements MazeItems {
 
 	}
 
-	private Main main;
 
 }

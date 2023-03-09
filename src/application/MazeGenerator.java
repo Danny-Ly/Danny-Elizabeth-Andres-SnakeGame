@@ -12,10 +12,7 @@ import java.util.Random;
 public class MazeGenerator {
 	// Initializing/declaring variables that will be used in the creation,
 	// And customization of the maze
-	private static final char WALL = 30000;
-	private static final int EMPTY = 0;
-	private static final int SNAKE = 1;
-	private static final char PELLET = 10000;
+
 	MazeItems[][] maze;
 	ItemGenerator pellets;
 	int difficulty = 0;
@@ -98,12 +95,7 @@ public class MazeGenerator {
 		
 	}
 
-	/*
-	 * for(int i=0; i<maze.length; i++) { for(int j=0; j <maze[i].length; j++) {
-	 * System.out.print(maze[i][j] + " "); } System.out.println();
-	 * 
-	 * }
-	 */
+
 
 	/**
 	 * Changing the numeric values altered into a visual representation of each

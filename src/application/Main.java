@@ -12,7 +12,6 @@ import java.util.Scanner;
  *
  */
 public class Main {
-	private static final String String = null;
 
 	/**
 	 * This handles when the user enters WASD, will handle these four cases of
@@ -34,12 +33,7 @@ public class Main {
 					int column_movement = 1;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
-					// creating new object of snake, to check if any
-					// further altering of map is needed based on this change in position.
-
-					// instance of Snake class was called to deal with
-					// running into a wall or itself, extending when eating a pellet,
-					// and the movement of the snake itself.
+					
 				}
 				if (userInput.equalsIgnoreCase("a")) {
 					int row_movement = 0;
@@ -47,11 +41,7 @@ public class Main {
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
 
-					// userInput = runIntoWall (user_input,column_snake, row_snake, WALL,
-					// row_movement,column_movement);
-
-					// creating new object of snake, to check if any further altering of map is
-					// needed based on this change in position.
+					
 
 				}
 
@@ -60,10 +50,7 @@ public class Main {
 					int column_movement = 0;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
-					// runIntoWall (user_input,column_snake, row_snake, WALL,
-					// row_movement,column_movement);
-					// creating new object of snake, to check if any further altering of map is
-					// needed based on this change in position.
+					
 
 				}
 
@@ -73,10 +60,7 @@ public class Main {
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
 
-					// creating new object of snake, to check if any further altering of map is
-					// needed based on this change in position.
-					// runIntoWall (user_input,column_snake, row_snake, WALL,
-					// row_movement,column_movement);
+		
 
 				}
 				if (mazeCreation.ifVictory() == false) {
@@ -156,15 +140,13 @@ public class Main {
 	private Scanner inp; // scans user input
 	// these values were alters in the interest of the mazeGenerator class
 
-	private static int SNAKE_LENGTH = 1;
+
 	private int difficulty;
 
-	private static int row_snake = 9;
-	private static int column_snake = 4;
 
 	private MazeGenerator mazeCreation;
 	private Snake snake;
-	private ItemGenerator pellets;
+
 
 	public static void main(String[] args) {
 
