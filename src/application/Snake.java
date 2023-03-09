@@ -41,7 +41,13 @@ public class Snake {
 	}
 
 	public void eatBomb(MazeGenerator mazeCreation) {
-		mazeCreation.regnerateMaze();
+		// is there better way to do this?
+		arraySnakeSegment.add(oldTail);
+		arraySnakeSegment.add(oldTail);
+		arraySnakeSegment.add(oldTail);
+		mazeCreation.add(oldTail);	
+//
+//		mazeCreation.regnerateMaze();
 	}
 
 	/**

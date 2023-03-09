@@ -2,7 +2,16 @@
 // and demos on the CPSC 219 D2L shell (WINTER 2019).
 package application;
 
+import java.io.FileInputStream;
 import java.util.Scanner;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 /**
  * The class that calls upon MazeGeneerator, Rewards and Snake class, to allow
@@ -11,7 +20,100 @@ import java.util.Scanner;
  * @author Written by Elizabeth, Danny, and Andres.
  *
  */
-public class Main {
+public class Main extends Application{
+	@Override
+	public void start(Stage primaryStage) {
+		difficulty = 0;
+		boolean loopOfGame = true;
+		
+		// from the creating GUI using JavaFX demos
+		// generates the initial GUI scene
+		
+		/*try {
+			//BorderPane root = new BorderPane();
+			// from demo 2 (adding a FXML document to the project)
+			FXMLLoader loader = new FXMLLoader();
+			VBox root = loader.load(new FileInputStream("src/application/SnakeGameDisplay.fxml"));
+			
+			Scene scene = new Scene(root,400,400);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("Snake Game");
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	*/
+		//from the lecture of creating GUI using Java FX
+		VBox root = new VBox();
+		Button easyButton = new Button("easy(test)");
+		
+		root.getChildren().add(easyButton);
+		
+		Scene scene = new Scene (root,600,300);
+		primaryStage.setTitle("Snake Game");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		
+		
+		System.out.println("__________________");
+		System.out.println("SnakeMaze");
+		System.out.println("Press Enter To Start");
+		inp = new Scanner(System.in); // scans user input
+		String line = inp.nextLine(); // creates a string using the last user input
+		System.out.println("Your Input is:" + line + " If invaild please press enter.");
+
+		// this loop infinitely loops the wrong user input game
+
+		while (line != "") {
+			line = inp.nextLine();
+			if (line != "") {
+				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
+																							// existing string and
+																							// displays result
+			}
+		}
+		while (loopOfGame == true) {
+
+			// Exit the while loop if !(line == "easy" )
+
+			while (!(line.equalsIgnoreCase("easy"))) {
+				System.out.println("Select difficulty:\n easy \n medium \n hard");
+				line = inp.nextLine();
+				line = line.toLowerCase().trim();
+				if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium")
+						|| line.equalsIgnoreCase("hard"))) {
+					System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
+																								// existing string and
+																								// displays result
+				}
+
+				if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
+					difficulty = 1;
+					System.out.println("This Version is still in progress");
+
+				}
+			}
+
+			if (line.equalsIgnoreCase("easy")) {
+				difficulty = 0;
+			}
+			// generation of the MazeGenerator and printing of maze
+			mazeCreation = new MazeGenerator(difficulty);
+			snake = new Snake(mazeCreation);
+			mazeCreation.boundary();
+
+			try {
+				userInteraction();
+				System.out.println("WINNER");
+			} catch (RuntimeException ERROR) {
+				System.out.println("GAME OVER");
+			}
+			line = "";
+		}
+	}
+
+	// for the above, this now extends application, do we need to note this?
 	private static final String String = null;
 
 	/**
@@ -88,71 +190,13 @@ public class Main {
 			}
 		}
 	}
-
+	
+	
 	/**
 	 * This handles user input of when the program is first run, this is where the
 	 * difficulty us chosen, that will impact how the maze is created
 	 */
-	public void start() {
-		difficulty = 0;
-		boolean loopOfGame = true;
-		System.out.println("__________________");
-		System.out.println("SnakeMaze");
-		System.out.println("Press Enter To Start");
-		inp = new Scanner(System.in); // scans user input
-		String line = inp.nextLine(); // creates a string using the last user input
-		System.out.println("Your Input is:" + line + " If invaild please press enter.");
-
-		// this loop infinitely loops the wrong user input game
-
-		while (line != "") {
-			line = inp.nextLine();
-			if (line != "") {
-				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
-																							// existing string and
-																							// displays result
-			}
-		}
-		while (loopOfGame == true) {
-
-			// Exit the while loop if !(line == "easy" )
-
-			while (!(line.equalsIgnoreCase("easy"))) {
-				System.out.println("Select difficulty:\n easy \n medium \n hard");
-				line = inp.nextLine();
-				line = line.toLowerCase().trim();
-				if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium")
-						|| line.equalsIgnoreCase("hard"))) {
-					System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
-																								// existing string and
-																								// displays result
-				}
-
-				if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
-					difficulty = 1;
-					System.out.println("This Version is still in progress");
-
-				}
-			}
-
-			if (line.equalsIgnoreCase("easy")) {
-				difficulty = 0;
-			}
-			// generation of the MazeGenerator and printing of maze
-			mazeCreation = new MazeGenerator(difficulty);
-			snake = new Snake(mazeCreation);
-			mazeCreation.boundary();
-
-			try {
-				userInteraction();
-				System.out.println("WINNER");
-			} catch (RuntimeException ERROR) {
-				System.out.println("GAME OVER");
-			}
-			line = "";
-		}
-	}
-
+	
 	private Scanner inp; // scans user input
 	// these values were alters in the interest of the mazeGenerator class
 
@@ -162,14 +206,18 @@ public class Main {
 	private static int row_snake = 9;
 	private static int column_snake = 4;
 
+
 	private MazeGenerator mazeCreation;
 	private Snake snake;
 	private ItemGenerator pellets;
 
 	public static void main(String[] args) {
 
-		Main application = new Main();
-		application.start();
+		//Main application = new Main();
+		//application.start(primaryStage);
+		// explain this
+		launch(args);
+		
 	}
 
 }
