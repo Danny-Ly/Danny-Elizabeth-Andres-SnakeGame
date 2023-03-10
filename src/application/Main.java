@@ -54,11 +54,11 @@ public class Main extends Application{
 		
 		System.out.println("Easy button pressed (should switch to a snake game scene)");
 		
-		Parent root = FXMLLoader.load(getClass().getResource("GameplayDisplay.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
+//		Parent root = FXMLLoader.load(getClass().getResource("GameplayDisplay.fxml"));
+//		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//		scene = new Scene(root);
+//		stage.setScene(scene);
+//		stage.show();
 		
 		String line = "easy";
 		
@@ -66,21 +66,24 @@ public class Main extends Application{
 
 			if (line.equalsIgnoreCase("easy")) {
 				difficulty = 0;
+				}
+				// generation of the MazeGenerator and printing of maze
+				mazeCreation = new MazeGenerator(difficulty);
+				snake = new Snake(mazeCreation);
+				mazeCreation.boundary();
+	
+				try {
+					userInteraction();
+					System.out.println("WINNER");
+					System.out.println("Restarted game on EASY: ");
+				} catch (RuntimeException ERROR) {
+					System.out.println("GAME OVER");
+					System.out.println("Restarted game on EASY: ");
+				}
+				line = "";
 			}
-			// generation of the MazeGenerator and printing of maze
-			mazeCreation = new MazeGenerator(difficulty);
-			snake = new Snake(mazeCreation);
-			mazeCreation.boundary();
-
-			try {
-				userInteraction();
-				System.out.println("WINNER");
-			} catch (RuntimeException ERROR) {
-				System.out.println("GAME OVER");
-			}
-			line = "";
+		
 		}
-	}
 	
 	
 	
@@ -109,8 +112,7 @@ public class Main extends Application{
 		}
 		
 		System.out.println("__________________");
-		System.out.println("SnakeMaze");
-		System.out.println("Press Enter To Start");
+		System.out.println("Refer to GUI:");
 		
 
 		
