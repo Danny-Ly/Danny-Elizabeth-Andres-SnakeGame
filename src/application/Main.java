@@ -1,7 +1,23 @@
 // Majority of this program's syntax is based off of the lecture videos 
 // and demos on the CPSC 219 D2L shell (WINTER 2019).
 package application;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Scanner;
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.Node;
 
 /**
  * The class that calls upon MazeGenerator, Rewards and Snake class, to allow
@@ -10,12 +26,70 @@ import java.util.Scanner;
  * @author Written by Elizabeth, Danny, and Andres.
  *
  */
-public class Main {
+public class Main extends Application{
 	// Initializing/declaring variables that will be used in the class
 	private Scanner inp; 
 	private MazeGenerator mazeCreation;
 	private Snake snake;
 
+	private Stage stage;
+	private Scene scene;
+
+	// I got this code to switch the scene from this video from Bro Code.
+	// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
+	// code allows for switching of scene.
+	@FXML 
+    public void startGameInput(ActionEvent event) throws IOException {
+		System.out.println("Start button pressed (should switch to a difficulty selector scene)");
+		
+		Parent root = FXMLLoader.load(getClass().getResource("DifficultySelector.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		
+	}
+	
+	@FXML
+    public void easyButtonPressed(ActionEvent event) throws IOException {
+		int difficulty = 0;
+		boolean loopOfGame = true;
+		
+		System.out.println("Easy button pressed (should switch to a snake game scene)");
+		
+		Parent root = FXMLLoader.load(getClass().getResource("GameplayDisplay.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		
+		String line = "easy";
+		
+		while (loopOfGame == true) {
+
+			if (line.equalsIgnoreCase("easy")) {
+				difficulty = 0;
+				}
+				// generation of the MazeGenerator and printing of maze
+				mazeCreation = new MazeGenerator(difficulty);
+				snake = new Snake(mazeCreation);
+				mazeCreation.boundary();
+	
+				try {
+					userInteraction();
+					System.out.println("WINNER");
+					System.out.println("Restarted game on EASY: ");
+				} catch (RuntimeException ERROR) {
+					System.out.println("GAME OVER");
+					System.out.println("Restarted game on EASY: ");
+				}
+				line = "";
+			}
+		
+		}
+	
+	
+	
 	/**
 	 * This handles when the user enters WASD, will handle these four cases of
 	 * different inputs, and will call Snake class to do their certain action, that
@@ -73,63 +147,35 @@ public class Main {
 	 * This handles user input of when the program is first run, this is where the
 	 * difficulty us chosen, that will impact how the maze is created
 	 */
-	public void start() {
+	public void start(Stage primaryStage) {
 		int difficultylocal = 0;
 		boolean loopOfGame = true;
+		
+		// from the creating GUI using JavaFX demos
+		// generates the initial GUI scene
+		
+		try {
+			//BorderPane root = new BorderPane();
+			// from demo 2 (adding a FXML document to the project)
+			FXMLLoader loader = new FXMLLoader();
+			VBox root = loader.load(new FileInputStream("src/application/SnakeGameTitle.fxml"));
+			
+			Scene scene = new Scene(root,1000,400);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("Snake Game");
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		System.out.println("__________________");
-		System.out.println("SnakeMaze");
-		System.out.println("Press Enter To Start");
-		inp = new Scanner(System.in); // scans user input
-		String line = inp.nextLine(); // creates a string using the last user input
-		System.out.println("Your Input is:" + line + " If invaild please press enter.");
-
-		// this loop infinitely loops the wrong user input game
-		while (line != "") {
-			line = inp.nextLine();
-			if (line != "") {
-				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to existing string to displays result
-			}
-		}
-		while (loopOfGame == true) {
-			// Exit the while loop if !(line == "easy" )
-
-			while (!(line.equalsIgnoreCase("easy"))) {
-				System.out.println("Select difficulty:\n easy \n medium \n hard");
-				line = inp.nextLine();
-				line = line.toLowerCase().trim();
-				if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium")
-						|| line.equalsIgnoreCase("hard"))) {
-					System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to existing string and displays result
-				}
-
-				if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
-					difficultylocal = 1;
-					System.out.println("This Version is still in progress");
-
-				}
-			}
-
-			if (line.equalsIgnoreCase("easy")) {
-				difficultylocal = 0;
-			}
-			// generation of the MazeGenerator and printing of maze
-			mazeCreation = new MazeGenerator(difficultylocal);
-			mazeCreation.setdifficulty(difficultylocal);
-			snake = new Snake(mazeCreation);
-			mazeCreation.boundary();
-
-			// evaluates if game is lost or won then restarts game
-			try {
-				userInteraction();
-				System.out.println("WINNER");
-			} catch (RuntimeException ERROR) {
-				System.out.println("GAME OVER");
-			}
-			line = "";
-		}
+		System.out.println("Refer to GUI:");
 	}
+
+	
 	public static void main(String[] args) {
-		Main application = new Main();
-		application.start();
+		// got from the demo's from D@L for launch(args)
+		launch(args);
 	}
 }
