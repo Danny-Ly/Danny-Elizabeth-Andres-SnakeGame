@@ -1,81 +1,44 @@
 package application;
 
-
-
-
 /**
- * This class is used in randomly generating pellets into the maze.
+ * This class is used randmily generating obstacles within the maze, and clearing them.
  * 
  * @author Written by Elizabeth, assisted and co-written by Andres and Danny.
  *
  */
-
 public class ItemGenerator extends RandomNumberGenerator {
-	//private int numberOfBombs = 0;
+	// Initializing/declaring variables that will be used in the class
 	private int numberOfobstactle = 0;
-	//private Random randomvalue = new Random();
-	// private ArrayList<int[]> arrayofPellets = new ArrayList<int[]>();
+	//private int[][] tempMaze;
 
-	//private int numberOfPellets;
-	//private int numberOfPelletsMaze= 0 ;
-	private int[][] tempMaze;
-
-	// constructor takes the number of pellets
+	// constructor 
 	public ItemGenerator() {
 	}
-
-//	public void randomBomb(MazeItems[][] maze2) {
-//		while (numberOfBombs < 2) {
-//			int x = randomvalue.nextInt(10);
-//			int y = randomvalue.nextInt(16) + 2;
-//			if (maze2[x][y] == null) {
-//				maze2[x][y] = new Bombs();
-//				numberOfBombs++;
-//			}
-//		}
-//	}
-
-	/**
-	 * Randomly places pellets into the maze
-	 * 
-	 * @param maze2 is the maze we want to randomly add pellets to.
-	 */
-//	public void randomPellet(MazeItems[][] maze2) {
-		// generates random position in maze passed in until wanted
-		// number of pellets is reached
-//		while (numberOfPellets < 5) {
-			// randomly generate coordinates in parameter
-//			int x = randomvalue.nextInt(10);
-//			int y = randomvalue.nextInt(16) + 2;
-			// checks if coordinate generated has an existing value
-//			if (maze2[x][y] == null) {
-//				maze2[x][y] = new Pellets();
-				// increment increasing by 1
-//				numberOfPellets++;
-				//numberOfPelletsMaze++;
-//			}
-		
-//		}
-		//return numberOfPelletsMaze;
-//	}
-//	public int getPelletamount() {
-//		return numberOfPellets;
-		
-//	}
-//	public int setPelletamount(int pelletinital) {
-//		numberOfPellets = pelletinital;
-//		return numberOfPellets;
-		
-//	}
 	
+	/**
+	 * Clears the maze from all Mazeitems and changes to null space
+	 * 
+	 * @param maze is the 2 dimensional array we want to clear .
+	 */
 	public void clearMaze (MazeItems[][] maze) {
+		// looping through entire maze array changing each Mazeitem into null
+		// possible options.
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze[i].length; j++) {
 				maze[i][j] = null;
 			}
 		}
 	}
+	
+	/**
+	 * Clears the maze from all Mazeitems that is an instance of "Wall" and changes
+	 * to null space
+	 * 
+	 * @param maze is the 2 dimensional array we want to clear Wall from.
+	 */
 	public void clearWalls (MazeItems[][] maze) {
+		// looping through entire maze array changing each Mazeitem Wall into null
+		// possible options.
 		for (int i = 0; i < maze.length; i++) {
 			for (int j = 0; j < maze[i].length; j++) {
 				if (maze[i][j] instanceof Wall)
@@ -83,12 +46,13 @@ public class ItemGenerator extends RandomNumberGenerator {
 			}
 		}
 	}
-
+	
+	/**
+	 * Generates random walls through the maze
+	 * 
+	 * @param maze is the 2 dimensional array that we will add walls to .
+	 */
 	public void randomWall(MazeItems[][] maze) {
-		/*
-		 * Changing all initial values of the maze into empty spots.
-		 */
-		
 		// changes top row,and bottom row of maze into walls
 		for (int y_axis = 0; y_axis < 20; y_axis++) {
 			maze[0][y_axis] = new Wall();
@@ -99,11 +63,12 @@ public class ItemGenerator extends RandomNumberGenerator {
 			maze[x_axis][0] = new Wall();
 			maze[x_axis][19] = new Wall();
 		}
+		
 		/*
 		 * Randomly creating 20 or less obstacle within maze
 		 */
-
 		while (numberOfobstactle < 20) {
+			// Using methods from subclass(RandomNumberGenerator) to generate random number
 			int x = RandomNumberGeneratorXcord();
 			int y = RandomNumberGeneratorYcord();
 			if (maze[x][y] == null || maze[x][y] instanceof Wall) {
@@ -113,7 +78,6 @@ public class ItemGenerator extends RandomNumberGenerator {
 				}
 			}
 		}
-
 		// adding constant beginning location of snake and Walls of every maze.
 		// maze [4][9] = SNAKE;
 		maze[5][9] = new Wall();
@@ -121,6 +85,5 @@ public class ItemGenerator extends RandomNumberGenerator {
 		maze[5][10] = new Wall();
 		maze[4][8] = new Wall();
 		maze[4][10] = new Wall();
-
 	}
 }

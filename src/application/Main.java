@@ -1,18 +1,20 @@
 // Majority of this program's syntax is based off of the lecture videos 
 // and demos on the CPSC 219 D2L shell (WINTER 2019).
 package application;
-
 import java.util.Scanner;
 
 /**
- * The class that calls upon MazeGeneerator, Rewards and Snake class, to allow
+ * The class that calls upon MazeGenerator, Rewards and Snake class, to allow
  * all classes to function together properly in unison.
  * 
  * @author Written by Elizabeth, Danny, and Andres.
  *
  */
 public class Main {
-	private static final String String = null;
+	// Initializing/declaring variables that will be used in the class
+	private Scanner inp; 
+	private MazeGenerator mazeCreation;
+	private Snake snake;
 
 	/**
 	 * This handles when the user enters WASD, will handle these four cases of
@@ -29,31 +31,20 @@ public class Main {
 				userInput = inp.nextLine();
 
 				// there is the input of a(right), d(left), w(up), and s(down)
-				// that call the snake class to allow for it to function.
+				// that call the snake class for the movement of the snake
+				// call mazecreation for maze to generate
 				if (userInput.equalsIgnoreCase("d")) {
 					int row_movement = 0;
 					int column_movement = 1;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
-					// creating new object of snake, to check if any
-					// further altering of map is needed based on this change in position.
-
-					// instance of Snake class was called to deal with
-					// running into a wall or itself, extending when eating a pellet,
-					// and the movement of the snake itself.
 				}
+				
 				if (userInput.equalsIgnoreCase("a")) {
 					int row_movement = 0;
 					int column_movement = -1;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
-
-					// userInput = runIntoWall (user_input,column_snake, row_snake, WALL,
-					// row_movement,column_movement);
-
-					// creating new object of snake, to check if any further altering of map is
-					// needed based on this change in position.
-
 				}
 
 				if (userInput.equalsIgnoreCase("w")) {
@@ -61,11 +52,6 @@ public class Main {
 					int column_movement = 0;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
-					// runIntoWall (user_input,column_snake, row_snake, WALL,
-					// row_movement,column_movement);
-					// creating new object of snake, to check if any further altering of map is
-					// needed based on this change in position.
-
 				}
 
 				if (userInput.equalsIgnoreCase("s")) {
@@ -74,12 +60,8 @@ public class Main {
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
 
-					// creating new object of snake, to check if any further altering of map is
-					// needed based on this change in position.
-					// runIntoWall (user_input,column_snake, row_snake, WALL,
-					// row_movement,column_movement);
-
 				}
+				// continues game if pellets are still in game
 				if (mazeCreation.ifVictory() == false) {
 					return;
 				}
@@ -102,17 +84,13 @@ public class Main {
 		System.out.println("Your Input is:" + line + " If invaild please press enter.");
 
 		// this loop infinitely loops the wrong user input game
-
 		while (line != "") {
 			line = inp.nextLine();
 			if (line != "") {
-				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
-																							// existing string and
-																							// displays result
+				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to existing string to displays result
 			}
 		}
 		while (loopOfGame == true) {
-
 			// Exit the while loop if !(line == "easy" )
 
 			while (!(line.equalsIgnoreCase("easy"))) {
@@ -121,9 +99,7 @@ public class Main {
 				line = line.toLowerCase().trim();
 				if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium")
 						|| line.equalsIgnoreCase("hard"))) {
-					System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
-																								// existing string and
-																								// displays result
+					System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to existing string and displays result
 				}
 
 				if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
@@ -142,6 +118,7 @@ public class Main {
 			snake = new Snake(mazeCreation);
 			mazeCreation.boundary();
 
+			// evaluates if game is lost or won then restarts game
 			try {
 				userInteraction();
 				System.out.println("WINNER");
@@ -151,18 +128,8 @@ public class Main {
 			line = "";
 		}
 	}
-
-	private Scanner inp; // scans user input
-	// these values were alters in the interest of the mazeGenerator class
-
-	private MazeGenerator mazeCreation;
-	private Snake snake;
-	//private ItemGenerator pellets;
-
 	public static void main(String[] args) {
-
 		Main application = new Main();
 		application.start();
 	}
-
 }
