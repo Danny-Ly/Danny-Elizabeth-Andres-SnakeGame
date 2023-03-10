@@ -12,16 +12,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.Node;
 
 /**
  * The class that calls upon MazeGenerator, Rewards and Snake class, to allow
- * all classes to function together properly in unison.
+ * all classes to function together properly in unison. This class also handles 
+ * the GUI screens.
  * 
  * @author Written by Elizabeth, Danny, and Andres.
  *
@@ -31,64 +28,95 @@ public class Main extends Application{
 	private Scanner inp; 
 	private MazeGenerator mazeCreation;
 	private Snake snake;
+	
 
-	private Stage stage;
-	private Scene scene;
-
-	// I got this code to switch the scene from this video from Bro Code.
+	/**
+	 * This method when pressing the start button in the GUI
+	 * will generate and show a difficulty selector scene, 
+	 * with a print in there to show button was pressed in console.
+	 * @param event an action (button) initiates this method.
+	 * @throws IOException
+	 */
+	//Got this section of code to switch the scene from this video from BroCode.
 	// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
 	// code allows for switching of scene.
 	@FXML 
     public void startGameInput(ActionEvent event) throws IOException {
-		System.out.println("Start button pressed (should switch to a difficulty selector scene)");
+		System.out.println("Start button pressed\n");
 		
 		Parent root = FXMLLoader.load(getClass().getResource("DifficultySelector.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-		
+		Stage difficultyStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene difficultyScene = new Scene(root);
+		difficultyStage.setScene(difficultyScene);
+		difficultyStage.show();
 	}
-	
+	/**
+	 * This method when pressing the easy button in the GUI
+	 * will generate and show a display scene, 
+	 * with a print in there to show that button was pressed in console.
+	 * @param event an action (button) initiates this method.
+	 * @throws IOException
+	 */
 	@FXML
     public void easyButtonPressed(ActionEvent event) throws IOException {
-		int difficulty = 0;
+		int difficultylocal = 0;
 		boolean loopOfGame = true;
-		
-		System.out.println("Easy button pressed (should switch to a snake game scene)");
-		
-		Parent root = FXMLLoader.load(getClass().getResource("GameplayDisplay.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-		
 		String line = "easy";
 		
+		System.out.println("Easy button pressed\n");
+		
+		// I also used the code section from BroCode here:
+		//// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
+		Parent root = FXMLLoader.load(getClass().getResource("GameplayDisplay.fxml"));
+		Stage displayStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene displayScene = new Scene(root);
+		displayStage.setScene(displayScene);
+		displayStage.show();
+		
+		//looping of game in console after the GUI to allow for it to repeat.
 		while (loopOfGame == true) {
-
 			if (line.equalsIgnoreCase("easy")) {
-				difficulty = 0;
+				difficultylocal = 0;
 				}
+				
+				System.out.println("_____________");
+				System.out.println("SNAKE MAZE \n");
+				//determines in console difficulty selection after restart.
+				while (!(line.equalsIgnoreCase("easy"))) {
+					System.out.println("Select difficulty:\n easy \n medium \n hard");
+					line = inp.nextLine();
+					line = line.toLowerCase().trim();
+					if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium")
+							|| line.equalsIgnoreCase("hard"))) {
+						System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to existing string and displays result
+					}
+		
+					if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
+						difficultylocal = 1;
+						System.out.println("This Version is still in progress");
+					}
+				}
+				
+			// if selection is easy then allow for the generation of maze with 
+			// difficultylocal at 0.
+			if (line.equalsIgnoreCase("easy")) {
+				difficultylocal = 0;
 				// generation of the MazeGenerator and printing of maze
-				mazeCreation = new MazeGenerator(difficulty);
+				mazeCreation = new MazeGenerator(difficultylocal);
 				snake = new Snake(mazeCreation);
 				mazeCreation.boundary();
-	
-				try {
-					userInteraction();
-					System.out.println("WINNER");
-					System.out.println("Restarted game on EASY: ");
-				} catch (RuntimeException ERROR) {
-					System.out.println("GAME OVER");
-					System.out.println("Restarted game on EASY: ");
-				}
-				line = "";
 			}
-		
+			// run through userInteraction method, if RuntimeException then print
+			// GAMEOVER in console.
+			try {
+				userInteraction();
+				System.out.println("WINNER");
+			} catch (RuntimeException ERROR) {
+				System.out.println("GAME OVER");
+			}
+			line = "";		
 		}
-	
-	
+	}
 	
 	/**
 	 * This handles when the user enters WASD, will handle these four cases of
@@ -114,63 +142,64 @@ public class Main extends Application{
 					mazeCreation.boundary();
 				}
 				
-				if (userInput.equalsIgnoreCase("a")) {
+				else if (userInput.equalsIgnoreCase("a")) {
 					int row_movement = 0;
 					int column_movement = -1;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
 				}
 
-				if (userInput.equalsIgnoreCase("w")) {
+				else if (userInput.equalsIgnoreCase("w")) {
 					int row_movement = -1;
 					int column_movement = 0;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
 				}
 
-				if (userInput.equalsIgnoreCase("s")) {
+				else if (userInput.equalsIgnoreCase("s")) {
 					int row_movement = 1;
 					int column_movement = 0;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
-
+				}
+				// if the input is invalid, re-prompts user to input correct. 
+				else {
+					System.out.println("Please input (w,a,s,d)");
+					
 				}
 				// continues game if pellets are still in game
 				if (mazeCreation.ifVictory() == false) {
 					return;
 				}
+			
 			}
 		}
 	}
 
 	/**
-	 * This handles user input of when the program is first run, this is where the
-	 * difficulty us chosen, that will impact how the maze is created
+	 * This handles user input of when the program is first run, this will initially
+	 * make a SnakeGameTitle scene for the GUI. 
 	 */
-	public void start(Stage primaryStage) {
-		int difficultylocal = 0;
-		boolean loopOfGame = true;
+	public void start(Stage startStage) {
 		
-		// from the creating GUI using JavaFX demos
+		// from the creating GUI using JavaFX demos on D2L (CPSC 219 WINTER 2023)
 		// generates the initial GUI scene
-		
 		try {
-			//BorderPane root = new BorderPane();
-			// from demo 2 (adding a FXML document to the project)
+			// from demo 2 of CPSC 216 D2L SHELL (adding a FXML document to the project)
 			FXMLLoader loader = new FXMLLoader();
-			VBox root = loader.load(new FileInputStream("src/application/SnakeGameTitle.fxml"));
+			Parent root = loader.load(new FileInputStream("src/application/SnakeGameTitle.fxml"));
 			
-			Scene scene = new Scene(root,1000,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Snake Game");
-			primaryStage.show();
+			Scene startScene = new Scene(root,400,400);
+			startScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			startStage.setScene(startScene);
+			startStage.setTitle("Snake Game");
+			startStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		System.out.println("__________________");
-		System.out.println("Refer to GUI:");
+		System.out.println("Refer to GUI.");
 	}
 
 	
