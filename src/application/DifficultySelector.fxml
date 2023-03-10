@@ -19,7 +19,7 @@
       </HBox>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="easyButtonPressed" mnemonicParsing="false" onAction="#easyButtonPressed" text="Easy" />
+            <Button mnemonicParsing="false" onAction="#easyButtonPressed" text="Easy" />
          </children>
       </HBox>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">

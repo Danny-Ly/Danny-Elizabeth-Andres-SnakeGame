@@ -2,6 +2,10 @@ package application;
 
 import java.util.Random;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+
 /**
  * This class is used in generating, customizing and creating a visual-like maze
  * appearance that user can visually see change according to user input.
@@ -10,6 +14,9 @@ import java.util.Random;
  *
  */
 public class MazeGenerator {
+	@FXML
+	private Label displayMaze;
+	
 	// Initializing/declaring variables that will be used in the creation,
 	// And customization of the maze
 	private static final char WALL = 30000;
@@ -114,16 +121,19 @@ public class MazeGenerator {
 	public void boundary() {
 		// looping through entire array changing each element into 1 of the four
 		// possible options.
+		
 		for (int i = 0; i < maze.length; i++) {
-			for (int j = 0; j < maze[i].length; j++) {
+			for (int j = 0; j < maze [i].length; j++) {
 				int[] locationarray = new int[2];
 				locationarray[0] = i;
 				locationarray[1] = j;
 
 				if (maze[i][j] != null) {
 					maze[i][j].printItem();
+			
 				} else
 					System.out.print(" ");
+					//displayMaze.setText(" ");
 
 				// else if (maze[i][j]== (int)maze[i][j]) {
 				// if (maze [i][j] != 0) {

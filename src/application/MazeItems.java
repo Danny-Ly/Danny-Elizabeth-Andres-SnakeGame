@@ -1,5 +1,10 @@
 package application;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+
+
 public interface MazeItems {
 
 	public void printItem();
@@ -11,8 +16,12 @@ public interface MazeItems {
 }
 
 class Bombs implements MazeItems {
+	@FXML
+	private Label displayMaze;
+	
 	public void printItem() {
 		System.out.print("@");
+		//displayMaze.setText("@");
 
 	}
 
@@ -26,8 +35,12 @@ class Bombs implements MazeItems {
 }
 
 class Pellets implements MazeItems {
+	@FXML
+	private Label displayMaze;
+	
 	public void printItem() {
 		System.out.print(".");
+		//displayMaze.setText(".");
 	}
 
 	public void eat(Snake snake, MazeGenerator generator) {
@@ -40,12 +53,16 @@ class Pellets implements MazeItems {
 }
 
 class Wall implements MazeItems {
+	@FXML
+	private Label displayMaze;
+	
 	public boolean isWall() {
 		return true;
 	}
 
 	public void printItem() {
 		System.out.print("#");
+		//displayMaze.setText("#");
 	}
 
 	public void eat(Snake snake, MazeGenerator generator) {
@@ -55,6 +72,9 @@ class Wall implements MazeItems {
 }
 
 class SnakeSegment implements MazeItems {
+	@FXML
+	private Label displayMaze;
+	
 	int row;
 	int column;
 
@@ -70,6 +90,7 @@ class SnakeSegment implements MazeItems {
 
 	public void printItem() {
 		System.out.print("o");
+		//displayMaze.setText("o");
 	}
 
 	public void eat(Snake snake, MazeGenerator generator) {

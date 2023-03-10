@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -27,8 +28,11 @@ import javafx.scene.Node;
  *
  */
 public class Main extends Application{
+	@FXML
+	private Label displayMaze;
 	
-	private Stage stage;
+	
+	private Stage mainStage;
 	private Scene scene;
 	private Parent root;
 	
@@ -40,12 +44,14 @@ public class Main extends Application{
 		System.out.println("Start button pressed (should switch to a difficulty selector scene)");
 		
 		Parent root = FXMLLoader.load(getClass().getResource("DifficultySelector.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
+		mainStage.setScene(scene);
+		mainStage.show();
 		
 	}
+	
+	
 	
 	@FXML
     public void easyButtonPressed(ActionEvent event) throws IOException {
@@ -55,12 +61,14 @@ public class Main extends Application{
 		System.out.println("Easy button pressed (should switch to a snake game scene)");
 		
 		Parent root = FXMLLoader.load(getClass().getResource("GameplayDisplay.fxml"));
-		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
+		mainStage.setScene(scene);
+		mainStage.show();
 		
 		String line = "easy";
+		//testing
+		//displayMaze.setText("Testing complete");
 		
 		while (loopOfGame == true) {
 
