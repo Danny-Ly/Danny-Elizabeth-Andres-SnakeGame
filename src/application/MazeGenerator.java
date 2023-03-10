@@ -58,6 +58,7 @@ public class MazeGenerator {
 	 * @return true if there is a wall in location, false otherwise.
 	 */
 	public boolean wallHere(int[] location) {
+		
 		if (maze[location[0]][location[1]] != null) {
 
 			if (maze[location[0]][location[1]].isWall()) {

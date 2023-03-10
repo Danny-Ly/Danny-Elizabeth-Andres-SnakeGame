@@ -91,6 +91,7 @@ public class Main extends Application{
 		mainStage.show();
 	} 
 	
+
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -105,6 +106,9 @@ public class Main extends Application{
 			FXMLLoader loader = new FXMLLoader();
 			VBox root = loader.load(new FileInputStream("src/application/SnakeGameTitle.fxml"));
 			Scene mainScene = new Scene(root,1000,400);
+			//from demo 2 of GUI lecture
+//			MazeGenerator controller = (MazeGenerator)loader.getController();
+//			controller.gameStage = primaryStage;
 			mainScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("Snake Game");
@@ -184,7 +188,8 @@ public class Main extends Application{
 				
 				if (mazeCreation.ifVictory() == false) {
 					System.out.println("victory");
-					//start(Stage primaryStage
+					//termination of program
+					System.exit(0);
 					return;
 					
 					
