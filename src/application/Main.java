@@ -37,7 +37,7 @@ public class Main extends Application{
 	 * @param event an action (button) initiates this method.
 	 * @throws IOException
 	 */
-	//Got this section of code to switch the scene from this video from BroCode.
+	//Got this section of code (also syntax) to switch the scene from this video from BroCode.
 	// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
 	// code allows for switching of scene.
 	@FXML 
@@ -114,7 +114,8 @@ public class Main extends Application{
 			} catch (RuntimeException ERROR) {
 				System.out.println("GAME OVER");
 			}
-			line = "";		
+			
+			line = "";
 		}
 	}
 	
@@ -134,7 +135,7 @@ public class Main extends Application{
 
 				// there is the input of a(right), d(left), w(up), and s(down)
 				// that call the snake class for the movement of the snake
-				// call mazecreation for maze to generate
+				// call mazeCreation for maze to generate
 				if (userInput.equalsIgnoreCase("d")) {
 					int row_movement = 0;
 					int column_movement = 1;
@@ -183,12 +184,11 @@ public class Main extends Application{
 	public void start(Stage startStage) {
 		
 		// from the creating GUI using JavaFX demos on D2L (CPSC 219 WINTER 2023)
-		// generates the initial GUI scene
+		// this generates the initial GUI scene
 		try {
 			// from demo 2 of CPSC 216 D2L SHELL (adding a FXML document to the project)
 			FXMLLoader loader = new FXMLLoader();
 			Parent root = loader.load(new FileInputStream("src/application/SnakeGameTitle.fxml"));
-			
 			Scene startScene = new Scene(root,400,400);
 			startScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			startStage.setScene(startScene);
@@ -204,7 +204,7 @@ public class Main extends Application{
 
 	
 	public static void main(String[] args) {
-		// got from the demo's from D@L for launch(args)
+		// got from the demo's from D2L CPSC 219 for launch(args); as it was the code under main.
 		launch(args);
 	}
 }
