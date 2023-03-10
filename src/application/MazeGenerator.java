@@ -1,155 +1,157 @@
 package application;
-import java.util.Random;
-
 /**
- * This class is used in generating, customizing and creating a visual-like maze appearance 
- * that user can visually see change according to user input.
+ * This class is used in generating, customizing and creating a visual-like maze
+ * appearance that user can visually see change according to user input.
+ * 
  * @author Written by Andres, assisted and co-written by Elizabeth and Danny.
  *
  */
 public class MazeGenerator {
-	// Initializing/declaring variables that will be used in the creation, 
+	// Initializing/declaring variables that will be used in the class
 	// And customization of the maze
-	public static final char WALL = 30000;
-	public static int EMPTY = 0;
-	public static int SNAKE = 1; 
-	public static char PELLET = 10000;
-	int[][] maze;
-	Rewards pellets;
-	int difficulty = 0;
-	int numberOfobstactle = 0;
-	int numberOfPellets = 0;
-	Random randomvalue = new Random();
-	// int counter = 0;
+	private MazeItems[][] maze;
+	private ItemGenerator item;
+	private int difficulty;
+	private BombGenerator bomb;
+	private PelletGenerator pellet;
 	
-		/**
-		 * Constructor for MazeGenerator class, that creates a new 10 by 20 array 
-		 * that behaves as our maze
-		 * @param difficuty_paramter an integer that represents the difficulty the maze has
-		 */
-		public MazeGenerator(int difficuty_paramter){
-			
-			difficulty = difficuty_paramter;
-			// all difficulties generate specific size array
-			if (difficulty >= 0) {
-				maze = new int[10][20];
-			}
-			obstacles(); // generates the obstacles the maze needs.
-			
+	/**
+	 * gets the current difficulty of the game.
+	 * @return the value of difficulty
+	 */
+	public int getdifficulty() {
+		return this.difficulty;
+	}
+	
+	/**
+	 * sets the game difficulty.
+	 * @param value desired difficulty user wants to play in
+	 * @return the value of difficulty
+	 */
+	public int setdifficulty(int value) {
+		difficulty = value;
+		return this.difficulty;
+	}
+	
+	/**
+	 * Constructor for MazeGenerator class, that creates a new 10 by 20 array that
+	 * behaves as our maze
+	 * 
+	 * @param difficuty_paramter an integer that represents the difficulty the maze
+	 *                           has
+	 */
+	public MazeGenerator( int difficulty_parameter) {
+		difficulty = difficulty_parameter;
+		// all difficulties generate specific size array
+		if (difficulty >= 0) {
+			maze = new MazeItems[10][20];
 		}
-		/**
-		 * Checks whether there is a wall in the specific location in the array.
-		 * @param location an array containing the x and y coordinate of the location we 
-		 * want to check.
-		 * @return true if there is a wall in location, false otherwise.
-		 */
-		public boolean wallHere(int[] location){
-			if (maze[location[0]][location[1]] == WALL) {
-				return true;
-			}
-			else {
-				return false;
-			}	
-			
-		}
-		
-		/**
-		 * Altering the created 10 by 20 array into respective values to act like a maze.
-		 */
-		public void obstacles() {
-			/*
-			 * Changing all initial values of the maze into empty spots.
-			 */
-			for(int i=0; i<maze.length; i++) {
-				for(int j=0; j <maze[i].length; j++) {
-					maze[i][j]= EMPTY;
-				}
-			}
-			// changes top row,and bottom row of maze into walls
-			for (int y_axis =0; y_axis < 20; y_axis++) {
-				maze[0][y_axis]= WALL;
-				maze[9][y_axis] = WALL;
-			}
-			// changes first column, and last column of maze into walls
-			for (int x_axis = 0; x_axis < 10; x_axis++) {
-				maze[x_axis][0] = WALL;
-				maze[x_axis][19] = WALL;
-			}
-			/*
-			 * Randomly creating 20 or less obstacle within maze 
-			 */
-			while (numberOfobstactle <20) {
-				int x = randomvalue.nextInt(10) ;
-				int y = randomvalue.nextInt(16)+2 ;
-				if (x==2 || x==5 || x==7) {
-					maze[x][y]= WALL;
-					numberOfobstactle++;
-				}
-			}
-			// adding constant beginning location of snake and Walls of every maze.
-			maze [4][9] = SNAKE;
-			maze [5][9] = WALL;
-			maze [5][8] = WALL;
-			maze [5][10] = WALL;
-			maze [4][8] = WALL;
-			maze [4][10] = WALL;
-			
-			pellets = new Rewards(numberOfPellets);
-			pellets.randomPellet(maze);
-			for(int i=0; i<maze.length; i++) {
-				for(int j=0; j <maze[i].length; j++) {
-					//allows for the maze to be the same as the maze with pellets
-					maze[i][j] = pellets.tempMaze[i][j];
-				}
-			}
-			
-			/*
-			for(int i=0; i<maze.length; i++) {
-				for(int j=0; j <maze[i].length; j++) {
-					System.out.print(maze[i][j] + " ");
-				}
-				System.out.println();
-				
-			}
-			*/
+		obstacles(); // generates the obstacles the maze needs.
+	}
 
-		}
-		
-		/**
-		 * Changing the numeric values altered into a visual representation of each 
-		 * @param rewards generated from rewards class to represent the pellets in array.
-		 */
-		public void boundary(Rewards rewards){
-			// looping through entire array changing each element into 1 of the four possible options.
-			for(int i=0; i<maze.length; i++) {
-				for(int j=0; j <maze[i].length; j++) {
-					int[] locationarray = new int[2];
-					locationarray[0]=i;
-					locationarray[1]= j;
-					if (maze [i][j] == WALL) {	
-						System.out.print("#");
-					}
-					else if (/*rewards.temp*/maze[i][j] == PELLET ){
-						// make this maze equal to pellet.
-					//     maze[i][j] = PELLET;
-						System.out.print(".");
-						
-					}
-					else if (maze[i][j]== EMPTY) {
-						System.out.print(" ");
-						//counter += 1;
-					}	
-					else if (maze[i][j]== (int)maze[i][j]) {
-						if (maze [i][j] != 0) {
-							System.out.print("O");	
-						}
-					
-					}
-				}	
-			
-				System.out.println();
+	/**
+	 * Checks whether there is a wall in the specific location in the array.
+	 * 
+	 * @param location an array containing the x and y coordinate of the location we
+	 *                 want to check.
+	 * @return true if there is a wall in location, false otherwise.
+	 */
+	public boolean wallHere(int[] location) {
+		if (maze[location[0]][location[1]] != null) {
+			if (maze[location[0]][location[1]].isWall()) {
+				return true;
+			} else {
+				return false;
 			}
 		}
-		
+		return false;
+	}
+
+	/**
+	 * clears walls and regenerates random walls in maze
+	 */
+	public void regnerateMaze() {
+		item = new ItemGenerator();
+		item.clearWalls(maze);
+		item.randomWall(maze);
 
 	}
+	
+	/**
+	 * clears old maze if it exist and generates random walls, random pellets, and
+	 * random bombs.
+	 */
+	public void obstacles() {
+
+		item = new ItemGenerator();
+		item.clearMaze(maze);
+		item.randomWall(maze);
+		
+		bomb = new BombGenerator();
+		bomb.randomBomb(maze);
+		
+		pellet = new PelletGenerator();
+		pellet.randomPellet(maze);
+	}
+	
+	/**
+	 * checks to see if pellets are in maze
+	 * 
+	 * @return true is there is a pellet and false if not
+	 */
+	public boolean ifVictory() {
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[i].length; j++) {
+				if (maze[i][j] instanceof Pellets) {
+					return true;
+				}
+			}
+		}
+		// bring to main
+		return false;
+	}
+
+	/**
+	 * Creates the initial maze
+	 * 
+	 */
+	public void boundary() {
+		// looping through entire array changing each element into 1 of the four
+		// possible options.
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[i].length; j++) {
+				int[] locationarray = new int[2];
+				locationarray[0] = i;
+				locationarray[1] = j;
+				if (maze[i][j] != null) {
+					maze[i][j].printItem();
+				} else
+					System.out.print(" ");
+			}
+			System.out.println();
+		}
+	}
+	
+	/**
+	 * adds new snake segment to maze
+	 * @param snakeSeg the old location of the snake segment
+	 * @return the previos/old item location.
+	 */
+	public MazeItems add(SnakeSegment snakeSeg) {
+		int[] arrayOfSnakeLocation = snakeSeg.location();
+		// old snake location saved in variable
+		MazeItems oldItem = maze[arrayOfSnakeLocation[0]][arrayOfSnakeLocation[1]];
+		// update snake position in maze array
+		maze[arrayOfSnakeLocation[0]][arrayOfSnakeLocation[1]] = snakeSeg;
+		return oldItem;
+	}
+	
+	/**
+	 * removes old snake segment from maze 
+	 * @param oldTail the old snake segment of the maze
+	 */
+	public void remove(SnakeSegment oldTail) {
+		int[] arrayOfSnakeLocation = oldTail.location();
+		maze[arrayOfSnakeLocation[0]][arrayOfSnakeLocation[1]] = null;
+	}
+}
