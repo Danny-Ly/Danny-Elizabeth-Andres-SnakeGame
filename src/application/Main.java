@@ -31,11 +31,6 @@ public class Main extends Application{
 	@FXML
 	private Label displayMaze;
 	
-	
-	private Stage mainStage;
-	private Scene scene;
-	private Parent root;
-	
 	// I got this code to switch the scene from this video from Bro Code.
 	// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
 	// code allows for switching of scene.
@@ -44,53 +39,57 @@ public class Main extends Application{
 		System.out.println("Start button pressed (should switch to a difficulty selector scene)");
 		
 		Parent root = FXMLLoader.load(getClass().getResource("DifficultySelector.fxml"));
-		mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		mainStage.setScene(scene);
-		mainStage.show();
+		Stage difficultyStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		Scene difficultyScene = new Scene(root);
+		difficultyStage.setScene(difficultyScene);
+		difficultyStage.show();
 		
 	}
 	
+	void getInputValue(TextField userInputtedValue) {
+		String line = "easy";
+		difficulty = 0;
+		String enteredUserAction = "";
 	
+		enteredUserAction = userInputtedValue.getText();
+		System.out.println(enteredUserAction);
+		//userInteraction(enteredUserAction);
+		try {
+			userInteraction(enteredUserAction);
+			//System.out.println("WINNER");
+		} catch (RuntimeException ERROR) {
+			System.out.println("GAME OVER");
+		}
+		line = "";
+	
+	}
 	
 	@FXML
     public void easyButtonPressed(ActionEvent event) throws IOException {
 		difficulty = 0;
 		boolean loopOfGame = true;
 		
+		
 		System.out.println("Easy button pressed (should switch to a snake game scene)");
 		
-		Parent root = FXMLLoader.load(getClass().getResource("GameplayDisplay.fxml"));
-		mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		mainStage.setScene(scene);
+		mazeCreation = new MazeGenerator(difficulty);
+		snake = new Snake(mazeCreation);
+		mazeCreation.boundary();
+		
+		VBox allRows = new VBox();
+		TextField userInputtedValue = new TextField();
+		Button userInputSnake = new Button ("Input");
+		
+	
+		userInputSnake.setOnAction(userInputAction -> getInputValue(userInputtedValue));
+		
+		allRows.getChildren().addAll(userInputtedValue,userInputSnake);
+		
+		Scene gameScene = new Scene(allRows);
+		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		mainStage.setScene(gameScene);
 		mainStage.show();
-		
-		String line = "easy";
-		//testing
-		//displayMaze.setText("Testing complete");
-		
-		while (loopOfGame == true) {
-
-			if (line.equalsIgnoreCase("easy")) {
-				difficulty = 0;
-			}
-			// generation of the MazeGenerator and printing of maze
-			mazeCreation = new MazeGenerator(difficulty);
-			snake = new Snake(mazeCreation);
-			mazeCreation.boundary();
-
-			try {
-				userInteraction();
-				System.out.println("WINNER");
-			} catch (RuntimeException ERROR) {
-				System.out.println("GAME OVER");
-			}
-			line = "";
-		}
-	}
-	
-	
+	} 
 	
 	
 	@Override
@@ -102,14 +101,12 @@ public class Main extends Application{
 		// generates the initial GUI scene
 		
 		try {
-			//BorderPane root = new BorderPane();
 			// from demo 2 (adding a FXML document to the project)
 			FXMLLoader loader = new FXMLLoader();
 			VBox root = loader.load(new FileInputStream("src/application/SnakeGameTitle.fxml"));
-			
-			Scene scene = new Scene(root,1000,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
+			Scene mainScene = new Scene(root,1000,400);
+			mainScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("Snake Game");
 			primaryStage.show();
 		} catch(Exception e) {
@@ -121,60 +118,6 @@ public class Main extends Application{
 		System.out.println("Press Enter To Start");
 		
 
-		
-//		inp = new Scanner(System.in); // scans user input
-//		String line = inp.nextLine(); // creates a string using the last user input
-//		System.out.println("Your Input is:" + line + " If invaild please press enter.");
-		
-
-		// this loop infinitely loops the wrong user input game
-
-//		while (line != "") {
-//			line = inp.nextLine();
-//			if (line != "") {
-//				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
-//																							// existing string and
-//																							// displays result
-//			}
-//		}
-//		while (loopOfGame == true) {
-//
-//			// Exit the while loop if !(line == "easy" )
-//
-//			while (!(line.equalsIgnoreCase("easy"))) {
-//				System.out.println("Select difficulty:\n easy \n medium \n hard");
-//				line = inp.nextLine();
-//				line = line.toLowerCase().trim();
-//				if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium")
-//						|| line.equalsIgnoreCase("hard"))) {
-//					System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
-//																								// existing string and
-//																								// displays result
-//				}
-//
-//				if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
-//					difficulty = 1;
-//					System.out.println("This Version is still in progress");
-//
-//				}
-//			}
-//
-//			if (line.equalsIgnoreCase("easy")) {
-//				difficulty = 0;
-//			}
-//			// generation of the MazeGenerator and printing of maze
-//			mazeCreation = new MazeGenerator(difficulty);
-//			snake = new Snake(mazeCreation);
-//			mazeCreation.boundary();
-//
-//			try {
-//				userInteraction();
-//				System.out.println("WINNER");
-//			} catch (RuntimeException ERROR) {
-//				System.out.println("GAME OVER");
-//			}
-//			line = "";
-//		}
 	}
 
 	// for the above, this now extends application, do we need to note this?
@@ -185,75 +128,71 @@ public class Main extends Application{
 	 * different inputs, and will call Snake class to do their certain action, that
 	 * is needed.
 	 */
-	public void userInteraction() {
-		String userInput = "";
+	public void userInteraction(String enteredUserAction) {
+		//String userInput = "";
 		if (difficulty == 0) {
-			while (!(userInput.equalsIgnoreCase("quit"))) {
-				System.out.println("Make a move");
-				inp = new Scanner(System.in);
-				userInput = inp.nextLine();
+//			while (!(enteredUserAction.equalsIgnoreCase("quit"))) {
+			
 
 				// there is the input of a(right), d(left), w(up), and s(down)
 				// that call the snake class to allow for it to function.
-				if (userInput.equalsIgnoreCase("d")) {
+				
+				if (enteredUserAction.equalsIgnoreCase("d")) {
 					int row_movement = 0;
 					int column_movement = 1;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
-					// creating new object of snake, to check if any
-					// further altering of map is needed based on this change in position.
-
-					// instance of Snake class was called to deal with
-					// running into a wall or itself, extending when eating a pellet,
-					// and the movement of the snake itself.
 				}
-				if (userInput.equalsIgnoreCase("a")) {
+
+				
+				if (enteredUserAction.equalsIgnoreCase("a")) {
 					int row_movement = 0;
 					int column_movement = -1;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
-
-					// userInput = runIntoWall (user_input,column_snake, row_snake, WALL,
-					// row_movement,column_movement);
-
-					// creating new object of snake, to check if any further altering of map is
-					// needed based on this change in position.
-
 				}
 
-				if (userInput.equalsIgnoreCase("w")) {
+
+				
+				if (enteredUserAction.equalsIgnoreCase("w")) {
 					int row_movement = -1;
 					int column_movement = 0;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
+				
+	
 					// runIntoWall (user_input,column_snake, row_snake, WALL,
 					// row_movement,column_movement);
 					// creating new object of snake, to check if any further altering of map is
 					// needed based on this change in position.
-
+					
 				}
-
-				if (userInput.equalsIgnoreCase("s")) {
+				if (enteredUserAction.equalsIgnoreCase("s")) {
 					int row_movement = 1;
 					int column_movement = 0;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
+				}
+
 
 					// creating new object of snake, to check if any further altering of map is
 					// needed based on this change in position.
 					// runIntoWall (user_input,column_snake, row_snake, WALL,
 					// row_movement,column_movement);
 
-				}
+//				}
+				
 				if (mazeCreation.ifVictory() == false) {
+					System.out.println("victory");
+					//start(Stage primaryStage
 					return;
 					
 					
-					
+				
 				}
 			}
 		}
-	}
+//	}
 	
 	
 	/**
