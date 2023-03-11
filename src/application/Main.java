@@ -55,31 +55,33 @@ public class Main extends Application{
 		System.out.println(enteredUserAction);
 		//userInteraction(enteredUserAction);
 		
-//		while (!(line.equalsIgnoreCase("easy"))) {
-//			System.out.println("Select difficulty:\n easy \n medium \n hard");
-//			line = inp.nextLine();
-//			line = line.toLowerCase().trim();
-//			if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium")
-//					|| line.equalsIgnoreCase("hard"))) {
-//				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
-//																							// existing string and
-//																							// displays result
-//			}
-//
-//			if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
-//				difficulty = 1;
-//				System.out.println("This Version is still in progress");
-//
-//			}
-//		}
-//
-//		if (line.equalsIgnoreCase("easy")) {
-//			difficulty = 0;
-//		}
-//		// generation of the MazeGenerator and printing of maze
-//		mazeCreation = new MazeGenerator(difficulty);
-//		snake = new Snake(mazeCreation);
-//		mazeCreation.boundary();
+		// change scanner to string and change it whenever for loop to work 
+		// if button pressed, assign this to b, if b then execute this loop, if not b execute another loop
+		while (!(line.equalsIgnoreCase("easy"))) {
+			System.out.println("Select difficulty:\n easy \n medium \n hard");
+			line = inp.nextLine();
+			line = line.toLowerCase().trim();
+			if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium")
+					|| line.equalsIgnoreCase("hard"))) {
+				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
+																							// existing string and
+																							// displays result
+			}
+
+			if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
+				difficulty = 1;
+				System.out.println("This Version is still in progress");
+
+			}
+		}
+
+		if (line.equalsIgnoreCase("easy")) {
+			difficulty = 0;
+		}
+		// generation of the MazeGenerator and printing of maze
+		mazeCreation = new MazeGenerator(difficulty);
+		snake = new Snake(mazeCreation);
+		mazeCreation.boundary();
 		
 		try {
 			userInteraction(enteredUserAction);
