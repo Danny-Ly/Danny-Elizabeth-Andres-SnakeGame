@@ -30,6 +30,8 @@ import javafx.scene.Node;
 public class Main extends Application{
 	@FXML
 	private Label displayMaze;
+//	@FXML
+//	private Stage difficultyStage;
 	
 	// I got this code to switch the scene from this video from Bro Code.
 	// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
@@ -92,6 +94,7 @@ public class Main extends Application{
 		} catch (RuntimeException ERROR) {
 			System.out.println("GAME OVER");
 			start(mainStage);
+//			difficultyStage.show();
 			
 		}
 		line = "";
@@ -228,7 +231,7 @@ public class Main extends Application{
 					System.out.println("WINNER");
 				
 					//return;
-
+					//difficultyStage.show();
 					start(mainStage);
 					
 					
