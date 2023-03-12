@@ -29,6 +29,7 @@ public interface MazeItems {
 	public boolean isWall();
 }
 
+
 /*
  * Bombs class will print the desired output Regenerate maze if snake touches
  * the bomb and
@@ -70,6 +71,7 @@ class Pellets implements MazeItems {
  * throw and exception (caught in main) if the snake runs into the wall
  */
 class Wall implements MazeItems {
+	
 	public boolean isWall() {
 		return true;
 	}
