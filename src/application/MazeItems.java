@@ -17,7 +17,7 @@ public interface MazeItems {
 
 class Bombs implements MazeItems {
 	@FXML
-	private Label displayMaze;
+	//private Label displayMaze;
 	
 	public void printItem() {
 		System.out.print("@");

@@ -46,8 +46,8 @@ public class Main extends Application{
 		
 	}
 	
-	void getInputValue(TextField userInputtedValue) {
-		String line = "easy";
+	void getInputValue(TextField userInputtedValue, Stage mainStage) {
+		String line = "something";
 		difficulty = 0;
 		String enteredUserAction = "";
 	
@@ -57,37 +57,41 @@ public class Main extends Application{
 		
 		// change scanner to string and change it whenever for loop to work 
 		// if button pressed, assign this to b, if b then execute this loop, if not b execute another loop
-		while (!(line.equalsIgnoreCase("easy"))) {
-			System.out.println("Select difficulty:\n easy \n medium \n hard");
-			line = inp.nextLine();
-			line = line.toLowerCase().trim();
-			if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium")
-					|| line.equalsIgnoreCase("hard"))) {
-				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
-																							// existing string and
-																							// displays result
-			}
+		
+//		while (!(line.equalsIgnoreCase("easy"))) {
+////			System.out.println("Select difficulty:\n easy \n medium \n hard");
+////			line = inp.nextLine();
+////			line = line.toLowerCase().trim();
+//			if (!(line.equalsIgnoreCase("easy") || line.equalsIgnoreCase("medium")
+//					|| line.equalsIgnoreCase("hard"))) {
+//				System.out.println("Please enter a vaild user input. You typed: " + line); // adds user input to
+//																							// existing string and
+//																							// displays result
+//			}
+//
+//			if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
+//				difficulty = 1;
+//				System.out.println("This Version is still in progress");
+//
+//			}
+//			//if (line.equalsIgnoreCase("som"))
+//		}
 
-			if (line.equalsIgnoreCase("medium") || line.equalsIgnoreCase("hard")) {
-				difficulty = 1;
-				System.out.println("This Version is still in progress");
-
-			}
-		}
-
-		if (line.equalsIgnoreCase("easy")) {
+		if (line.equalsIgnoreCase("something")) {
 			difficulty = 0;
 		}
 		// generation of the MazeGenerator and printing of maze
-		mazeCreation = new MazeGenerator(difficulty);
-		snake = new Snake(mazeCreation);
-		mazeCreation.boundary();
+		
+		
+//		mazeCreation = new MazeGenerator(difficulty);
+//		snake = new Snake(mazeCreation);
+//		mazeCreation.boundary();
 		
 		try {
-			userInteraction(enteredUserAction);
-			//System.out.println("WINNER");
+			userInteraction(enteredUserAction,mainStage);
 		} catch (RuntimeException ERROR) {
 			System.out.println("GAME OVER");
+			
 		}
 		line = "";
 	
@@ -106,17 +110,22 @@ public class Main extends Application{
 		mazeCreation.boundary();
 		
 		VBox allRows = new VBox();
+		Label displayMaze = new Label("Text Label");
+		displayMaze.setText("some text");
 		TextField userInputtedValue = new TextField();
+		
 		Button userInputSnake = new Button ("Input");
 		
-		userInputSnake.setOnAction(userInputAction -> getInputValue(userInputtedValue));
 		
-		allRows.getChildren().addAll(userInputtedValue,userInputSnake);
+		
+		allRows.getChildren().addAll(displayMaze,userInputtedValue,userInputSnake);
 		
 		Scene gameScene = new Scene(allRows);
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		mainStage.setScene(gameScene);
 		mainStage.show();
+		
+		userInputSnake.setOnAction(userInputAction -> getInputValue(userInputtedValue,mainStage));
 	} 
 	
 
@@ -160,7 +169,7 @@ public class Main extends Application{
 	 * different inputs, and will call Snake class to do their certain action, that
 	 * is needed.
 	 */
-	public void userInteraction(String enteredUserAction) {
+	public void userInteraction(String enteredUserAction, Stage mainStage) {
 		//String userInput = "";
 		if (difficulty == 0) {
 //			while (!(enteredUserAction.equalsIgnoreCase("quit"))) {
@@ -215,10 +224,14 @@ public class Main extends Application{
 //				}
 				
 				if (mazeCreation.ifVictory() == false) {
-					System.out.println("victory");
+					System.out.println("WINNER");
 					//termination of program
-					System.exit(0);
-					return;
+					//System.exit(0);
+					//return;
+
+					start(mainStage);
+					
+					
 					
 					
 				

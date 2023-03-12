@@ -96,6 +96,7 @@ public class MazeGenerator {
 			for (int j = 0; j < maze[i].length; j++) {
 
 				if (maze[i][j] instanceof Pellets) {
+					System.out.println(".");
 					return true;
 
 				}
