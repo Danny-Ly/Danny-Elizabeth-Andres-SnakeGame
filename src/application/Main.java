@@ -91,6 +91,7 @@ public class Main extends Application{
 			userInteraction(enteredUserAction,mainStage);
 		} catch (RuntimeException ERROR) {
 			System.out.println("GAME OVER");
+			start(mainStage);
 			
 		}
 		line = "";
@@ -225,8 +226,7 @@ public class Main extends Application{
 				
 				if (mazeCreation.ifVictory() == false) {
 					System.out.println("WINNER");
-					//termination of program
-					//System.exit(0);
+				
 					//return;
 
 					start(mainStage);
