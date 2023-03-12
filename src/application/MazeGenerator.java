@@ -127,6 +127,7 @@ public class MazeGenerator {
 					maze[i][j].printItem();
 				} else
 					System.out.print(" ");
+
 			}
 			System.out.println();
 		}
@@ -135,7 +136,7 @@ public class MazeGenerator {
 	/**
 	 * adds new snake segment to maze
 	 * @param snakeSeg the old location of the snake segment
-	 * @return the previos/old item location.
+	 * @return the previous/old item location.
 	 */
 	public MazeItems add(SnakeSegment snakeSeg) {
 		int[] arrayOfSnakeLocation = snakeSeg.location();

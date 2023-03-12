@@ -1,6 +1,17 @@
 package application;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+
+
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+
+
 
 /**
  * This interface is used to create an array of type Mazeitems.
@@ -68,27 +79,24 @@ class Pellets implements MazeItems {
 	}
 }
 
+
+
+
+
+
+
 /*
  * @return true for if its a wall Wall class will print the desired output and
  * throw and exception (caught in main) if the snake runs into the wall
  */
 class Wall implements MazeItems {
-	String wallPrint = "#";
 	
-	// chatGPT for String type return.
-	public String getString() {
-		String wallPrint = "#";
-		return wallPrint;
-	}
 	public boolean isWall() {
 		return true;
 	}
 	public void printItem() {
 
-		System.out.print(wallPrint);
-//		Controller wallControl = new Controller();
-//		Label displayMaze = wallControl.get();
-		//displayMaze.setText("#");
+		System.out.print("#");
 	}
 	public void eat(Snake snake, MazeGenerator generator) {
 		throw new RuntimeException("SNAKES CAN'T EAT WALLS");
