@@ -12,4 +12,4 @@ A - is left
 S - is down 
 D - is right 
 
-The objective of the game is to collect all the pellets(.) without running into the walls (#). When a pellet is collected the snake will grow. If a wall is hit, a message reading “Game Over” will apear anf you must click the button to return to the main menu. Additionally, if the user eats a bomb(@) the maze walls will regenerate; making the program more diffuclt. If the user successfully completes the level, a message “ WINNER” must click the button to get back to the main menu. 
+The objective of the game is to collect all the pellets(.) without running into the walls (#). When a pellet is collected the snake will grow. If a wall is hit, a message reading “Game Over” will apear and you must click the button to return to the main menu. Additionally, if the user eats a bomb(@) the maze walls will regenerate; making the program more diffuclt. If the user successfully completes the level, a message “ WINNER” must click the button to get back to the main menu. 
