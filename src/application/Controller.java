@@ -145,7 +145,7 @@ public class Controller {
 		displayMaze.setPrefWidth(250);
 		
 		// https://stackoverflow.com/questions/33494052/javafx-redirect-console-output-to-textarea-that-is-created-in-scenebuilder
-		// alot of this code is from the reply of James_D on Nov 3, 2015 on how to redirect console output to a TextArea. 
+		// The 3 lines of code below is from the reply of James_D on Nov 3, 2015 on how to redirect console output to a TextArea. 
 		PrintStream printStream = new PrintStream(new DisplayOfGUIFromConsole(displayMaze), true);
         System.setOut(printStream);
         System.setErr(printStream);
