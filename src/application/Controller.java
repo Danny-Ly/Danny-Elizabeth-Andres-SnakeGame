@@ -1,13 +1,7 @@
 package application;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintStream;
-
-import javafx.application.Platform;
-
-//import application.ConsoleToTextArea.ConsoleOutput;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+
 /**
  * Controls for the FXML files and the scenes, and buttons for the GUI. 
  * 
@@ -171,7 +166,8 @@ public class Controller {
 	} 
 	
 	/**
-	 * Sets the text in the difficulty display to "In development" if medium button is pressed.
+	 * Sets the text in the difficulty display to "In development" 
+	 * if medium button is pressed.
 	 * @param event medium button is pressed
 	 * @throws IOException
 	 */
@@ -187,20 +183,18 @@ public class Controller {
 		 hardErrorLabel.setText("In development.");
 	 }
 	
-
-	
 	/**
-	 * This handles when the user enters WASD, will handle these four cases of
-	 * different inputs, and will call Snake class to do their certain action, that
-	 * is needed.
+	 * Gets the values from the user and then moves the snake according to the inputed value. Also checks if victory,
+	 * if equal to false, then prints "WINNER" and prompts the user to go back to the start method
+	 * in main. 
+	 * @param enteredUserAction This is the TextField value converted to string.
+	 * @param mainStage Stage of GUI.
+	 * @param allRows VBox container.
+	 * @param userInputSnake Button for inputting a value. 
 	 */
 	public void userInteraction(String enteredUserAction,Stage mainStage, VBox allRows, Button userInputSnake) {
 		int difficulty = 0;
-		String userInput = "";
 		if (difficulty == 0) {
-//			while (!(enteredUserAction.equalsIgnoreCase("quit"))) {
-			
-
 				// there is the input of a(right), d(left), w(up), and s(down)
 				// that call the snake class to allow for it to function.
 				
@@ -208,10 +202,8 @@ public class Controller {
 					int row_movement = 0;
 					int column_movement = 1;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
-					mazeCreation.boundary();
-					
+					mazeCreation.boundary();		
 				}
-
 				
 				if (enteredUserAction.equalsIgnoreCase("a")) {
 					int row_movement = 0;
@@ -219,20 +211,12 @@ public class Controller {
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
 				}
-
-
-				
+			
 				if (enteredUserAction.equalsIgnoreCase("w")) {
 					int row_movement = -1;
 					int column_movement = 0;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
-				
-	
-					// runIntoWall (user_input,column_snake, row_snake, WALL,
-					// row_movement,column_movement);
-					// creating new object of snake, to check if any further altering of map is
-					// needed based on this change in position.
 					
 				}
 				if (enteredUserAction.equalsIgnoreCase("s")) {
@@ -241,15 +225,8 @@ public class Controller {
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
 				}
-
-
-					// creating new object of snake, to check if any further altering of map is
-					// needed based on this change in position.
-					// runIntoWall (user_input,column_snake, row_snake, WALL,
-					// row_movement,column_movement);
-
-//				}
 				
+				//if 
 				if (mazeCreation.ifVictory() == false) {
 					System.out.println("WINNER");
 					
@@ -259,13 +236,12 @@ public class Controller {
 					userInputSnake.setVisible(false);
 					
 					Main main = new Main();
-					
 					Button winButton= new Button ("Go Back");
+					
 					allRows.getChildren().add(winButton);
 					// when you win it promps the go back button.
 					// when pressed go back to start method in main.
 					winButton.setOnAction(userInputAction ->main.start(mainStage));
-		
 			}
 		}
 	}
