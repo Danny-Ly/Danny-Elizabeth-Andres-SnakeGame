@@ -68,7 +68,8 @@ class Pellets implements MazeItems {
 
 
 /*
- * @return true for if its a wall Wall class will print the desired output and
+ * @return true for if its a wall Wall class 
+ * will print the desired output and
  * throw and exception (caught in main) if the snake runs into the wall
  */
 class Wall implements MazeItems {

@@ -12,7 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 /**
- * The class that calls upon MazeGenerator, Rewards and Snake class, to allow
+ * The class that calls upon Stage to allow
  * all classes to function together properly in unison. This class also handles 
  * the GUI screens.
  * 
