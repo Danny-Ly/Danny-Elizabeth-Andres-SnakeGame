@@ -1,16 +1,5 @@
 package application;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-
-
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-
 
 
 /**
@@ -78,11 +67,6 @@ class Pellets implements MazeItems {
 		return false;
 	}
 }
-
-
-
-
-
 
 
 /*

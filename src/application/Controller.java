@@ -22,10 +22,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-
+/**
+ * Controls for the FXML files and the scenes, and buttons for the GUI. 
+ * 
+ * @author  Written by Danny, assisted and co-written by Andres and Elizabeth.
+ *
+ */
 public class Controller {
 	// Initializing/declaring variables that will be used in the class
-//	Stage controllerStage;
 	
 	private MazeGenerator mazeCreation;
 	private Snake snake;
@@ -59,7 +63,15 @@ public class Controller {
 		difficultyStage.setScene(difficultyScene);
 		difficultyStage.show();
 	}
-		
+	
+	/**
+	 * Get the value of a TextField and checks it. Then runs the userInteraction. If the Snake runs into a wall or itself,
+	 * then it prints a game over, and allows for user to go back to the main screen. 
+	 * @param userInputtedValue TextField value.
+	 * @param mainStage a stage for GUI.
+	 * @param allRows VBox container.
+	 * @param userInputSnake Button for the input of snake. 
+	 */
 	void getInputValue(TextField userInputtedValue, Stage mainStage, VBox allRows, Button userInputSnake) {
 			String line = "something";
 			int difficulty = 0;
@@ -78,13 +90,7 @@ public class Controller {
 			if (line.equalsIgnoreCase("something")) {
 				difficulty = 0;
 			}
-			// generation of the MazeGenerator and printing of maze
-			
-			
-//			mazeCreation = new MazeGenerator(difficulty);
-//			snake = new Snake(mazeCreation);
-//			mazeCreation.boundary();
-			
+		
 			try {
 				userInteraction(enteredUserAction,mainStage,allRows,userInputSnake);
 			} catch (RuntimeException ERROR) {
@@ -102,11 +108,9 @@ public class Controller {
 				// when you lose it promps the go back button.
 				gameoverButton.setOnAction(userInputAction ->main.start(mainStage));
 				
-				
 			}
 			line = "";
-			
-		
+
 	}
 	
 	
@@ -120,29 +124,15 @@ public class Controller {
 	@FXML
     public void easyButtonPressed(ActionEvent event) throws IOException {
 		int difficultylocal = 0;
-		
-		
+				
 		// I also used the code section from BroCode here:
-		//// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
-		
+		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
 		
 		VBox allRows = new VBox();
 		TextField userInputtedValue = new TextField("");
-		Button userInputSnake = new Button ("Input");
-		
-//		Wall wallItemfornow = new Wall();
-//		String someText = wallItemfornow.getString();
-		
-		
-		//returned label
-//		TextArea displayMaze = getLabel(someText);
-		
-//		PrintStream printStream = new PrintStream(new DisplayOfGUIFromConsole(displayMaze), true);
-		 
+		Button userInputSnake = new Button ("Input"); 
 		TextArea displayMaze = new TextArea("SNAKE GAME \n");
 		
-		
-//		displayMaze.setText("");
 		// set the font so that everything is same size.
 		// this snippet of code was referenced by:
 		// https://docs.oracle.com/javafx/2/text/jfxpub-text.htm on specifically example 8.
@@ -159,7 +149,6 @@ public class Controller {
 		// answered on Oct 12, 2017 by Michael Cenzoprano.
 		displayMaze.setPrefHeight(240);
 		displayMaze.setPrefWidth(250);
-		
 		
 		// https://stackoverflow.com/questions/33494052/javafx-redirect-console-output-to-textarea-that-is-created-in-scenebuilder
 		// alot of this code is from the reply of James_D on Nov 3, 2015 on how to redirect console output to a TextArea. 
@@ -179,13 +168,21 @@ public class Controller {
 		mainStage.show();
 		
 		userInputSnake.setOnAction(userInputAction -> getInputValue(userInputtedValue,mainStage, allRows, userInputSnake));
-
 	} 
 	
+	/**
+	 * Sets the text in the difficulty display to "In development" if medium button is pressed.
+	 * @param event medium button is pressed
+	 * @throws IOException
+	 */
 	 public void mediumButtonPressed(ActionEvent event) throws IOException {
 		 mediumErrorLabel.setText("In development.");
 	 }
-	
+	/**
+	 * Sets the text in the difficulty display to "In development" if hard button is pressed.
+	 * @param event hard button is pressed
+	 * @throws IOException
+	 */
 	 public void hardButtonPressed(ActionEvent event) throws IOException {
 		 hardErrorLabel.setText("In development.");
 	 }
