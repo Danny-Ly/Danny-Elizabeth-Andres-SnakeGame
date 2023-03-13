@@ -39,7 +39,6 @@ public class Controller {
 	 private Label mediumErrorLabel;
 	@FXML
 	 private Label hardErrorLabel;
-	// asked chatGPT on how to return this label (method with return label)
 
 	/**
 	 * This method when pressing the start button in the GUI
@@ -122,9 +121,6 @@ public class Controller {
 	@FXML
     public void easyButtonPressed(ActionEvent event) throws IOException {
 		int difficultylocal = 0;
-				
-		// I also used the code section from BroCode here:
-		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
 		
 		VBox allRows = new VBox();
 		TextField userInputtedValue = new TextField("");
@@ -159,7 +155,8 @@ public class Controller {
 		mazeCreation.boundary();
 		
 		allRows.getChildren().addAll(displayMaze,userInputtedValue,userInputSnake);
-		
+		// I also used the code section from BroCode here:
+		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
 		Scene gameScene = new Scene(allRows);
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		mainStage.setScene(gameScene);
@@ -170,6 +167,7 @@ public class Controller {
 	/**
 	 * Allows for the printing output of the console and it shows this to the TextArea in the GUI.
 	 * (This code was from James_D on stack overflow [refer to the link below])
+	 * https://stackoverflow.com/questions/33494052/javafx-redirect-console-output-to-textarea-that-is-created-in-scenebuilder
 	 */
 	//https://stackoverflow.com/questions/33494052/javafx-redirect-console-output-to-textarea-that-is-created-in-scenebuilder
 	// this code is from the reply of James_D on Nov 3, 2015 on how to redirect console output to a TextArea. 
