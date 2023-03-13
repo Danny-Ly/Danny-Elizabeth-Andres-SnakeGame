@@ -35,8 +35,6 @@ public class Main extends Application{
 			// from demo 2 of CPSC 216 D2L SHELL (adding a FXML document to the project)
 			FXMLLoader loader = new FXMLLoader();
 			Parent root = loader.load(new FileInputStream("src/application/SnakeGameTitle.fxml"));
-//			Controller controller = (Controller)loader.getController();
-//			controller.controllerStage = startStage;
 			Scene startScene = new Scene(root,400,400);
 			startScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			startStage.setScene(startScene);

@@ -1,7 +1,5 @@
 package application;
 
-
-
 /**
  * This interface is used to create an array of type Mazeitems.
  * 
