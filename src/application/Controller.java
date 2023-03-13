@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
 
 import javafx.application.Platform;
@@ -14,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -31,14 +33,11 @@ public class Controller {
 	
 	private PrintStream consoleOut;
 	
+	@FXML
+	 private Label mediumErrorLabel;
+	@FXML
+	 private Label hardErrorLabel;
 	// asked chatGPT on how to return this label (method with return label)
-//	public TextArea getLabel(String someText) {
-////		String sometext = "text here";
-//		displayMaze = new TextArea("Text Label");
-//		displayMaze.setText(someText);
-//		return displayMaze;
-//
-//	}
 
 	/**
 	 * This method when pressing the start button in the GUI
@@ -61,13 +60,20 @@ public class Controller {
 		difficultyStage.show();
 	}
 		
-	void getInputValue(TextField userInputtedValue, Stage mainStage) {
+	void getInputValue(TextField userInputtedValue, Stage mainStage, VBox allRows, Button userInputSnake) {
 			String line = "something";
 			int difficulty = 0;
 			String enteredUserAction = "";
 		
 			enteredUserAction = userInputtedValue.getText();
-			System.out.println(enteredUserAction);
+			// This checks if the value entered in the TextField is valid or not. 
+			if (enteredUserAction.equalsIgnoreCase("w")||enteredUserAction.equalsIgnoreCase("a")
+					||enteredUserAction.equalsIgnoreCase("s")||enteredUserAction.equalsIgnoreCase("d")) {
+				System.out.println("\n Value entered: " + enteredUserAction);
+			}
+			else {
+				System.out.println("\n Non-valid value \n Entered: " + enteredUserAction + " \n Enter (w,a,s,d)");
+			}			
 
 			if (line.equalsIgnoreCase("something")) {
 				difficulty = 0;
@@ -80,18 +86,29 @@ public class Controller {
 //			mazeCreation.boundary();
 			
 			try {
-				userInteraction(enteredUserAction,mainStage);
+				userInteraction(enteredUserAction,mainStage,allRows,userInputSnake);
 			} catch (RuntimeException ERROR) {
 				System.out.println("GAME OVER");
+				
 				Main main = new Main();
-				//return to start method in main class.
-				main.start(mainStage);
+				
+				// makes the input button invisible 
+				// referenced from this code on the first tip (Set the visible property to false).
+				// https://edencoding.com/how-to-hide-a-button-in-javafx/#:~:text=To%20hide%20a%20button%20in%20JavaFX%2C%20setVisible(false)%20should,can%20additionally%20setManaged(false)%20.
+				userInputSnake.setVisible(false);
+				
+				Button gameoverButton= new Button ("Go Back");
+				allRows.getChildren().add(gameoverButton);
+				// when you lose it promps the go back button.
+				gameoverButton.setOnAction(userInputAction ->main.start(mainStage));
+				
 				
 			}
 			line = "";
 			
 		
 	}
+	
 	
 	/**
 	 * This method when pressing the easy button in the GUI
@@ -104,17 +121,13 @@ public class Controller {
     public void easyButtonPressed(ActionEvent event) throws IOException {
 		int difficultylocal = 0;
 		
-		System.out.println("Easy button pressed\n");
-        
+		
 		// I also used the code section from BroCode here:
 		//// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
-		mazeCreation = new MazeGenerator(difficultylocal);
-		snake = new Snake(mazeCreation);
-		mazeCreation.boundary();
 		
 		
 		VBox allRows = new VBox();
-		TextField userInputtedValue = new TextField();
+		TextField userInputtedValue = new TextField("");
 		Button userInputSnake = new Button ("Input");
 		
 //		Wall wallItemfornow = new Wall();
@@ -126,22 +139,37 @@ public class Controller {
 		
 //		PrintStream printStream = new PrintStream(new DisplayOfGUIFromConsole(displayMaze), true);
 		 
-		TextArea displayMaze = new TextArea("Text Label");
+		TextArea displayMaze = new TextArea("SNAKE GAME \n");
 		
 		
-		displayMaze.setText("rere");
+//		displayMaze.setText("");
 		// set the font so that everything is same size.
 		// this snippet of code was referenced by:
-		// https://docs.oracle.com/javafx/2/text/jfxpub-text.htm on specifically example on specific.
-		displayMaze.setFont(Font.font("Monospaced", FontWeight.BOLD, 14));
-		// not allow the user to edit the display in the GUI. (get reference)
+		// https://docs.oracle.com/javafx/2/text/jfxpub-text.htm on specifically example 8.
+		displayMaze.setFont(Font.font("Monospaced", FontWeight.BOLD, 16));
+		
+		// not allow the user to edit the display TextArea in the GUI. 
+		// this code is referenced by:
+		//https://stackoverflow.com/questions/20205145/javafx-how-to-show-read-only-text#:~:text=You%20can%20use%20following%20statement,setEditable(false)%3B
+		//Answered by Ben on Dec 6, 2020, and edited by mahendrabishnoi2 on Mar 17, 2021. 
 		displayMaze.setEditable(false);
+		
+		// change the dimensions of the TextArea in GUI
+		//https://stackoverflow.com/questions/37458555/how-to-set-height-and-width-of-javafx-textarea
+		// answered on Oct 12, 2017 by Michael Cenzoprano.
+		displayMaze.setPrefHeight(240);
+		displayMaze.setPrefWidth(250);
+		
 		
 		// https://stackoverflow.com/questions/33494052/javafx-redirect-console-output-to-textarea-that-is-created-in-scenebuilder
 		// alot of this code is from the reply of James_D on Nov 3, 2015 on how to redirect console output to a TextArea. 
-        PrintStream printStream = new PrintStream(new DisplayOfGUIFromConsole(displayMaze), true);
-        System.setOut(printStream);  
+		PrintStream printStream = new PrintStream(new DisplayOfGUIFromConsole(displayMaze), true);
+        System.setOut(printStream);
         System.setErr(printStream);
+		
+		mazeCreation = new MazeGenerator(difficultylocal);
+		snake = new Snake(mazeCreation);
+		mazeCreation.boundary();
 		
 		allRows.getChildren().addAll(displayMaze,userInputtedValue,userInputSnake);
 		
@@ -150,9 +178,17 @@ public class Controller {
 		mainStage.setScene(gameScene);
 		mainStage.show();
 		
-		userInputSnake.setOnAction(userInputAction -> getInputValue(userInputtedValue,mainStage));
+		userInputSnake.setOnAction(userInputAction -> getInputValue(userInputtedValue,mainStage, allRows, userInputSnake));
 
 	} 
+	
+	 public void mediumButtonPressed(ActionEvent event) throws IOException {
+		 mediumErrorLabel.setText("In development.");
+	 }
+	
+	 public void hardButtonPressed(ActionEvent event) throws IOException {
+		 hardErrorLabel.setText("In development.");
+	 }
 	
 
 	
@@ -161,7 +197,7 @@ public class Controller {
 	 * different inputs, and will call Snake class to do their certain action, that
 	 * is needed.
 	 */
-	public void userInteraction(String enteredUserAction,Stage mainStage) {
+	public void userInteraction(String enteredUserAction,Stage mainStage, VBox allRows, Button userInputSnake) {
 		int difficulty = 0;
 		String userInput = "";
 		if (difficulty == 0) {
@@ -176,6 +212,7 @@ public class Controller {
 					int column_movement = 1;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
+					
 				}
 
 				
@@ -218,11 +255,20 @@ public class Controller {
 				
 				if (mazeCreation.ifVictory() == false) {
 					System.out.println("WINNER");
-				
-					//return;
-					//difficultyStage.show();
+					
+					// makes the input button invisible 
+					// referenced from this code on the first tip (Set the visible property to false).
+					// https://edencoding.com/how-to-hide-a-button-in-javafx/#:~:text=To%20hide%20a%20button%20in%20JavaFX%2C%20setVisible(false)%20should,can%20additionally%20setManaged(false)%20.
+					userInputSnake.setVisible(false);
+					
 					Main main = new Main();
-					main.start(mainStage);
+					
+					Button winButton= new Button ("Go Back");
+					allRows.getChildren().add(winButton);
+					// when you win it promps the go back button.
+					// when pressed go back to start method in main.
+					winButton.setOnAction(userInputAction ->main.start(mainStage));
+		
 			}
 		}
 	}

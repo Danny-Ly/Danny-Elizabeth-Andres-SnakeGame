@@ -26,8 +26,8 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button mnemonicParsing="false" text="Medium" />
-                  <Label fx:id="mediumErrorLabel" />
+                  <Button mnemonicParsing="false" onAction="#mediumButtonPressed" text="Medium" />
+                  <Label fx:id="mediumErrorLabel" textFill="RED" />
                </children>
             </VBox>
          </children>
@@ -36,8 +36,8 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button mnemonicParsing="false" text="Hard" />
-                  <Label />
+                  <Button mnemonicParsing="false" onAction="#hardButtonPressed" text="Hard" />
+                  <Label fx:id="hardErrorLabel" textFill="#ff0404" />
                </children>
             </VBox>
          </children>
