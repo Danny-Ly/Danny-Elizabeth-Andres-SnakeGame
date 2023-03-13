@@ -66,7 +66,6 @@ class Pellets implements MazeItems {
 	}
 }
 
-
 /*
  * @return true for if its a wall Wall class 
  * will print the desired output and
