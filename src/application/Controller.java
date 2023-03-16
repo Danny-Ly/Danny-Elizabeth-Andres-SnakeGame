@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -64,17 +66,17 @@ public class Controller {
 	/**
 	 * Get the value of a TextField and checks it. Then runs the userInteraction. If the Snake runs into a wall or itself,
 	 * then it prints a game over, and allows for user to go back to the main screen. 
-	 * @param userInputtedValue TextField value.
+	 * @param leftAction TextField value.
 	 * @param mainStage a stage for GUI.
 	 * @param allRows VBox container.
 	 * @param userInputSnake Button for the input of snake. 
 	 */
-	void getInputValue(TextField userInputtedValue, Stage mainStage, VBox allRows, Button userInputSnake) {
+	void getInputValue(String leftAction, Stage mainStage, VBox allRows) {
 			String line = "something";
 			int difficulty = 0;
 			String enteredUserAction = "";
 		
-			enteredUserAction = userInputtedValue.getText();
+			enteredUserAction = leftAction;
 			// This checks if the value entered in the TextField is valid or not. 
 			if (enteredUserAction.equalsIgnoreCase("w")||enteredUserAction.equalsIgnoreCase("a")
 					||enteredUserAction.equalsIgnoreCase("s")||enteredUserAction.equalsIgnoreCase("d")) {
@@ -89,7 +91,7 @@ public class Controller {
 			}
 		
 			try {
-				userInteraction(enteredUserAction,mainStage,allRows,userInputSnake);
+				userInteraction(enteredUserAction,mainStage,allRows);
 			} catch (RuntimeException ERROR) {
 				System.out.println("GAME OVER");
 				
@@ -98,7 +100,7 @@ public class Controller {
 				// makes the input button invisible 
 				// referenced from this code on the first tip (Set the visible property to false).
 				// https://edencoding.com/how-to-hide-a-button-in-javafx/#:~:text=To%20hide%20a%20button%20in%20JavaFX%2C%20setVisible(false)%20should,can%20additionally%20setManaged(false)%20.
-				userInputSnake.setVisible(false);
+				//userInputSnake.setVisible(false);
 				
 				Button gameoverButton= new Button ("Go Back");
 				allRows.getChildren().add(gameoverButton);
@@ -121,10 +123,20 @@ public class Controller {
 	@FXML
     public void easyButtonPressed(ActionEvent event) throws IOException {
 		int difficultylocal = 0;
-		
+		String upAction = "w";
+		String downAction = "s";
+		String leftAction = "a";
+		String rightAction = "d";
+
 		VBox allRows = new VBox();
-		TextField userInputtedValue = new TextField("");
-		Button userInputSnake = new Button ("Input"); 
+		HBox someHBox = new HBox();
+		//TextField userInputtedValue = new TextField("");
+		
+		Button userInputSnakeUp = new Button ("W"); 
+		Button userInputSnakeRight = new Button ("D"); 
+		Button userInputSnakeLeft = new Button ("A"); 
+		Button userInputSnakeDown = new Button ("S"); 
+		
 		TextArea displayMaze = new TextArea("SNAKE GAME \n");
 		
 		// set the font so that everything is same size.
@@ -144,6 +156,10 @@ public class Controller {
 		displayMaze.setPrefHeight(240);
 		displayMaze.setPrefWidth(250);
 		
+		//https://docs.oracle.com/javafx/2/layout/size_align.htm#:~:text=Centering%20the%20Buttons,-The%20buttons%20are&text=hbButtons.,nodes%20within%20the%20HBox%20pane.
+		allRows.setAlignment(Pos. CENTER);
+		someHBox.setAlignment(Pos. CENTER);
+		
 		// https://stackoverflow.com/questions/33494052/javafx-redirect-console-output-to-textarea-that-is-created-in-scenebuilder
 		// alot of this code is from the reply of James_D on Nov 3, 2015 on how to redirect console output to a TextArea. 
 		PrintStream printStream = new PrintStream(new DisplayOfGUIFromConsole(displayMaze), true);
@@ -154,7 +170,8 @@ public class Controller {
 		snake = new Snake(mazeCreation);
 		mazeCreation.boundary();
 		
-		allRows.getChildren().addAll(displayMaze,userInputtedValue,userInputSnake);
+		someHBox.getChildren().addAll(userInputSnakeLeft,userInputSnakeDown,userInputSnakeRight);
+		allRows.getChildren().addAll(displayMaze/*,userInputtedValue*/,userInputSnakeUp,someHBox);
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
 		Scene gameScene = new Scene(allRows);
@@ -162,8 +179,13 @@ public class Controller {
 		mainStage.setScene(gameScene);
 		mainStage.show();
 		
-		userInputSnake.setOnAction(userInputAction -> getInputValue(userInputtedValue,mainStage, allRows, userInputSnake));
-	} 
+		userInputSnakeUp.setOnAction(userInputActionUp -> getInputValue(upAction,mainStage, allRows));
+		userInputSnakeLeft.setOnAction(userInputActionLeft-> getInputValue(leftAction,mainStage, allRows));
+		userInputSnakeDown.setOnAction(userInputActionDown -> getInputValue(downAction,mainStage, allRows));
+		userInputSnakeRight.setOnAction(userInputActionRight -> getInputValue(rightAction,mainStage, allRows));
+		
+	}
+		
 	/**
 	 * Allows for the printing output of the console and it shows this to the TextArea in the GUI.
 	 * (This code was from James_D on stack overflow [refer to the link below])
@@ -216,7 +238,7 @@ public class Controller {
 	 * @param allRows VBox container.
 	 * @param userInputSnake Button for inputting a value. 
 	 */
-	public void userInteraction(String enteredUserAction,Stage mainStage, VBox allRows, Button userInputSnake) {
+	public void userInteraction(String enteredUserAction,Stage mainStage, VBox allRows) {
 		int difficulty = 0;
 		if (difficulty == 0) {
 				// there is the input of a(right), d(left), w(up), and s(down)
@@ -256,7 +278,8 @@ public class Controller {
 					// makes the input button invisible 
 					// referenced from this code on the first tip (Set the visible property to false).
 					// https://edencoding.com/how-to-hide-a-button-in-javafx/#:~:text=To%20hide%20a%20button%20in%20JavaFX%2C%20setVisible(false)%20should,can%20additionally%20setManaged(false)%20.
-					userInputSnake.setVisible(false);
+					
+					//userInputSnake.setVisible(false);
 					
 					Main main = new Main();
 					Button winButton= new Button ("Go Back");

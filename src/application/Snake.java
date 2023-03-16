@@ -54,7 +54,7 @@ public class Snake {
 		// updating the position of the snake
 		arraySnakeSegment.add(0, updatedHead);
 		// removing old position of head
-		oldTail = arraySnakeSegment.remove(arraySnakeSegment.size() - 1);
+		oldTail = arraySnakeSegment.remove(arraySnakeSegment.size() - 1); //
 		MazeItems oldItem = mazeCreation.add(updatedHead);
 		mazeCreation.remove(oldTail);
 		if (oldItem != null) {
