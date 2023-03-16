@@ -48,6 +48,17 @@ class Bombs implements MazeItems {
 	}
 }
 
+class Ninjastars implements MazeItems {
+	public void printItem() {
+		System.out.print("*");
+	}
+	public void eat(Snake snake, MazeGenerator generator) {
+		snake.eatNinjaStar(generator);
+	}
+	public boolean isWall() {
+		return false;
+	}
+}
 /*
  * Pellets class will print the desired output Extend the snake if it touches
  * the pellet

@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Timer;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -31,6 +32,8 @@ public class Controller {
 	
 	private MazeGenerator mazeCreation;
 	private Snake snake;
+	private SnakeControl control;
+	private Timer Snaketimer = new Timer();
 	private TextArea displayMaze;
 	
 	private PrintStream consoleOut;
@@ -39,6 +42,7 @@ public class Controller {
 	 private Label mediumErrorLabel;
 	@FXML
 	 private Label hardErrorLabel;
+	
 
 	/**
 	 * This method when pressing the start button in the GUI
@@ -121,7 +125,6 @@ public class Controller {
 	@FXML
     public void easyButtonPressed(ActionEvent event) throws IOException {
 		int difficultylocal = 0;
-		
 		VBox allRows = new VBox();
 		TextField userInputtedValue = new TextField("");
 		Button userInputSnake = new Button ("Input"); 
@@ -152,6 +155,8 @@ public class Controller {
 		
 		mazeCreation = new MazeGenerator(difficultylocal);
 		snake = new Snake(mazeCreation);
+		//control = new SnakeControl(snake, mazeCreation, 0, 0);
+		//Snaketimer.schedule(control,0,15000);
 		mazeCreation.boundary();
 		
 		allRows.getChildren().addAll(displayMaze,userInputtedValue,userInputSnake);
@@ -219,23 +224,32 @@ public class Controller {
 	public void userInteraction(String enteredUserAction,Stage mainStage, VBox allRows, Button userInputSnake) {
 		int difficulty = 0;
 		if (difficulty == 0) {
+		
 				// there is the input of a(right), d(left), w(up), and s(down)
 				// that calls the snake class to allow for it to function.
 				if (enteredUserAction.equalsIgnoreCase("d")) {
+					control.setRow_movement(0);
+					control.setColumn_movement(1);
 					int row_movement = 0;
 					int column_movement = 1;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
-					mazeCreation.boundary();		
+					mazeCreation.boundary();
+					
 				}
 				
 				if (enteredUserAction.equalsIgnoreCase("a")) {
+					//control.setRow_movement(0);
+					//control.setColumn_movement(-1);
 					int row_movement = 0;
 					int column_movement = -1;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
+					
 				}
 			
 				if (enteredUserAction.equalsIgnoreCase("w")) {
+					//control.setRow_movement(-1);
+					//control.setColumn_movement(0);
 					int row_movement = -1;
 					int column_movement = 0;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
@@ -243,6 +257,8 @@ public class Controller {
 					
 				}
 				if (enteredUserAction.equalsIgnoreCase("s")) {
+					//control.setRow_movement(1);
+					//control.setColumn_movement(0);	
 					int row_movement = 1;
 					int column_movement = 0;
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
