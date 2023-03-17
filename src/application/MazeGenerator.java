@@ -15,6 +15,8 @@ public class MazeGenerator {
 	private BombGenerator bomb;
 	private PelletGenerator pellet;
 	
+	private SpeedGenerator speedPellet;
+	
 	/**
 	 * gets the current difficulty of the game.
 	 * @return the value of difficulty
@@ -92,6 +94,12 @@ public class MazeGenerator {
 		
 		pellet = new PelletGenerator();
 		pellet.randomPellet(maze);
+		
+		speedPellet = new SpeedGenerator();
+		speedPellet.randomSpeed(maze);
+		
+		
+		
 	}
 	
 	/**

@@ -78,17 +78,17 @@ public class Controller {
 		
 			enteredUserAction = leftAction;
 			// This checks if the value entered in the TextField is valid or not. 
-			if (enteredUserAction.equalsIgnoreCase("w")||enteredUserAction.equalsIgnoreCase("a")
-					||enteredUserAction.equalsIgnoreCase("s")||enteredUserAction.equalsIgnoreCase("d")) {
-				System.out.println("\n Value entered: " + enteredUserAction);
-			}
-			else {
-				System.out.println("\n Non-valid value \n Entered: " + enteredUserAction + " \n Enter (w,a,s,d)");
-			}			
-			
-			if (line.equalsIgnoreCase("something")) {
-				difficulty = 0;
-			}
+//			if (enteredUserAction.equalsIgnoreCase("w")||enteredUserAction.equalsIgnoreCase("a")
+//					||enteredUserAction.equalsIgnoreCase("s")||enteredUserAction.equalsIgnoreCase("d")) {
+//				System.out.println("\n Value entered: " + enteredUserAction);
+//			}
+//			else {
+//				System.out.println("\n Non-valid value \n Entered: " + enteredUserAction + " \n Enter (w,a,s,d)");
+//			}			
+//			
+//			if (line.equalsIgnoreCase("something")) {
+//				difficulty = 0;
+//			}
 		
 			try {
 				userInteraction(enteredUserAction,mainStage,allRows);
