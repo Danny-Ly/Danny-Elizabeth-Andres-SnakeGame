@@ -66,7 +66,17 @@ class Pellets implements MazeItems {
 	}
 }
 
-
+class Ninjastars implements MazeItems {
+	public void printItem() {
+		System.out.print("*");
+	}
+	public void eat(Snake snake, MazeGenerator generator) {
+		snake.eatNinjaStar(generator);
+	}
+	public boolean isWall() {
+		return false;
+	}
+}
 
 class Speed implements MazeItems {
 	public void printItem() {

@@ -90,6 +90,15 @@ public class Snake {
 		System.out.println("Speed pellet consumed");
 		
 	}
+	
+	public void eatNinjaStar(MazeGenerator mazeCreation) {
+		SnakeSegment oldTail = arraySnakeSegment.remove(arraySnakeSegment.size()-1);
+		mazeCreation.remove(oldTail);
+		if (arraySnakeSegment.size()== 0) {
+			throw new RuntimeException("NO MORE SNAKE LEFT");
+		}
+		
+	}
 
 	
 }
