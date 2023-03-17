@@ -14,7 +14,6 @@ public class MazeGenerator {
 	private int difficulty;
 	private BombGenerator bomb;
 	private PelletGenerator pellet;
-	
 	private SpeedGenerator speedPellet;
 	
 	/**
@@ -90,13 +89,13 @@ public class MazeGenerator {
 		item.randomWall(maze);
 		
 		bomb = new BombGenerator();
-		bomb.randomBomb(maze);
+		bomb.random(maze);
 		
 		pellet = new PelletGenerator();
-		pellet.randomPellet(maze);
+		pellet.random(maze);
 		
 		speedPellet = new SpeedGenerator();
-		speedPellet.randomSpeed(maze);
+		speedPellet.random(maze);
 		
 		
 		
