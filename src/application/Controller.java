@@ -37,6 +37,11 @@ public class Controller {
 	
 	private PrintStream consoleOut;
 	
+	private Button userInputSnakeUp = new Button ("W"); 
+	private Button userInputSnakeRight = new Button ("D"); 
+	private Button userInputSnakeLeft = new Button ("A"); 
+	private Button userInputSnakeDown = new Button ("S"); 	
+	
 	@FXML
 	 private Label mediumErrorLabel;
 	@FXML
@@ -72,13 +77,12 @@ public class Controller {
 	 * @param userInputSnake Button for the input of snake. 
 	 */
 	void getInputValue(String Action, Stage mainStage, VBox allRows) {
-			Speed speedSnake = new Speed();
 			String line = "something";
 			int difficulty = 0;
 			String enteredUserAction = "";
 			
-			int initialValue = 0;
-			int actionValue = 1;
+//			int initialValue = 0;
+//			int actionValue = 1;
 			
 			
 			
@@ -87,10 +91,10 @@ public class Controller {
 			enteredUserAction = Action;
 
 			try {
-				while (initialValue < actionValue){
+//				while (initialValue < actionValue){
 					userInteraction(enteredUserAction,mainStage,allRows);
-					initialValue++;
-				}
+//					initialValue++;
+//				}
 				
 			} catch (RuntimeException ERROR) {
 				System.out.println("GAME OVER");
@@ -131,11 +135,6 @@ public class Controller {
 		VBox allRows = new VBox();
 		HBox someHBox = new HBox();
 		//TextField userInputtedValue = new TextField("");
-		
-		Button userInputSnakeUp = new Button ("W"); 
-		Button userInputSnakeRight = new Button ("D"); 
-		Button userInputSnakeLeft = new Button ("A"); 
-		Button userInputSnakeDown = new Button ("S"); 
 		
 		TextArea displayMaze = new TextArea("SNAKE GAME \n");
 		
@@ -264,6 +263,7 @@ public class Controller {
 					mazeCreation.boundary();
 					
 				}
+				
 				if (enteredUserAction.equalsIgnoreCase("s")) {
 					int row_movement = 1;
 					int column_movement = 0;

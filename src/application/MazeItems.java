@@ -78,17 +78,7 @@ class Ninjastars implements MazeItems {
 	}
 }
 
-class Speed implements MazeItems {
-	public void printItem() {
-		System.out.print(">");
-	}
-	public void eat(Snake snake, MazeGenerator generator) {
-		snake.eatSpeed(generator);
-	}
-	public boolean isWall() {
-		return false;
-	}
-}
+
 
 /*
  * @return true for if its a wall Wall class 

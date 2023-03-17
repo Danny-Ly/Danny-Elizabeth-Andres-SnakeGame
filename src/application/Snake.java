@@ -84,12 +84,6 @@ public class Snake {
 		mazeCreation.add(oldTail);	
 	}
 	
-	public void eatSpeed(MazeGenerator mazeCreation) {
-		//int actionValue = 2;
-		//System.out.println(actionValue);
-		System.out.println("Speed pellet consumed");
-		
-	}
 	
 	public void eatNinjaStar(MazeGenerator mazeCreation) {
 		SnakeSegment oldTail = arraySnakeSegment.remove(arraySnakeSegment.size()-1);
