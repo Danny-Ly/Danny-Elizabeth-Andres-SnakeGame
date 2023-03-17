@@ -83,4 +83,8 @@ public class Snake {
 		arraySnakeSegment.add(oldTail);
 		mazeCreation.add(oldTail);	
 	}
+	
+	public void eatSpeed(MazeGenerator mazeCreation) {
+		
+	}
 }

@@ -73,7 +73,7 @@ class Speed implements MazeItems {
 		System.out.print(">");
 	}
 	public void eat(Snake snake, MazeGenerator generator) {
-		snake.eatPellet(generator);
+		snake.eatSpeed(generator);
 	}
 	public boolean isWall() {
 		return false;

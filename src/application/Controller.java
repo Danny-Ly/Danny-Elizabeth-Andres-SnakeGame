@@ -66,17 +66,17 @@ public class Controller {
 	/**
 	 * Get the value of a TextField and checks it. Then runs the userInteraction. If the Snake runs into a wall or itself,
 	 * then it prints a game over, and allows for user to go back to the main screen. 
-	 * @param leftAction TextField value.
+	 * @param Action TextField value.
 	 * @param mainStage a stage for GUI.
 	 * @param allRows VBox container.
 	 * @param userInputSnake Button for the input of snake. 
 	 */
-	void getInputValue(String leftAction, Stage mainStage, VBox allRows) {
+	void getInputValue(String Action, Stage mainStage, VBox allRows) {
 			String line = "something";
 			int difficulty = 0;
 			String enteredUserAction = "";
 		
-			enteredUserAction = leftAction;
+			enteredUserAction = Action;
 			// This checks if the value entered in the TextField is valid or not. 
 //			if (enteredUserAction.equalsIgnoreCase("w")||enteredUserAction.equalsIgnoreCase("a")
 //					||enteredUserAction.equalsIgnoreCase("s")||enteredUserAction.equalsIgnoreCase("d")) {
