@@ -10,6 +10,7 @@ import java.util.Random;
 public class ObjectGenerator{
 	protected int numberOfObjects;
 	public void random(MazeItems[][] maze2) {
+		
 		// generates random position in maze passed in until wanted
 		// number of pellets is reached
 		while (numberOfObjects < 5) {
@@ -27,5 +28,4 @@ public class ObjectGenerator{
 			}
 		}
 	}
-
 }

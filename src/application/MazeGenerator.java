@@ -99,7 +99,7 @@ public class MazeGenerator {
 		speedPellet.random(maze);
 		
 		ninjaStar = new NinjaStarGenerator();
-		ninjaStar.randomNinjaStar(maze);
+		ninjaStar.random(maze);
 		
 		
 		
