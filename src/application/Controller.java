@@ -72,26 +72,26 @@ public class Controller {
 	 * @param userInputSnake Button for the input of snake. 
 	 */
 	void getInputValue(String Action, Stage mainStage, VBox allRows) {
+			Speed speedSnake = new Speed();
 			String line = "something";
 			int difficulty = 0;
 			String enteredUserAction = "";
+			
+			int initialValue = 0;
+			int actionValue = 1;
+			
+			
+			
+			//System.out.println(actionValue);
 		
 			enteredUserAction = Action;
-			// This checks if the value entered in the TextField is valid or not. 
-//			if (enteredUserAction.equalsIgnoreCase("w")||enteredUserAction.equalsIgnoreCase("a")
-//					||enteredUserAction.equalsIgnoreCase("s")||enteredUserAction.equalsIgnoreCase("d")) {
-//				System.out.println("\n Value entered: " + enteredUserAction);
-//			}
-//			else {
-//				System.out.println("\n Non-valid value \n Entered: " + enteredUserAction + " \n Enter (w,a,s,d)");
-//			}			
-//			
-//			if (line.equalsIgnoreCase("something")) {
-//				difficulty = 0;
-//			}
-		
+
 			try {
-				userInteraction(enteredUserAction,mainStage,allRows);
+				while (initialValue < actionValue){
+					userInteraction(enteredUserAction,mainStage,allRows);
+					initialValue++;
+				}
+				
 			} catch (RuntimeException ERROR) {
 				System.out.println("GAME OVER");
 				
@@ -105,7 +105,7 @@ public class Controller {
 				Button gameoverButton= new Button ("Go Back");
 				allRows.getChildren().add(gameoverButton);
 				// when you lose it promps the go back button.
-				gameoverButton.setOnAction(userInputAction ->main.start(mainStage));
+				gameoverButton.setOnAction(userInputAction -> main.start(mainStage));
 				
 			}
 			line = "";
@@ -256,7 +256,7 @@ public class Controller {
 					snake.moveSnake(mazeCreation, row_movement, column_movement);
 					mazeCreation.boundary();
 				}
-			
+
 				if (enteredUserAction.equalsIgnoreCase("w")) {
 					int row_movement = -1;
 					int column_movement = 0;

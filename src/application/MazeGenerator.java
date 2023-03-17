@@ -139,6 +139,7 @@ public class MazeGenerator {
 			}
 			System.out.println();
 		}
+
 	}
 	
 	/**
