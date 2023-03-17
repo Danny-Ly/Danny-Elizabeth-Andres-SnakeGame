@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class SpeedGenerator extends ObjectGenerator {
 	// Initializing/declaring variables that will be used in the class
-	private int numberOfSpeedPellets;
+	// private int numberOfSpeedPellets;
 	
 	/**
 	 * Generates random pellets through the maze
@@ -21,7 +21,7 @@ public class SpeedGenerator extends ObjectGenerator {
 	public void random(MazeItems[][] maze2) {
 		// generates random position in maze passed in until wanted
 		// number of pellets is reached
-		while (numberOfSpeedPellets < 3) {
+		while (super.numberOfObjects < 3) {
 			Random randomvalue = new Random();
 			int xCord;
 			int yCord;
@@ -32,7 +32,7 @@ public class SpeedGenerator extends ObjectGenerator {
 			if (maze2[xCord][yCord] == null) {
 				maze2[xCord][yCord] = new Speed();
 				// increment increasing by 1
-					numberOfSpeedPellets++;
+					numberOfObjects++;
 			}
 		}
 	}

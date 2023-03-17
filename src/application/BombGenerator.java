@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class BombGenerator extends ObjectGenerator{
 	// Initializing/declaring variables that will be used in the class
-	private int numberOfBombs = 0;
+	//private int numberOfBombs = 0;
 	
 	/**
 	 * Generates random bombs through the maze
@@ -21,7 +21,7 @@ public class BombGenerator extends ObjectGenerator{
 	public void random(MazeItems[][] maze2) {
 		// generates random position in maze passed in until wanted
 		// number of bombs is reached
-		while (numberOfBombs < 2) {
+		while (super.numberOfObjects < 2) {
 			Random randomvalue = new Random();
 			int xCord;
 			int yCord;
@@ -32,7 +32,7 @@ public class BombGenerator extends ObjectGenerator{
 			if (maze2[xCord][yCord] == null) {
 				maze2[xCord][yCord] = new Bombs();
 				// increment increasing by 1
-				numberOfBombs++;
+				numberOfObjects++;
 			}
 		}
 	}

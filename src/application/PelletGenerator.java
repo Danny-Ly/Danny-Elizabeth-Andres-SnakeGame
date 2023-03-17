@@ -16,7 +16,7 @@ public class PelletGenerator extends ObjectGenerator{
 	 * 
 	 * @param maze2 is the 2 dimensional array that we will add pellets to .
 	 */
-	// Override was used to allow us to use  inhertince, with the help of TA Parisa.
+	// Override was used to allow us to use  inheritance, with the help of TA Parisa.
 	@Override
 	public void random(MazeItems[][] maze2) {
 		// generates random position in maze passed in until wanted
