@@ -10,6 +10,7 @@ import java.util.Random;
 public class PelletGenerator extends ObjectGenerator{
 	// Initializing/declaring variables that will be used in the class
 	//private int numberOfPellets;
+	//private ObjectGenerator Pellet;
 	
 	/**
 	 * Generates random pellets through the maze
@@ -17,8 +18,8 @@ public class PelletGenerator extends ObjectGenerator{
 	 * @param maze2 is the 2 dimensional array that we will add pellets to .
 	 */
 	// Override was used to allow us to use  inheritance, with the help of TA Parisa.
-	@Override
-	public void random(MazeItems[][] maze2) {
+//	@Override
+/*	public void randomCoo(MazeItems[][] maze2,int value) {
 		// generates random position in maze passed in until wanted
 		// number of pellets is reached
 		while (super.numberOfObjects < 5) {
@@ -35,5 +36,12 @@ public class PelletGenerator extends ObjectGenerator{
 				numberOfObjects++;
 			}
 		}
+	}
+*/
+	public void random(MazeItems[][] maze2) {
+		setLimiter(5);
+		//setlimiter(limiter)
+		setObject(new Pellets());
+		//Pellet.randomCoordinate(maze2);
 	}
 }

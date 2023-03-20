@@ -14,8 +14,9 @@ public class MazeGenerator {
 	private int difficulty;
 	private BombGenerator bomb;
 	private PelletGenerator pellet;
-	private SpeedGenerator speedPellet;
+	//private SpeedGenerator speedPellet;
 	private NinjaStarGenerator ninjaStar; 
+	private ObjectGenerator object;
 	
 	/**
 	 * gets the current difficulty of the game.
@@ -90,19 +91,25 @@ public class MazeGenerator {
 		item.randomWall(maze);
 		
 		bomb = new BombGenerator();
-		bomb.random(maze);
+		//bomb.randomCoordinate(maze);
+		//bomb.random(maze);
+		
 		
 		pellet = new PelletGenerator();
-		pellet.random(maze);
+		//pellet.randomCoordinate(maze);
+		//pellet.random(maze);
 		
-		speedPellet = new SpeedGenerator();
-		speedPellet.random(maze);
+		//speedPellet = new SpeedGenerator();
+		//speedPellet.random(maze);
 		
 		ninjaStar = new NinjaStarGenerator();
-		ninjaStar.random(maze);
+		//ninjaStar.randomCoordinate(maze);
+		//ninjaStar.random(maze);
 		
-		
-		
+		object = new ObjectGenerator();
+		object.randomCoordinate(maze,0);
+		//object.randomCoordinate(maze,1);
+		//object.randomCoordinate(maze,2);
 	}
 	
 	/**

@@ -5,6 +5,7 @@ import java.util.Random;
 public class NinjaStarGenerator extends ObjectGenerator {
 	// Initializing/declaring variables that will be used in the class
 	//private int numberOfNinjaStars;
+	//private ObjectGenerator Ninja;
 
 	/**
 	 * Generates random pellets through the maze
@@ -12,8 +13,8 @@ public class NinjaStarGenerator extends ObjectGenerator {
 	 * @param maze2 is the 2 dimensional array that we will add pellets to .
 	 */
 	// Override was used to allow us to use  inheritance, with the help of TA Parisa.
-	@Override
-	public void random(MazeItems[][] maze2) {
+	//@Override
+/*	public void random(MazeItems[][] maze2,int value) {
 		// generates random position in maze passed in until wanted
 		// number of pellets is reached
 		while (super.numberOfObjects < 5) {
@@ -30,5 +31,12 @@ public class NinjaStarGenerator extends ObjectGenerator {
 				numberOfObjects++;
 			}
 		}
+	}
+*/
+	public void random(MazeItems[][] maze2) {
+		setLimiter(2);
+		//setlimiter(limiter)
+		setObject(new Ninjastars());
+		//Ninja.randomCoordinate(maze2);
 	}
 }
