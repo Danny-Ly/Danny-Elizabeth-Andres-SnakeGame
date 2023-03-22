@@ -8,12 +8,12 @@ package application;
  */
 public interface MazeItems {
 	
-	/*
+	/**
 	 * prints desired program output for each maze item
 	 */
 	public void printItem();
 	
-	/*
+	/**
 	 * when the snake runs into the mazeitem each item will execute their said
 	 * fuctions
 	 * 
@@ -23,14 +23,14 @@ public interface MazeItems {
 	 */
 	public void eat(Snake snake, MazeGenerator generator);
 	
-	/*
+	/**
 	 * checks to see if each maze item is a wall
 	 */
 	public boolean isWall();
 }
 
 
-/*
+/**
  * Bombs class will print the desired output Regenerate maze if snake touches
  * the bomb and
  * 
@@ -48,7 +48,7 @@ class Bombs implements MazeItems {
 	}
 }
 
-/*
+/**
  * Pellets class will print the desired output Extend the snake if it touches
  * the pellet
  * 
@@ -65,7 +65,12 @@ class Pellets implements MazeItems {
 		return false;
 	}
 }
-
+/**
+ * Ninjastars class will print the desired output cut a snake segment the snake if it touches
+ * the Ninjastars
+ * 
+ * @return false for if its a wall
+ */
 class Ninjastars implements MazeItems {
 	public void printItem() {
 		System.out.print("*");
@@ -78,19 +83,8 @@ class Ninjastars implements MazeItems {
 	}
 }
 
-class Speed implements MazeItems {
-	public void printItem() {
-		System.out.print(">");
-	}
-	public void eat(Snake snake, MazeGenerator generator) {
-		snake.eatSpeed(generator);
-	}
-	public boolean isWall() {
-		return false;
-	}
-}
 
-/*
+/**
  * @return true for if its a wall Wall class 
  * will print the desired output and
  * throw and exception (caught in main) if the snake runs into the wall
@@ -109,7 +103,7 @@ class Wall implements MazeItems {
 	}
 }
 
-/*
+/**
  * SnakeSegement class will print the desired output assigns x and y values for
  * the position of the snake seg
  * 

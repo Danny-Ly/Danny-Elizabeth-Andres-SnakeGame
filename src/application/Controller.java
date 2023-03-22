@@ -34,9 +34,7 @@ public class Controller {
 	private MazeGenerator mazeCreation;
 	private Snake snake;
 	private TextArea displayMaze;
-	
 	private PrintStream consoleOut;
-	
 	@FXML
 	 private Label mediumErrorLabel;
 	@FXML
@@ -72,7 +70,7 @@ public class Controller {
 	 * @param userInputSnake Button for the input of snake. 
 	 */
 	void getInputValue(String Action, Stage mainStage, VBox allRows) {
-			Speed speedSnake = new Speed();
+
 			String line = "something";
 			int difficulty = 0;
 			String enteredUserAction = "";

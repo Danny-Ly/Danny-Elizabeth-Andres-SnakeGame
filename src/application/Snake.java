@@ -96,9 +96,6 @@ public class Snake {
 		mazeCreation.remove(oldTail);
 		if (arraySnakeSegment.size()== 0) {
 			throw new RuntimeException("NO MORE SNAKE LEFT");
-		}
-		
-	}
-
-	
+		}	
+	}	
 }
