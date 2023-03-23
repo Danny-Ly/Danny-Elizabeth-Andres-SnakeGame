@@ -177,33 +177,41 @@ public class Controller {
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
 		
-		
+		//runGame.setOnAction(inputAction -> runGame.setVisible(false));
 		
 		mainStage.setScene(gameScene);
 		mainStage.show();
-		
+		boolean gameContinue = true;
+
 		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			
 			@Override
 			public void handle(KeyEvent someEvent) {
 				String userInput = someEvent.getCode().toString();
 				
 				//System.out.println(someEvent.getCode());
-				
+				//while (gameContinue==true) {
 				if (userInput.equalsIgnoreCase("W")) {
 					getInputValue(upAction,mainStage, allRows);
 				}
-				if (userInput.equalsIgnoreCase("A")) {
+	
+				else if (userInput.equalsIgnoreCase("A")) {
 					getInputValue(leftAction,mainStage, allRows);
 				}
-				if (userInput.equalsIgnoreCase("S")) {
+				else if (userInput.equalsIgnoreCase("S")) {
 					getInputValue(downAction,mainStage, allRows);
 				}
-				if (userInput.equalsIgnoreCase("D")) {
+				else if (userInput.equalsIgnoreCase("D")) {
 					getInputValue(rightAction,mainStage, allRows);
 				}
 				
+			//}
 			}
 		});
+		
+		//https://www.youtube.com/watch?v=tq_0im9qc6E&t=57s&ab_channel=BroCode
+	
+		
 //		userInputSnakeUp.setOnAction(userInputActionUp -> getInputValue(upAction,mainStage, allRows));
 //		userInputSnakeLeft.setOnAction(userInputActionLeft-> getInputValue(leftAction,mainStage, allRows));
 //		userInputSnakeDown.setOnAction(userInputActionDown -> getInputValue(downAction,mainStage, allRows));
