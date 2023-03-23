@@ -36,6 +36,7 @@ public class Main extends Application{
 			FXMLLoader loader = new FXMLLoader();
 			Parent root = loader.load(new FileInputStream("src/application/SnakeGameTitle.fxml"));
 			Scene startScene = new Scene(root,400,400);
+			
 			startScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			startStage.setScene(startScene);
 			startStage.setTitle("Snake Game");

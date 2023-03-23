@@ -6,6 +6,7 @@ import java.io.PrintStream;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -16,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -30,7 +32,6 @@ import javafx.stage.Stage;
  */
 public class Controller {
 	// Initializing/declaring variables that will be used in the class
-	
 	private MazeGenerator mazeCreation;
 	private Snake snake;
 	private TextArea displayMaze;
@@ -130,10 +131,10 @@ public class Controller {
 		HBox someHBox = new HBox();
 		//TextField userInputtedValue = new TextField("");
 		
-		Button userInputSnakeUp = new Button ("W"); 
-		Button userInputSnakeRight = new Button ("D"); 
-		Button userInputSnakeLeft = new Button ("A"); 
-		Button userInputSnakeDown = new Button ("S"); 
+		Button runGame = new Button ("Run Game!"); 
+//		Button userInputSnakeRight = new Button ("D"); 
+//		Button userInputSnakeLeft = new Button ("A"); 
+//		Button userInputSnakeDown = new Button ("S"); 
 		
 		TextArea displayMaze = new TextArea("SNAKE GAME \n");
 		
@@ -168,19 +169,45 @@ public class Controller {
 		snake = new Snake(mazeCreation);
 		mazeCreation.boundary();
 		
-		someHBox.getChildren().addAll(userInputSnakeLeft,userInputSnakeDown,userInputSnakeRight);
-		allRows.getChildren().addAll(displayMaze/*,userInputtedValue*/,userInputSnakeUp,someHBox);
+		//someHBox.getChildren().addAll(userInputSnakeLeft,userInputSnakeDown,userInputSnakeRight);
+		allRows.getChildren().addAll(displayMaze, runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
 		Scene gameScene = new Scene(allRows);
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		
+		
+		
 		mainStage.setScene(gameScene);
 		mainStage.show();
 		
-		userInputSnakeUp.setOnAction(userInputActionUp -> getInputValue(upAction,mainStage, allRows));
-		userInputSnakeLeft.setOnAction(userInputActionLeft-> getInputValue(leftAction,mainStage, allRows));
-		userInputSnakeDown.setOnAction(userInputActionDown -> getInputValue(downAction,mainStage, allRows));
-		userInputSnakeRight.setOnAction(userInputActionRight -> getInputValue(rightAction,mainStage, allRows));
+		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent someEvent) {
+				String userInput = someEvent.getCode().toString();
+				
+				//System.out.println(someEvent.getCode());
+				
+				if (userInput.equalsIgnoreCase("W")) {
+					getInputValue(upAction,mainStage, allRows);
+				}
+				if (userInput.equalsIgnoreCase("A")) {
+					getInputValue(leftAction,mainStage, allRows);
+				}
+				if (userInput.equalsIgnoreCase("S")) {
+					getInputValue(downAction,mainStage, allRows);
+				}
+				if (userInput.equalsIgnoreCase("D")) {
+					getInputValue(rightAction,mainStage, allRows);
+				}
+				
+			}
+		});
+//		userInputSnakeUp.setOnAction(userInputActionUp -> getInputValue(upAction,mainStage, allRows));
+//		userInputSnakeLeft.setOnAction(userInputActionLeft-> getInputValue(leftAction,mainStage, allRows));
+//		userInputSnakeDown.setOnAction(userInputActionDown -> getInputValue(downAction,mainStage, allRows));
+//		userInputSnakeRight.setOnAction(userInputActionRight -> getInputValue(rightAction,mainStage, allRows));
 		
 	}
 		
