@@ -85,22 +85,11 @@ public class Controller {
 			String line = "something";
 			int difficulty = 0;
 			String enteredUserAction = "";
-			
-			int initialValue = 0;
-			int actionValue = 1;
-			
-			
-			
-			//System.out.println(actionValue);
 		
 			enteredUserAction = Action;
 
 			try {
-				while (initialValue < actionValue){
-					userInteraction(enteredUserAction,mainStage,allRows);
-					initialValue++;
-				}
-				
+				userInteraction(enteredUserAction,mainStage,allRows);
 				
 			} catch (RuntimeException ERROR) {
 				System.out.println("GAME OVER");
@@ -308,26 +297,31 @@ public class Controller {
         }
         for (int i = 0; i < someMaze.length; i++) {
             for (int j = 0; j < someMaze[i].length; j++) {
-                Shape someShape = null;
                 if (someMaze[i][j] == '#') {
-                    someShape = new Rectangle(20, 20, Color.BLACK);
-                }
-                if (someMaze[i][j] == '.') {
-                    someShape = new Circle(10, Color.YELLOW);
-                }
-                if (someMaze[i][j] == '@') {
-                    someShape = new Circle(10, Color.BLUE);
-                }
-                if (someMaze[i][j] == '*') {
-                    someShape = new Circle(10, Color.GREY);
-                }
-                if (someMaze[i][j] == 'o') {
-                    someShape = new Circle(10, Color.GREEN);
+                	Rectangle wallShape = new Rectangle(20, 20, Color.GREY);
+                	grid.add(wallShape, j, i);
                 }
                 if (someMaze[i][j] == ' ') {
-                    someShape = new Rectangle(20, 20, Color.WHITE);
-                }   
-                grid.add(someShape, j, i);
+                	Rectangle blankShape = new Rectangle(20, 20, Color.WHITE);
+                    grid.add(blankShape, j, i);
+                }  
+                if (someMaze[i][j] == '.') {
+                   Circle pelletShape = new Circle(10, Color.YELLOW);
+                   grid.add(pelletShape, j, i);
+                }
+                if (someMaze[i][j] == '@') {
+                    Circle bombShape = new Circle(10, Color.BLACK);
+                    grid.add(bombShape, j, i);
+                }
+                if (someMaze[i][j] == '*') {
+                	Circle starShape = new Circle(10, Color.BLUE);
+                	grid.add(starShape, j, i);
+                }
+                if (someMaze[i][j] == 'o') {
+                    Circle snakeShape = new Circle(10, Color.GREEN);
+                    grid.add(snakeShape, j, i);
+                }
+                
             }
         }
 	}
