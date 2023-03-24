@@ -94,15 +94,8 @@ public class Controller {
 				userInteraction(enteredUserAction,mainStage,allRows);
 				
 			} catch (RuntimeException ERROR) {
-				System.out.println("GAME OVER");
-				
-				Main main = new Main();
-				
-				// makes the input button invisible 
-				// referenced from this code on the first tip (Set the visible property to false).
-				// https://edencoding.com/how-to-hide-a-button-in-javafx/#:~:text=To%20hide%20a%20button%20in%20JavaFX%2C%20setVisible(false)%20should,can%20additionally%20setManaged(false)%20.
-				//userInputSnake.setVisible(false);
-				
+				System.out.println("GAME OVER");			
+				Main main = new Main();				
 				Label gameoverLabel = new Label("GAME OVER");
 				Button gameoverButton= new Button ("Go Back");
 				// disables the user input when it is gameover. 
@@ -386,14 +379,7 @@ public class Controller {
 				
 				
 				if (mazeCreation.ifVictory() == false) {
-					System.out.println("WINNER");
-					
-					// makes the input button invisible 
-					// referenced from this code on the first tip (Set the visible property to false).
-					// https://edencoding.com/how-to-hide-a-button-in-javafx/#:~:text=To%20hide%20a%20button%20in%20JavaFX%2C%20setVisible(false)%20should,can%20additionally%20setManaged(false)%20.
-					
-					//userInputSnake.setVisible(false);
-					
+					System.out.println("WINNER");	
 					Main main = new Main();
 					
 					Label winLabel = new Label("YOU WIN");
