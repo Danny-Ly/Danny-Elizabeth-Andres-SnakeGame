@@ -49,6 +49,8 @@ public class Controller {
 	
 	private GridPane grid = new GridPane();
 	
+	private boolean userInputToggle = true;
+	
 	Shape[][] shapes = new Shape[10][20];
 
 	/**
@@ -103,6 +105,11 @@ public class Controller {
 				
 				Label gameoverLabel = new Label("GAME OVER");
 				Button gameoverButton= new Button ("Go Back");
+				// disables the user input when it is gameover. 
+				// this actually sets the private boolean of userInput that was 
+				// initialized above to false. 
+				userInputToggle = false;
+				
 				allRows.getChildren().addAll(gameoverLabel,gameoverButton);
 				// when you lose it promps the go back button.
 				gameoverButton.setOnAction(userInputAction -> main.start(mainStage));
@@ -123,21 +130,10 @@ public class Controller {
 	@FXML
     public void easyButtonPressed(ActionEvent event) throws IOException {
 		int difficultylocal = 0;
-		
-		String upAction = "w";
-		String downAction = "s";
-		String leftAction = "a";
-		String rightAction = "d";
 
 		VBox allRows = new VBox();
 		HBox someHBox = new HBox();
-		//TextField userInputtedValue = new TextField("");
-		
-		Button runGame = new Button ("Run Game!"); 
-//		Button userInputSnakeRight = new Button ("D"); 
-//		Button userInputSnakeLeft = new Button ("A"); 
-//		Button userInputSnakeDown = new Button ("S"); 
-		
+		Button runGame = new Button ("Run Game!");  
 		TextArea displayMaze = new TextArea("SNAKE GAME \n");
 		
 		// set the font so that everything is same size.
@@ -171,9 +167,7 @@ public class Controller {
         //https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	PrintStream ps = new PrintStream(baos);
-    	// IMPORTANT: Save the old System.out!
     	PrintStream old = System.out;
-    	// Tell Java to use your special stream
     	System.setOut(ps);
     	
     	
@@ -187,6 +181,7 @@ public class Controller {
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
 		Scene gameScene = new Scene(allRows,400,500);
+		//gameScene.requestFocus();
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
 		//runGame.setOnAction(inputAction -> runGame.setVisible(false));
@@ -195,31 +190,26 @@ public class Controller {
 		mainStage.show();
 		//boolean gameContinue = true;
 		
-		transferStingToShape(baos,old);
+		transferStringToShape(baos,old);
 	
  
-  
+	
 		//based off of the code in this video:
 		// https://www.youtube.com/watch?v=tq_0im9qc6E&ab_channel=BroCode
 		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			
 			@Override
 			public void handle(KeyEvent someEvent) {
+				if (userInputToggle == true) {
 				String userInput = someEvent.getCode().toString();
 				if (userInput.equalsIgnoreCase("W")||userInput.equalsIgnoreCase("A")||
 						userInput.equalsIgnoreCase("S")||userInput.equalsIgnoreCase("D")) {
 					getInputValue(userInput,mainStage, allRows);
 				}
+				}
 			}
+			
 		});
-		
-		//https://www.youtube.com/watch?v=tq_0im9qc6E&t=57s&ab_channel=BroCode
-	
-		
-//		userInputSnakeUp.setOnAction(userInputActionUp -> getInputValue(upAction,mainStage, allRows));
-//		userInputSnakeLeft.setOnAction(userInputActionLeft-> getInputValue(leftAction,mainStage, allRows));
-//		userInputSnakeDown.setOnAction(userInputActionDown -> getInputValue(downAction,mainStage, allRows));
-//		userInputSnakeRight.setOnAction(userInputActionRight -> getInputValue(rightAction,mainStage, allRows));
+
 		
 	}
 		
@@ -266,7 +256,7 @@ public class Controller {
 		 hardErrorLabel.setText("In development.");
 	 }
 	
-	public void transferStingToShape(ByteArrayOutputStream baos,PrintStream old) {
+	public void transferStringToShape(ByteArrayOutputStream baos,PrintStream old) {
 		char[][] someMaze;
 		 
 		//https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
@@ -350,7 +340,7 @@ public class Controller {
 		snake.moveSnake(mazeCreation, row_movement, column_movement);
 		mazeCreation.boundary();
 		
-		transferStingToShape( baos, old);
+		transferStringToShape( baos, old);
 	}
 	 
 	/**
@@ -408,6 +398,7 @@ public class Controller {
 					
 					Label winLabel = new Label("YOU WIN");
 					Button winButton= new Button ("Go Back");
+					userInputToggle = false;
 					
 					allRows.getChildren().addAll(winLabel,winButton);
 					// when you win it promps the go back button.
