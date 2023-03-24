@@ -94,21 +94,10 @@ public class Controller {
 				userInteraction(enteredUserAction,mainStage,allRows);
 				
 			} catch (RuntimeException ERROR) {
-				System.out.println("GAME OVER");			
-				Main main = new Main();				
-				Label gameoverLabel = new Label("GAME OVER");
-				Button gameoverButton= new Button ("Go Back");
-				// disables the user input when it is gameover. 
-				// this actually sets the private boolean of userInput that was 
-				// initialized above to false. 
-				userInputToggle = false;
-				
-				allRows.getChildren().addAll(gameoverLabel,gameoverButton);
-				// when you lose it promps the go back button.
-				gameoverButton.setOnAction(userInputAction -> main.start(mainStage));
-				
+				String conditionOfGame = "GAME OVER";
+				endGameCondition(allRows, mainStage, conditionOfGame);				
 			}
-			line = "";
+		
 
 	}
 	
@@ -167,14 +156,25 @@ public class Controller {
 				if (userInput.equalsIgnoreCase("W")||userInput.equalsIgnoreCase("A")||
 						userInput.equalsIgnoreCase("S")||userInput.equalsIgnoreCase("D")) {
 					getInputValue(userInput,mainStage, allRows);
-				}
+					}
 				}
 			}
-			
-		});
-
-		
+		});		
 	}
+	
+	public void endGameCondition(VBox allRows, Stage mainStage, String conditionOfGame) {
+		Main main = new Main();
+		
+		Label someLabel = new Label(conditionOfGame);
+		Button backButton= new Button ("Go Back");
+		userInputToggle = false;
+		
+		allRows.getChildren().addAll(someLabel,backButton);
+		// when you win it promps the go back button.
+		// when pressed go back to start method in main.
+		backButton.setOnAction(userInputAction ->main.start(mainStage));
+	}
+
 	
 	/**
 	 * Sets the text in the difficulty display to "In development" 
@@ -318,17 +318,8 @@ public class Controller {
 				
 				
 				if (mazeCreation.ifVictory() == false) {
-					System.out.println("WINNER");	
-					Main main = new Main();
-					
-					Label winLabel = new Label("YOU WIN");
-					Button winButton= new Button ("Go Back");
-					userInputToggle = false;
-					
-					allRows.getChildren().addAll(winLabel,winButton);
-					// when you win it promps the go back button.
-					// when pressed go back to start method in main.
-					winButton.setOnAction(userInputAction ->main.start(mainStage));
+					String conditionOfGame = "WINNER!";
+					endGameCondition(allRows, mainStage, conditionOfGame);
 			}
 		}
 	}
