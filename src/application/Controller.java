@@ -101,8 +101,9 @@ public class Controller {
 				// https://edencoding.com/how-to-hide-a-button-in-javafx/#:~:text=To%20hide%20a%20button%20in%20JavaFX%2C%20setVisible(false)%20should,can%20additionally%20setManaged(false)%20.
 				//userInputSnake.setVisible(false);
 				
+				Label gameoverLabel = new Label("GAME OVER");
 				Button gameoverButton= new Button ("Go Back");
-				allRows.getChildren().add(gameoverButton);
+				allRows.getChildren().addAll(gameoverLabel,gameoverButton);
 				// when you lose it promps the go back button.
 				gameoverButton.setOnAction(userInputAction -> main.start(mainStage));
 				
@@ -167,7 +168,7 @@ public class Controller {
         System.setErr(printStream);
         
         
-        //REFERENCE
+        //https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	PrintStream ps = new PrintStream(baos);
     	// IMPORTANT: Save the old System.out!
@@ -198,30 +199,17 @@ public class Controller {
 	
  
   
-
+		//based off of the code in this video:
+		// https://www.youtube.com/watch?v=tq_0im9qc6E&ab_channel=BroCode
 		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			
 			@Override
 			public void handle(KeyEvent someEvent) {
 				String userInput = someEvent.getCode().toString();
-				
-				//System.out.println(someEvent.getCode());
-				//while (gameContinue==true) {
-				if (userInput.equalsIgnoreCase("W")) {
-					getInputValue(upAction,mainStage, allRows);
+				if (userInput.equalsIgnoreCase("W")||userInput.equalsIgnoreCase("A")||
+						userInput.equalsIgnoreCase("S")||userInput.equalsIgnoreCase("D")) {
+					getInputValue(userInput,mainStage, allRows);
 				}
-	
-				else if (userInput.equalsIgnoreCase("A")) {
-					getInputValue(leftAction,mainStage, allRows);
-				}
-				else if (userInput.equalsIgnoreCase("S")) {
-					getInputValue(downAction,mainStage, allRows);
-				}
-				else if (userInput.equalsIgnoreCase("D")) {
-					getInputValue(rightAction,mainStage, allRows);
-				}
-				
-			//}
 			}
 		});
 		
@@ -279,48 +267,73 @@ public class Controller {
 	 }
 	
 	public void transferStingToShape(ByteArrayOutputStream baos,PrintStream old) {
+		char[][] someMaze;
+		 
+		//https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
 		System.out.flush();
     	System.setOut(old);
     	
     	String output = baos.toString();
          
-        String[] lines = output.split("\r?\n");
-        char[][] someMaze = new char[lines.length][];
-        for (int i = 0; i < lines.length; i++) {
-            someMaze[i] = lines[i].toCharArray();
+    	// https://stackoverflow.com/questions/454908/split-java-string-by-new-line
+        String[] mazeString = output.split("\\r?\n");
+        
+        someMaze = new char[mazeString.length][];
+        for (int i = 0; i < mazeString.length; i++) {
+            someMaze[i] = mazeString[i].toCharArray();
         }
+        
+        //CAN REMOVE THIS CODE WHEN DONE WITH THE TEXATAREA
         for (int i = 0; i < someMaze.length; i++) {
             for (int j = 0; j < someMaze[i].length; j++) {
                 System.out.print(someMaze[i][j]);
             }
             System.out.println();
         }
-        for (int i = 0; i < someMaze.length; i++) {
-            for (int j = 0; j < someMaze[i].length; j++) {
-                if (someMaze[i][j] == '#') {
-                	Rectangle wallShape = new Rectangle(20, 20, Color.GREY);
-                	grid.add(wallShape, j, i);
+        // maybe change this to while loops?
+        for (int rowMaze = 0; rowMaze < someMaze.length; rowMaze++) {
+            for (int columnMaze = 0; columnMaze < someMaze[rowMaze].length; columnMaze++) {
+            	//https://www.tabnine.com/code/java/methods/javafx.scene.shape.Rectangle/setWidth
+            	// First example used as a reference for height and width.
+            	Rectangle someRect = new Rectangle();
+            	someRect.setWidth(21);
+            	someRect.setHeight(21);
+            	
+            	Circle someCirc = new Circle();
+            	someCirc.setRadius(10);
+                if (someMaze[rowMaze][columnMaze] == '#') {
+                	someRect.setFill(Color.GREY);
+                	
+                	//https://www.tutorialspoint.com/javafx/layout_gridpane.htm
+                	// for grid.add
+                	grid.add(someRect, columnMaze, rowMaze);
                 }
-                if (someMaze[i][j] == ' ') {
-                	Rectangle blankShape = new Rectangle(20, 20, Color.WHITE);
-                    grid.add(blankShape, j, i);
+                if (someMaze[rowMaze][columnMaze] == ' ') {
+                	someRect.setFill(Color.WHITE);
+                    grid.add(someRect, columnMaze, rowMaze);
                 }  
-                if (someMaze[i][j] == '.') {
-                   Circle pelletShape = new Circle(10, Color.YELLOW);
-                   grid.add(pelletShape, j, i);
+                //grid.add(someRect, columnMaze, rowMaze);
+                if (someMaze[rowMaze][columnMaze] == 'o') {
+                	someCirc.setFill(Color.GREEN);
+                    //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/shape/Shape.html
+                    someCirc.setStroke(Color.BLACK);
+                    grid.add(someCirc, columnMaze, rowMaze);
                 }
-                if (someMaze[i][j] == '@') {
-                    Circle bombShape = new Circle(10, Color.BLACK);
-                    grid.add(bombShape, j, i);
+                if (someMaze[rowMaze][columnMaze] == '.') {
+                	someCirc.setFill(Color.YELLOW);
+                	someCirc.setStroke(Color.ORANGE);
+
+                   grid.add(someCirc, columnMaze, rowMaze);
                 }
-                if (someMaze[i][j] == '*') {
-                	Circle starShape = new Circle(10, Color.BLUE);
-                	grid.add(starShape, j, i);
+                if (someMaze[rowMaze][columnMaze] == '@') {
+                	someCirc.setFill(Color.BLACK);
+                    grid.add(someCirc, columnMaze, rowMaze);
                 }
-                if (someMaze[i][j] == 'o') {
-                    Circle snakeShape = new Circle(10, Color.GREEN);
-                    grid.add(snakeShape, j, i);
+                if (someMaze[rowMaze][columnMaze] == '*') {
+                	someCirc.setFill(Color.BLUE);
+                	grid.add(someCirc, columnMaze, rowMaze);
                 }
+               
                 
             }
         }
@@ -392,9 +405,11 @@ public class Controller {
 					//userInputSnake.setVisible(false);
 					
 					Main main = new Main();
+					
+					Label winLabel = new Label("YOU WIN");
 					Button winButton= new Button ("Go Back");
 					
-					allRows.getChildren().add(winButton);
+					allRows.getChildren().addAll(winLabel,winButton);
 					// when you win it promps the go back button.
 					// when pressed go back to start method in main.
 					winButton.setOnAction(userInputAction ->main.start(mainStage));
