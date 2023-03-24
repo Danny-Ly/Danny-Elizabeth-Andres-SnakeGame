@@ -66,7 +66,6 @@ public class Controller {
 	@FXML 
     public void startGameInput(ActionEvent event) throws IOException {
 		System.out.println("Start button pressed\n");
-		
 		Parent root = FXMLLoader.load(getClass().getResource("DifficultySelector.fxml"));
 		Stage difficultyStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		Scene difficultyScene = new Scene(root);
@@ -134,7 +133,7 @@ public class Controller {
 		allRows.getChildren().addAll(/*displayMaze,*/grid /*,runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
-		Scene gameScene = new Scene(allRows,420,300);
+		Scene gameScene = new Scene(allRows,420,270);
 		//gameScene.requestFocus();
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
@@ -164,7 +163,6 @@ public class Controller {
 	
 	public void endGameCondition(VBox allRows, Stage mainStage, String conditionOfGame) {
 		Main main = new Main();
-		
 		Label someLabel = new Label(conditionOfGame);
 		Button backButton= new Button ("Go Back");
 		userInputToggle = false;
@@ -222,7 +220,7 @@ public class Controller {
             	someRect.setHeight(21);
             	
             	Circle someCirc = new Circle();
-            	someCirc.setRadius(10);
+            	someCirc.setRadius(9.5);
                 if (someMaze[rowMaze][columnMaze] == '#') {
                 	someRect.setFill(Color.GREY);
                 	
