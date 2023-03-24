@@ -1,5 +1,6 @@
 package application;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -18,8 +19,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -40,6 +46,10 @@ public class Controller {
 	 private Label mediumErrorLabel;
 	@FXML
 	 private Label hardErrorLabel;
+	
+	private GridPane grid = new GridPane();
+	
+	Shape[][] shapes = new Shape[10][20];
 
 	/**
 	 * This method when pressing the start button in the GUI
@@ -91,6 +101,7 @@ public class Controller {
 					initialValue++;
 				}
 				
+				
 			} catch (RuntimeException ERROR) {
 				System.out.println("GAME OVER");
 				
@@ -122,6 +133,7 @@ public class Controller {
 	@FXML
     public void easyButtonPressed(ActionEvent event) throws IOException {
 		int difficultylocal = 0;
+		
 		String upAction = "w";
 		String downAction = "s";
 		String leftAction = "a";
@@ -164,24 +176,95 @@ public class Controller {
 		PrintStream printStream = new PrintStream(new DisplayOfGUIFromConsole(displayMaze), true);
         System.setOut(printStream);
         System.setErr(printStream);
-		
+        
+        
+        //REFERENCE
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    	PrintStream ps = new PrintStream(baos);
+    	// IMPORTANT: Save the old System.out!
+    	PrintStream old = System.out;
+    	// Tell Java to use your special stream
+    	System.setOut(ps);
+    	
+    	
 		mazeCreation = new MazeGenerator(difficultylocal);
 		snake = new Snake(mazeCreation);
 		mazeCreation.boundary();
 		
+		
+
+
+		
+		//create a blank gridpane with shapes
+//		for (int c = 0; c < 20; c++) {
+//		    for (int r = 0; r < 10; r++) {
+//		    	Shape blankShape = null;
+//		    	blankShape = new Rectangle(20, 20, Color.WHITE);
+//		    	shapes[r][c] = blankShape;
+//		    	grid.add(blankShape, c, r);
+//		      }
+//		   }
+//		Rectangle rect = (Rectangle) shapes[0][0];
+//        rect.setFill(Color.PURPLE);
+//        Rectangle twrect = (Rectangle) shapes[0][19];
+//        twrect.setFill(Color.PURPLE);
+//		
+		
+		
 		//someHBox.getChildren().addAll(userInputSnakeLeft,userInputSnakeDown,userInputSnakeRight);
-		allRows.getChildren().addAll(displayMaze, runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
+		allRows.getChildren().addAll(displayMaze,grid, runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
-		Scene gameScene = new Scene(allRows);
+		Scene gameScene = new Scene(allRows,400,500);
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		
 		
 		//runGame.setOnAction(inputAction -> runGame.setVisible(false));
 		
 		mainStage.setScene(gameScene);
 		mainStage.show();
-		boolean gameContinue = true;
+		//boolean gameContinue = true;
+		
+		System.out.flush();
+    	System.setOut(old);
+    	
+    	String output = baos.toString();
+         
+        String[] lines = output.split("\r?\n");
+        char[][] someMaze = new char[lines.length][];
+        for (int i = 0; i < lines.length; i++) {
+            someMaze[i] = lines[i].toCharArray();
+        }
+        for (int i = 0; i < someMaze.length; i++) {
+            for (int j = 0; j < someMaze[i].length; j++) {
+                System.out.print(someMaze[i][j]);
+            }
+            System.out.println();
+        }
+        for (int i = 0; i < someMaze.length; i++) {
+            for (int j = 0; j < someMaze[i].length; j++) {
+                Shape someShape = null;
+                if (someMaze[i][j] == '#') {
+                    someShape = new Rectangle(20, 20, Color.BLACK);
+                }
+                if (someMaze[i][j] == '.') {
+                    someShape = new Circle(10, Color.GRAY);
+                }
+                if (someMaze[i][j] == '@') {
+                    someShape = new Rectangle(20, 20, Color.BLUE);
+                }
+                if (someMaze[i][j] == '*') {
+                    someShape = new Rectangle(20, 20, Color.YELLOW);
+                }
+                if (someMaze[i][j] == 'o') {
+                    someShape = new Circle(10, Color.GREEN);
+                }
+                if (someMaze[i][j] == ' ') {
+                    someShape = new Rectangle(20, 20, Color.WHITE);
+                }   
+                grid.add(someShape, j, i);
+            }
+        } 
+  
 
 		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			
@@ -304,7 +387,7 @@ public class Controller {
 					mazeCreation.boundary();
 				}
 				
-				//if 
+				
 				if (mazeCreation.ifVictory() == false) {
 					System.out.println("WINNER");
 					

@@ -1,5 +1,9 @@
 package application;
 
+import javafx.event.ActionEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
 /**
  * This interface is used to create an array of type Mazeitems.
  * 
@@ -110,7 +114,9 @@ class Wall implements MazeItems {
  * @return false for if its a wall and throw and exception (caught in main) if
  * the snake runs into itself
  */
-class SnakeSegment implements MazeItems {
+
+//are we allowed to extend this?
+class SnakeSegment extends Controller implements MazeItems {
 	int row;
 	int column;
 	public SnakeSegment(int y, int x) {
@@ -122,7 +128,11 @@ class SnakeSegment implements MazeItems {
 	}
 	public void printItem() {
 		System.out.print("o");
-	}
+//        	Rectangle rect = (Rectangle) shapes[0][0];
+//            rect.setFill(Color.PURPLE);
+		}
+	
+	
 	public void eat(Snake snake, MazeGenerator generator) {
 		throw new RuntimeException("SNAKES CAN'T EAT SNAKES");
 	}
