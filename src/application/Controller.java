@@ -192,25 +192,6 @@ public class Controller {
 		mazeCreation.boundary();
 		
 		
-
-
-		
-		//create a blank gridpane with shapes
-//		for (int c = 0; c < 20; c++) {
-//		    for (int r = 0; r < 10; r++) {
-//		    	Shape blankShape = null;
-//		    	blankShape = new Rectangle(20, 20, Color.WHITE);
-//		    	shapes[r][c] = blankShape;
-//		    	grid.add(blankShape, c, r);
-//		      }
-//		   }
-//		Rectangle rect = (Rectangle) shapes[0][0];
-//        rect.setFill(Color.PURPLE);
-//        Rectangle twrect = (Rectangle) shapes[0][19];
-//        twrect.setFill(Color.PURPLE);
-//		
-		
-		
 		//someHBox.getChildren().addAll(userInputSnakeLeft,userInputSnakeDown,userInputSnakeRight);
 		allRows.getChildren().addAll(displayMaze,grid, runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
 		// I also used the code section from BroCode here:
@@ -224,46 +205,9 @@ public class Controller {
 		mainStage.show();
 		//boolean gameContinue = true;
 		
-		System.out.flush();
-    	System.setOut(old);
-    	
-    	String output = baos.toString();
-         
-        String[] lines = output.split("\r?\n");
-        char[][] someMaze = new char[lines.length][];
-        for (int i = 0; i < lines.length; i++) {
-            someMaze[i] = lines[i].toCharArray();
-        }
-        for (int i = 0; i < someMaze.length; i++) {
-            for (int j = 0; j < someMaze[i].length; j++) {
-                System.out.print(someMaze[i][j]);
-            }
-            System.out.println();
-        }
-        for (int i = 0; i < someMaze.length; i++) {
-            for (int j = 0; j < someMaze[i].length; j++) {
-                Shape someShape = null;
-                if (someMaze[i][j] == '#') {
-                    someShape = new Rectangle(20, 20, Color.BLACK);
-                }
-                if (someMaze[i][j] == '.') {
-                    someShape = new Circle(10, Color.GRAY);
-                }
-                if (someMaze[i][j] == '@') {
-                    someShape = new Rectangle(20, 20, Color.BLUE);
-                }
-                if (someMaze[i][j] == '*') {
-                    someShape = new Rectangle(20, 20, Color.YELLOW);
-                }
-                if (someMaze[i][j] == 'o') {
-                    someShape = new Circle(10, Color.GREEN);
-                }
-                if (someMaze[i][j] == ' ') {
-                    someShape = new Rectangle(20, 20, Color.WHITE);
-                }   
-                grid.add(someShape, j, i);
-            }
-        } 
+		transferStingToShape(baos,old);
+	
+ 
   
 
 		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -345,6 +289,63 @@ public class Controller {
 		 hardErrorLabel.setText("In development.");
 	 }
 	
+	public void transferStingToShape(ByteArrayOutputStream baos,PrintStream old) {
+		System.out.flush();
+    	System.setOut(old);
+    	
+    	String output = baos.toString();
+         
+        String[] lines = output.split("\r?\n");
+        char[][] someMaze = new char[lines.length][];
+        for (int i = 0; i < lines.length; i++) {
+            someMaze[i] = lines[i].toCharArray();
+        }
+        for (int i = 0; i < someMaze.length; i++) {
+            for (int j = 0; j < someMaze[i].length; j++) {
+                System.out.print(someMaze[i][j]);
+            }
+            System.out.println();
+        }
+        for (int i = 0; i < someMaze.length; i++) {
+            for (int j = 0; j < someMaze[i].length; j++) {
+                Shape someShape = null;
+                if (someMaze[i][j] == '#') {
+                    someShape = new Rectangle(20, 20, Color.BLACK);
+                }
+                if (someMaze[i][j] == '.') {
+                    someShape = new Circle(10, Color.YELLOW);
+                }
+                if (someMaze[i][j] == '@') {
+                    someShape = new Circle(10, Color.BLUE);
+                }
+                if (someMaze[i][j] == '*') {
+                    someShape = new Circle(10, Color.GREY);
+                }
+                if (someMaze[i][j] == 'o') {
+                    someShape = new Circle(10, Color.GREEN);
+                }
+                if (someMaze[i][j] == ' ') {
+                    someShape = new Rectangle(20, 20, Color.WHITE);
+                }   
+                grid.add(someShape, j, i);
+            }
+        }
+	}
+	 
+	public void movementOfSnake (int row_movement, int column_movement) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    	PrintStream ps = new PrintStream(baos);
+    	// IMPORTANT: Save the old System.out!
+    	PrintStream old = System.out;
+    	// Tell Java to use your special stream
+    	System.setOut(ps);
+    	
+		snake.moveSnake(mazeCreation, row_movement, column_movement);
+		mazeCreation.boundary();
+		
+		transferStingToShape( baos, old);
+	}
+	 
 	/**
 	 * Gets the values from the user and then moves the snake according to the inputed value. Also checks if victory,
 	 * if equal to false, then prints "WINNER" and prompts the user to go back to the start method
@@ -362,29 +363,28 @@ public class Controller {
 				if (enteredUserAction.equalsIgnoreCase("d")) {
 					int row_movement = 0;
 					int column_movement = 1;
-					snake.moveSnake(mazeCreation, row_movement, column_movement);
-					mazeCreation.boundary();		
+					movementOfSnake (row_movement, column_movement);
+					
 				}
 				
 				if (enteredUserAction.equalsIgnoreCase("a")) {
 					int row_movement = 0;
 					int column_movement = -1;
-					snake.moveSnake(mazeCreation, row_movement, column_movement);
-					mazeCreation.boundary();
+					movementOfSnake (row_movement, column_movement);
 				}
 
 				if (enteredUserAction.equalsIgnoreCase("w")) {
 					int row_movement = -1;
 					int column_movement = 0;
-					snake.moveSnake(mazeCreation, row_movement, column_movement);
-					mazeCreation.boundary();
+					 //REFERENCE
+					movementOfSnake (row_movement, column_movement);
+			        } 
 					
 				}
 				if (enteredUserAction.equalsIgnoreCase("s")) {
 					int row_movement = 1;
 					int column_movement = 0;
-					snake.moveSnake(mazeCreation, row_movement, column_movement);
-					mazeCreation.boundary();
+					movementOfSnake (row_movement, column_movement);
 				}
 				
 				
@@ -407,4 +407,4 @@ public class Controller {
 			}
 		}
 	}
-}
+
