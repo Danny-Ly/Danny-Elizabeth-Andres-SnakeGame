@@ -40,8 +40,8 @@ public class Controller {
 	// Initializing/declaring variables that will be used in the class
 	private MazeGenerator mazeCreation;
 	private Snake snake;
-	private TextArea displayMaze;
-	private PrintStream consoleOut;
+//	private TextArea displayMaze;
+//	private PrintStream consoleOut;
 	@FXML
 	 private Label mediumErrorLabel;
 	@FXML
@@ -126,35 +126,35 @@ public class Controller {
 
 		VBox allRows = new VBox();
 		HBox someHBox = new HBox();
-		Button runGame = new Button ("Run Game!");  
-		TextArea displayMaze = new TextArea("SNAKE GAME \n");
-		
-		// set the font so that everything is same size.
-		// this snippet of code was referenced by:
-		// https://docs.oracle.com/javafx/2/text/jfxpub-text.htm on specifically example 8.
-		displayMaze.setFont(Font.font("Monospaced", FontWeight.BOLD, 16));
-		
-		// not allow the user to edit the display TextArea in the GUI. 
-		// this code is referenced by:
-		//https://stackoverflow.com/questions/20205145/javafx-how-to-show-read-only-text#:~:text=You%20can%20use%20following%20statement,setEditable(false)%3B
-		//Answered by Ben on Dec 6, 2020, and edited by mahendrabishnoi2 on Mar 17, 2021. 
-		displayMaze.setEditable(false);
-		
-		// change the dimensions of the TextArea in GUI
-		//https://stackoverflow.com/questions/37458555/how-to-set-height-and-width-of-javafx-textarea
-		// answered on Oct 12, 2017 by Michael Cenzoprano.
-		displayMaze.setPrefHeight(240);
-		displayMaze.setPrefWidth(250);
-		
+//		Button runGame = new Button ("Run Game!");  
+//		TextArea displayMaze = new TextArea("SNAKE GAME \n");
+//		
+//		// set the font so that everything is same size.
+//		// this snippet of code was referenced by:
+//		// https://docs.oracle.com/javafx/2/text/jfxpub-text.htm on specifically example 8.
+//		displayMaze.setFont(Font.font("Monospaced", FontWeight.BOLD, 16));
+//		
+//		// not allow the user to edit the display TextArea in the GUI. 
+//		// this code is referenced by:
+//		//https://stackoverflow.com/questions/20205145/javafx-how-to-show-read-only-text#:~:text=You%20can%20use%20following%20statement,setEditable(false)%3B
+//		//Answered by Ben on Dec 6, 2020, and edited by mahendrabishnoi2 on Mar 17, 2021. 
+//		displayMaze.setEditable(false);
+//		
+//		// change the dimensions of the TextArea in GUI
+//		//https://stackoverflow.com/questions/37458555/how-to-set-height-and-width-of-javafx-textarea
+//		// answered on Oct 12, 2017 by Michael Cenzoprano.
+//		displayMaze.setPrefHeight(240);
+//		displayMaze.setPrefWidth(250);
+//		
 		//https://docs.oracle.com/javafx/2/layout/size_align.htm#:~:text=Centering%20the%20Buttons,-The%20buttons%20are&text=hbButtons.,nodes%20within%20the%20HBox%20pane.
 		allRows.setAlignment(Pos. CENTER);
 		someHBox.setAlignment(Pos. CENTER);
 		
 		// https://stackoverflow.com/questions/33494052/javafx-redirect-console-output-to-textarea-that-is-created-in-scenebuilder
 		// alot of this code is from the reply of James_D on Nov 3, 2015 on how to redirect console output to a TextArea. 
-		PrintStream printStream = new PrintStream(new DisplayOfGUIFromConsole(displayMaze), true);
-        System.setOut(printStream);
-        System.setErr(printStream);
+//		PrintStream printStream = new PrintStream(new DisplayOfGUIFromConsole(displayMaze), true);
+//        System.setOut(printStream);
+//        System.setErr(printStream);
         
         
         //https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
@@ -170,10 +170,10 @@ public class Controller {
 		
 		
 		//someHBox.getChildren().addAll(userInputSnakeLeft,userInputSnakeDown,userInputSnakeRight);
-		allRows.getChildren().addAll(displayMaze,grid, runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
+		allRows.getChildren().addAll(/*displayMaze,*/grid /*,runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
-		Scene gameScene = new Scene(allRows,400,500);
+		Scene gameScene = new Scene(allRows,420,300);
 		//gameScene.requestFocus();
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
@@ -213,23 +213,23 @@ public class Controller {
 	 */
 	//https://stackoverflow.com/questions/33494052/javafx-redirect-console-output-to-textarea-that-is-created-in-scenebuilder
 	// this code is from the reply of James_D on Nov 3, 2015 on how to redirect console output to a TextArea. 
-	public class DisplayOfGUIFromConsole extends OutputStream {
-	        private TextArea textForGUI;
-	        
-	        DisplayOfGUIFromConsole(TextArea textForGUI) {
-	            this.textForGUI = textForGUI;
-	        }
-	        
-	        public void appendText(String valueOf) {
-	            Platform.runLater(() ->textForGUI.appendText(valueOf));
-	        }
-	        
-	        public void write(int b) throws IOException {
-	            // Append the output to the TextArea
-	       
-	        	appendText(String.valueOf((char) b));
-	        }
-		} 
+//	public class DisplayOfGUIFromConsole extends OutputStream {
+//	        private TextArea textForGUI;
+//	        
+//	        DisplayOfGUIFromConsole(TextArea textForGUI) {
+//	            this.textForGUI = textForGUI;
+//	        }
+//	        
+//	        public void appendText(String valueOf) {
+//	            Platform.runLater(() ->textForGUI.appendText(valueOf));
+//	        }
+//	        
+//	        public void write(int b) throws IOException {
+//	            // Append the output to the TextArea
+//	       
+//	        	appendText(String.valueOf((char) b));
+//	        }
+//		} 
 	
 	/**
 	 * Sets the text in the difficulty display to "In development" 
@@ -280,7 +280,7 @@ public class Controller {
             	// First example used as a reference for height and width.
             	Rectangle someRect = new Rectangle();
             	someRect.setWidth(21);
-            	someRect.setHeight(21);
+            	someRect.setHeight(22);
             	
             	Circle someCirc = new Circle();
             	someCirc.setRadius(10);
