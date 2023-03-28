@@ -155,8 +155,8 @@ public class Controller {
 		
 		mazeCreation = new MazeGenerator(difficultylocal);
 		snake = new Snake(mazeCreation);
-		//control = new SnakeControl(snake, mazeCreation, 0, 0);
-		//Snaketimer.schedule(control,0,15000);
+		control = new SnakeControl(snake, mazeCreation, 0, 0);
+		Snaketimer.schedule(control,0,5000);
 		mazeCreation.boundary();
 		
 		allRows.getChildren().addAll(displayMaze,userInputtedValue,userInputSnake);
@@ -230,39 +230,39 @@ public class Controller {
 				if (enteredUserAction.equalsIgnoreCase("d")) {
 					control.setRow_movement(0);
 					control.setColumn_movement(1);
-					int row_movement = 0;
-					int column_movement = 1;
-					snake.moveSnake(mazeCreation, row_movement, column_movement);
-					mazeCreation.boundary();
+					//int row_movement = 0;
+					//int column_movement = 1;
+					//snake.moveSnake(mazeCreation, row_movement, column_movement);
+					//mazeCreation.boundary();
 					
 				}
 				
 				if (enteredUserAction.equalsIgnoreCase("a")) {
-					//control.setRow_movement(0);
-					//control.setColumn_movement(-1);
-					int row_movement = 0;
-					int column_movement = -1;
-					snake.moveSnake(mazeCreation, row_movement, column_movement);
-					mazeCreation.boundary();
+					control.setRow_movement(0);
+					control.setColumn_movement(-1);
+					//int row_movement = 0;
+					//int column_movement = -1;
+					//snake.moveSnake(mazeCreation, row_movement, column_movement);
+					//mazeCreation.boundary();
 					
 				}
 			
 				if (enteredUserAction.equalsIgnoreCase("w")) {
-					//control.setRow_movement(-1);
-					//control.setColumn_movement(0);
-					int row_movement = -1;
-					int column_movement = 0;
-					snake.moveSnake(mazeCreation, row_movement, column_movement);
-					mazeCreation.boundary();
+					control.setRow_movement(-1);
+					control.setColumn_movement(0);
+					//int row_movement = -1;
+					//int column_movement = 0;
+					//snake.moveSnake(mazeCreation, row_movement, column_movement);
+					//mazeCreation.boundary();
 					
 				}
 				if (enteredUserAction.equalsIgnoreCase("s")) {
-					//control.setRow_movement(1);
-					//control.setColumn_movement(0);	
-					int row_movement = 1;
-					int column_movement = 0;
-					snake.moveSnake(mazeCreation, row_movement, column_movement);
-					mazeCreation.boundary();
+					control.setRow_movement(1);
+					control.setColumn_movement(0);	
+					//int row_movement = 1;
+					//int column_movement = 0;
+					//snake.moveSnake(mazeCreation, row_movement, column_movement);
+					//mazeCreation.boundary();
 				}
 				
 				//if 

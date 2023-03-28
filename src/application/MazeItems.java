@@ -7,12 +7,12 @@ package application;
  *
  */
 public interface MazeItems {
-	
+
 	/*
 	 * prints desired program output for each maze item
 	 */
 	public void printItem();
-	
+
 	/*
 	 * when the snake runs into the mazeitem each item will execute their said
 	 * fuctions
@@ -22,13 +22,12 @@ public interface MazeItems {
 	 * @param generator to determine how each object will affect the maze
 	 */
 	public void eat(Snake snake, MazeGenerator generator);
-	
+
 	/*
 	 * checks to see if each maze item is a wall
 	 */
 	public boolean isWall();
 }
-
 
 /*
  * Bombs class will print the desired output Regenerate maze if snake touches
@@ -40,9 +39,11 @@ class Bombs implements MazeItems {
 	public void printItem() {
 		System.out.print("@");
 	}
+
 	public void eat(Snake snake, MazeGenerator generator) {
 		snake.eatBomb(generator);
 	}
+
 	public boolean isWall() {
 		return false;
 	}
@@ -52,13 +53,16 @@ class Ninjastars implements MazeItems {
 	public void printItem() {
 		System.out.print("*");
 	}
+
 	public void eat(Snake snake, MazeGenerator generator) {
 		snake.eatNinjaStar(generator);
 	}
+
 	public boolean isWall() {
 		return false;
 	}
 }
+
 /*
  * Pellets class will print the desired output Extend the snake if it touches
  * the pellet
@@ -69,28 +73,31 @@ class Pellets implements MazeItems {
 	public void printItem() {
 		System.out.print(".");
 	}
+
 	public void eat(Snake snake, MazeGenerator generator) {
 		snake.eatPellet(generator);
 	}
+
 	public boolean isWall() {
 		return false;
 	}
 }
 
 /*
- * @return true for if its a wall Wall class 
- * will print the desired output and
+ * @return true for if its a wall Wall class will print the desired output and
  * throw and exception (caught in main) if the snake runs into the wall
  */
 class Wall implements MazeItems {
-	
+
 	public boolean isWall() {
 		return true;
 	}
+
 	public void printItem() {
 
 		System.out.print("#");
 	}
+
 	public void eat(Snake snake, MazeGenerator generator) {
 		throw new RuntimeException("SNAKES CAN'T EAT WALLS");
 	}
@@ -106,19 +113,39 @@ class Wall implements MazeItems {
 class SnakeSegment implements MazeItems {
 	int row;
 	int column;
+
 	public SnakeSegment(int y, int x) {
 		row = y;
 		column = x;
 	}
+
 	public boolean isWall() {
 		return false;
 	}
+
 	public void printItem() {
 		System.out.print("o");
 	}
-	public void eat(Snake snake, MazeGenerator generator) {
-		throw new RuntimeException("SNAKES CAN'T EAT SNAKES");
+
+	// @override
+	public boolean equals(SnakeSegment head) {
+		if (row == head.row && column == head.column) {
+			return true;
+		} else {
+			return false;
+		}
 	}
+
+	public void eat(Snake snake, MazeGenerator generator) {
+		if (this.equals(snake.getSnakeHead())) {
+
+		}
+
+		else {
+			throw new RuntimeException("SNAKES CAN'T EAT SNAKES");
+		}
+	}
+
 	// makes an array to keep track of the location of the snake
 	public int[] location() {
 		int[] location = new int[2];

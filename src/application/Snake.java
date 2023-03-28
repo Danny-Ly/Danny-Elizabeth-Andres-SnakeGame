@@ -15,7 +15,7 @@ public class Snake {
 	// And customization of the movement
 	private ArrayList<SnakeSegment> arraySnakeSegment;
 	private SnakeSegment oldTail;
-	
+
 	/**
 	 * Constructor for Snake class, that creates a array list for snake and adds
 	 * snake segments to the array list.
@@ -34,13 +34,14 @@ public class Snake {
 		arraySnakeSegment.add(snakeSeg);
 		mazeCreation.add(snakeSeg);
 	}
-	
+
 	/**
 	 * This moves the snake through the maze and based on user input and deletes old
 	 * position of snake
-	 * @param mazeCreation parameter from MazeGenerator class that represent how all
-	 * objects are manipulated in the maze.
-	 * @param row_movement based on user input WASD, either 0, 1 or -1
+	 * 
+	 * @param mazeCreation    parameter from MazeGenerator class that represent how
+	 *                        all objects are manipulated in the maze.
+	 * @param row_movement    based on user input WASD, either 0, 1 or -1
 	 * @param column_movement based on user input WASD, either 0, 1 or -1
 	 */
 	public void moveSnake(MazeGenerator mazeCreation, int row_movement, int column_movement) {
@@ -56,21 +57,30 @@ public class Snake {
 		// removing old position of head
 		oldTail = arraySnakeSegment.remove(arraySnakeSegment.size() - 1);
 		MazeItems oldItem = mazeCreation.add(updatedHead);
-		mazeCreation.remove(oldTail);
-		if (oldItem != null) {
-			oldItem.eat(this, mazeCreation);
+		if (head != oldItem) {
+
+			mazeCreation.remove(oldTail);
+			if (oldItem != null) {
+				oldItem.eat(this, mazeCreation);
+			}
 		}
 	}
-	
-	
+
+	public SnakeSegment getSnakeHead() {
+		SnakeSegment head = arraySnakeSegment.get(0);
+		return head;
+
+	}
+
 	public void eatNinjaStar(MazeGenerator mazeCreation) {
-		SnakeSegment oldTail = arraySnakeSegment.remove(arraySnakeSegment.size()-1);
+		SnakeSegment oldTail = arraySnakeSegment.remove(arraySnakeSegment.size() - 1);
 		mazeCreation.remove(oldTail);
-		if (arraySnakeSegment.size()== 0) {
+		if (arraySnakeSegment.size() == 0) {
 			throw new RuntimeException("NO MORE SNAKE LEFT");
 		}
-		
+
 	}
+
 	/**
 	 * This regenerates the maze if the snake eats a bomb
 	 * 
@@ -86,10 +96,10 @@ public class Snake {
 	 * arraylist.
 	 * 
 	 * @param mazeCreation is from MazeGenerator class that represent how all
-	 * objects are manipulated in the maze.
+	 *                     objects are manipulated in the maze.
 	 */
 	public void eatPellet(MazeGenerator mazeCreation) {
 		arraySnakeSegment.add(oldTail);
-		mazeCreation.add(oldTail);	
+		mazeCreation.add(oldTail);
 	}
 }
