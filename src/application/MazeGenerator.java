@@ -14,8 +14,9 @@ public class MazeGenerator {
 	private int difficulty;
 	private BombGenerator bomb;
 	private PelletGenerator pellet;
-	//private SpeedGenerator speedPellet;
+
 	private NinjaStarGenerator ninjaStar; 
+
 	/**
 	 * gets the current difficulty of the game.
 	 * @return the value of difficulty
@@ -93,11 +94,13 @@ public class MazeGenerator {
 		
 		
 		pellet = new PelletGenerator();
+
 		pellet.generateObject(maze);
 
 		
 		ninjaStar = new NinjaStarGenerator();
 		ninjaStar.generateObject(maze);
+
 
 	}
 	
@@ -163,4 +166,7 @@ public class MazeGenerator {
 		int[] arrayOfSnakeLocation = oldTail.location();
 		maze[arrayOfSnakeLocation[0]][arrayOfSnakeLocation[1]] = null;
 	}
+
+
+		
 }

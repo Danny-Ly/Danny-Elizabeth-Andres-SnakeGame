@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Timer;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -40,18 +41,23 @@ public class Controller {
 	// Initializing/declaring variables that will be used in the class
 	private MazeGenerator mazeCreation;
 	private Snake snake;
-//	private TextArea displayMaze;
-//	private PrintStream consoleOut;
+
+
+	private SnakeControl control;
+	private Timer Snaketimer = new Timer();
+	
 	@FXML
 	 private Label mediumErrorLabel;
 	@FXML
 	 private Label hardErrorLabel;
 	
+
 	private GridPane grid = new GridPane();
 	
 	private boolean userInputToggle = true;
 	
 	Shape[][] shapes = new Shape[10][20];
+
 
 	/**
 	 * This method when pressing the start button in the GUI
@@ -112,11 +118,13 @@ public class Controller {
     public void easyButtonPressed(ActionEvent event) throws IOException {
 		int difficultylocal = 0;
 
+
 		VBox allRows = new VBox();
 		HBox someHBox = new HBox();
 		//https://docs.oracle.com/javafx/2/layout/size_align.htm#:~:text=Centering%20the%20Buttons,-The%20buttons%20are&text=hbButtons.,nodes%20within%20the%20HBox%20pane.
 		allRows.setAlignment(Pos. CENTER);
 		someHBox.setAlignment(Pos. CENTER);
+
 		
         //https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -126,6 +134,8 @@ public class Controller {
     	
 		mazeCreation = new MazeGenerator(difficultylocal);
 		snake = new Snake(mazeCreation);
+		control = new SnakeControl(snake, mazeCreation, 0, 0);
+		Snaketimer.schedule(control,0,5000);
 		mazeCreation.boundary();
 		
 		
@@ -285,33 +295,49 @@ public class Controller {
 	public void userInteraction(String enteredUserAction,Stage mainStage, VBox allRows) {
 		int difficulty = 0;
 		if (difficulty == 0) {
+		
 				// there is the input of a(right), d(left), w(up), and s(down)
 				// that calls the snake class to allow for it to function.
 				if (enteredUserAction.equalsIgnoreCase("d")) {
-					int row_movement = 0;
-					int column_movement = 1;
-					movementOfSnake (row_movement, column_movement);
+
+					control.setRow_movement(0);
+					control.setColumn_movement(1);
+					//int row_movement = 0;
+					//int column_movement = 1;
+					//snake.moveSnake(mazeCreation, row_movement, column_movement);
+					//mazeCreation.boundary();
+
 					
 				}
 				
 				if (enteredUserAction.equalsIgnoreCase("a")) {
-					int row_movement = 0;
-					int column_movement = -1;
-					movementOfSnake (row_movement, column_movement);
+
+					control.setRow_movement(0);
+					control.setColumn_movement(-1);
+					//int row_movement = 0;
+					//int column_movement = -1;
+					//snake.moveSnake(mazeCreation, row_movement, column_movement);
+					//mazeCreation.boundary();
+					
 				}
 
 				if (enteredUserAction.equalsIgnoreCase("w")) {
-					int row_movement = -1;
-					int column_movement = 0;
-					 //REFERENCE
-					movementOfSnake (row_movement, column_movement);
-			        } 
+					control.setRow_movement(-1);
+					control.setColumn_movement(0);
+					//int row_movement = -1;
+					//int column_movement = 0;
+					//snake.moveSnake(mazeCreation, row_movement, column_movement);
+					//mazeCreation.boundary();
 					
 				}
 				if (enteredUserAction.equalsIgnoreCase("s")) {
-					int row_movement = 1;
-					int column_movement = 0;
-					movementOfSnake (row_movement, column_movement);
+					control.setRow_movement(1);
+					control.setColumn_movement(0);	
+					//int row_movement = 1;
+					//int column_movement = 0;
+					//snake.moveSnake(mazeCreation, row_movement, column_movement);
+					//mazeCreation.boundary();
+
 				}
 				
 				
