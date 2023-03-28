@@ -55,7 +55,7 @@ public class Snake {
 		// updating the position of the snake
 		arraySnakeSegment.add(0, updatedHead);
 		// removing old position of head
-		oldTail = arraySnakeSegment.remove(arraySnakeSegment.size() - 1);
+		oldTail = arraySnakeSegment.remove(arraySnakeSegment.size() - 1); //
 		MazeItems oldItem = mazeCreation.add(updatedHead);
 		if (head != oldItem) {
 
@@ -102,4 +102,19 @@ public class Snake {
 		arraySnakeSegment.add(oldTail);
 		mazeCreation.add(oldTail);
 	}
+	
+	public void eatSpeed(MazeGenerator mazeCreation) {
+		//int actionValue = 2;
+		//System.out.println(actionValue);
+		System.out.println("Speed pellet consumed");
+		
+	}
+	
+	public void eatNinjaStar(MazeGenerator mazeCreation) {
+		SnakeSegment oldTail = arraySnakeSegment.remove(arraySnakeSegment.size()-1);
+		mazeCreation.remove(oldTail);
+		if (arraySnakeSegment.size()== 0) {
+			throw new RuntimeException("NO MORE SNAKE LEFT");
+		}	
+	}	
 }

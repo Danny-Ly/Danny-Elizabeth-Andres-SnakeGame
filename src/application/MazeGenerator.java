@@ -14,8 +14,9 @@ public class MazeGenerator {
 	private int difficulty;
 	private BombGenerator bomb;
 	private PelletGenerator pellet;
+
 	private NinjaStarGenerator ninjaStar; 
-	
+
 	/**
 	 * gets the current difficulty of the game.
 	 * @return the value of difficulty
@@ -89,14 +90,18 @@ public class MazeGenerator {
 		item.randomWall(maze);
 		
 		bomb = new BombGenerator();
-		bomb.randomBomb(maze);
+		bomb.generateObject(maze);
+		
 		
 		pellet = new PelletGenerator();
-		pellet.randomPellet(maze);
+
+		pellet.generateObject(maze);
+
 		
 		ninjaStar = new NinjaStarGenerator();
-		ninjaStar.randomNinjaStar(maze);
-		
+		ninjaStar.generateObject(maze);
+
+
 	}
 	
 	/**
@@ -136,6 +141,7 @@ public class MazeGenerator {
 			}
 			System.out.println();
 		}
+
 	}
 	
 	/**
