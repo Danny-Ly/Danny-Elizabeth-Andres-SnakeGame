@@ -134,7 +134,7 @@ public class Controller {
     	
 		mazeCreation = new MazeGenerator(difficultylocal);
 		snake = new Snake(mazeCreation);
-		control = new SnakeControl(snake, mazeCreation, 0, 0);
+		control = new SnakeControl(this, snake, mazeCreation, 0, 0,baos,old);
 		Snaketimer.schedule(control,0,5000);
 		mazeCreation.boundary();
 		
@@ -153,7 +153,8 @@ public class Controller {
 		mainStage.show();
 		//boolean gameContinue = true;
 		
-		transferStringToShape(baos,old);
+	
+		//transferStringToShape(baos,old);
 	
 		//based off of the code in this video:
 		// https://www.youtube.com/watch?v=tq_0im9qc6E&ab_channel=BroCode
@@ -230,6 +231,7 @@ public class Controller {
             	someRect.setHeight(21);
             	
             	Circle someCirc = new Circle();
+            
             	someCirc.setRadius(9.5);
                 if (someMaze[rowMaze][columnMaze] == '#') {
                 	someRect.setFill(Color.GREY);
@@ -280,7 +282,7 @@ public class Controller {
 		snake.moveSnake(mazeCreation, row_movement, column_movement);
 		mazeCreation.boundary();
 		
-		transferStringToShape( baos, old);
+		transferStringToShape(baos, old);
 	}
 	 
 	/**
@@ -346,5 +348,7 @@ public class Controller {
 					endGameCondition(allRows, mainStage, conditionOfGame);
 			}
 		}
+	
 	}
-
+	
+}
