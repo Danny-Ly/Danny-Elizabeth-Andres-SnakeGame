@@ -133,7 +133,7 @@ public class Controller {
 		allRows.getChildren().addAll(/*displayMaze,*/grid /*,runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
-		Scene gameScene = new Scene(allRows,420,270);
+		Scene gameScene = new Scene(allRows,840,540);
 		//gameScene.requestFocus();
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
@@ -216,11 +216,11 @@ public class Controller {
             	//https://www.tabnine.com/code/java/methods/javafx.scene.shape.Rectangle/setWidth
             	// First example used as a reference for height and width.
             	Rectangle someRect = new Rectangle();
-            	someRect.setWidth(21);
-            	someRect.setHeight(21);
+            	someRect.setWidth(42);
+            	someRect.setHeight(42);
             	
             	Circle someCirc = new Circle();
-            	someCirc.setRadius(9.5);
+            	someCirc.setRadius(19);
                 if (someMaze[rowMaze][columnMaze] == '#') {
                 	someRect.setFill(Color.GREY);
                 	
