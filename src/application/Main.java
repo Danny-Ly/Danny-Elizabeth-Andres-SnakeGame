@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 
 /**
  * The class that calls upon Stage to allow
@@ -36,6 +37,8 @@ public class Main extends Application{
 			FXMLLoader loader = new FXMLLoader();
 			Parent root = loader.load(new FileInputStream("src/application/SnakeGameTitle.fxml"));
 			Scene startScene = new Scene(root,400,400);
+			//https://stackoverflow.com/questions/71328159/javafx-scene-background-color-how-to-change
+			root.setStyle("-fx-background-color: rgb(211, 235, 204);");
 			startScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			startStage.setScene(startScene);
 			startStage.setTitle("Snake Game");

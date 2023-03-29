@@ -1,9 +1,16 @@
 package application;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -22,6 +29,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -107,10 +116,22 @@ public class Controller {
 	 * with a print in there to show that button was pressed in console.
 	 * @param event an action (button) initiates this method.
 	 * @throws IOException
+	 * @throws LineUnavailableException 
+	 * @throws UnsupportedAudioFileException 
 	 */
 	@FXML
-    public void easyButtonPressed(ActionEvent event) throws IOException {
+    public void easyButtonPressed(ActionEvent event) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		int difficultylocal = 0;
+//		Media media = new Media("sample-3s.mp3");
+//		MediaPlayer mediaPlayer = new MediaPlayer(media);
+//		mediaPlayer.play();
+//
+//		File file = new File ("sample-3s.wav");
+//		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+//		Clip clip = AudioSystem.getClip();
+//		clip.open(audioStream);
+//		
+//		clip.start();
 
 		VBox allRows = new VBox();
 		HBox someHBox = new HBox();
@@ -134,6 +155,7 @@ public class Controller {
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
 		Scene gameScene = new Scene(allRows,840,540);
+		allRows.setStyle("-fx-background-color: rgb(211, 235, 204);");
 		//gameScene.requestFocus();
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
@@ -234,10 +256,12 @@ public class Controller {
                 }  
                 //grid.add(someRect, columnMaze, rowMaze);
                 if (someMaze[rowMaze][columnMaze] == 'o') {
-                	someCirc.setFill(Color.GREEN);
+                	someRect.setFill(Color.GREEN);
+                	someRect.setWidth(41);
+                	someRect.setHeight(41);
                     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/shape/Shape.html
-                    someCirc.setStroke(Color.BLACK);
-                    grid.add(someCirc, columnMaze, rowMaze);
+                    someRect.setStroke(Color.BLACK);
+                    grid.add(someRect, columnMaze, rowMaze);
                 }
                 if (someMaze[rowMaze][columnMaze] == '.') {
                 	someCirc.setFill(Color.YELLOW);
