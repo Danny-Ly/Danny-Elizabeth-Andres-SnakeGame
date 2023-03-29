@@ -16,6 +16,8 @@ public class Snake {
 	private ArrayList<SnakeSegment> arraySnakeSegment;
 	private SnakeSegment oldTail;
 	
+	private int counter = 0;
+	
 	/**
 	 * Constructor for Snake class, that creates a array list for snake and adds
 	 * snake segments to the array list.
@@ -81,7 +83,14 @@ public class Snake {
 	 */
 	public void eatPellet(MazeGenerator mazeCreation) {
 		arraySnakeSegment.add(oldTail);
-		mazeCreation.add(oldTail);	
+		mazeCreation.add(oldTail);
+		counter ++;
+		//System.out.println(counter);
+		
+	}
+	// getter
+	public int returnCounter() {
+		return counter;
 	}
 	
 	public void eatSpeed(MazeGenerator mazeCreation) {
@@ -90,6 +99,8 @@ public class Snake {
 		System.out.println("Speed pellet consumed");
 		
 	}
+	
+
 	
 	public void eatNinjaStar(MazeGenerator mazeCreation) {
 		SnakeSegment oldTail = arraySnakeSegment.remove(arraySnakeSegment.size()-1);

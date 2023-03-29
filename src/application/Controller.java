@@ -56,6 +56,9 @@ public class Controller {
 	@FXML
 	 private Label hardErrorLabel;
 	
+	
+	private Label counterLabel;
+	
 	private GridPane grid = new GridPane();
 	
 	private boolean userInputToggle = true;
@@ -133,6 +136,10 @@ public class Controller {
 //		
 //		clip.start();
 
+		counterLabel = new Label("Points: 0");
+		//https://jenkov.com/tutorials/javafx/label.html#:~:text=button%20is%20clicked.-,Set%20Label%20Font,use%20a%20different%20text%20style.
+		counterLabel.setFont(new Font("courier new", 30));
+		
 		VBox allRows = new VBox();
 		HBox someHBox = new HBox();
 		//https://docs.oracle.com/javafx/2/layout/size_align.htm#:~:text=Centering%20the%20Buttons,-The%20buttons%20are&text=hbButtons.,nodes%20within%20the%20HBox%20pane.
@@ -151,11 +158,12 @@ public class Controller {
 		
 		
 		//someHBox.getChildren().addAll(userInputSnakeLeft,userInputSnakeDown,userInputSnakeRight);
-		allRows.getChildren().addAll(/*displayMaze,*/grid /*,runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
+		allRows.getChildren().addAll(counterLabel,/*displayMaze,*/grid /*,runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
-		Scene gameScene = new Scene(allRows,840,540);
-		allRows.setStyle("-fx-background-color: rgb(211, 235, 204);");
+		Scene gameScene = new Scene(allRows,840,520);
+		
+		//allRows.setStyle("-fx-background-color: rgb(211, 235, 204);");
 		//gameScene.requestFocus();
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
@@ -263,7 +271,7 @@ public class Controller {
                     someRect.setStroke(Color.BLACK);
                     grid.add(someRect, columnMaze, rowMaze);
                 }
-                if (someMaze[rowMaze][columnMaze] == '.') {
+                if (someMaze[rowMaze][columnMaze] == '.') {	
                 	someCirc.setFill(Color.YELLOW);
                 	someCirc.setStroke(Color.ORANGE);
 
@@ -293,6 +301,12 @@ public class Controller {
     	
 		snake.moveSnake(mazeCreation, row_movement, column_movement);
 		mazeCreation.boundary();
+		
+		int mainCounter = snake.returnCounter();
+		//https://www.javatpoint.com/java-int-to-string
+		counterLabel.setText("Points: " + String.valueOf(mainCounter));
+		
+		
 		
 		transferStringToShape( baos, old);
 	}
