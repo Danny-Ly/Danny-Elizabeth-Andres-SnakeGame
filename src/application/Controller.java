@@ -231,6 +231,7 @@ public class Controller {
        	Image bombImage = new Image("gameBomb.png");
     	Image ninjaStarImage = new Image("gameNinjaStar.png");
     	Image groundImage = new Image("gameGround.png");
+    	Image snakeImage = new Image("snakeTexture.png");
 		 
 		//https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
 		System.out.flush();
@@ -319,7 +320,10 @@ public class Controller {
                 	someRect.setHeight(41);
                     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/shape/Shape.html
                     someRect.setStroke(Color.BLACK);
-                    grid.add(someRect, columnMaze, rowMaze);
+//                    grid.add(someRect, columnMaze, rowMaze);
+                    someImageView.setImage(snakeImage);
+                    grid.add(someImageView, columnMaze, rowMaze);
+                    
                 }
                 	 columnMaze++;
                 }
