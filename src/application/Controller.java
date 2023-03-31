@@ -45,7 +45,7 @@ import javafx.stage.Stage;
  * @author  Written by Danny, assisted and co-written by Andres and Elizabeth.
  *
  */
-public class Controller {
+public class Controller extends PelletGenerator {
 	// Initializing/declaring variables that will be used in the class
 	private MazeGenerator mazeCreation;
 	private Snake snake;
@@ -106,7 +106,8 @@ public class Controller {
 				
 			} catch (RuntimeException ERROR) {
 				String conditionOfGame = "GAME OVER";
-				endGameCondition(allRows, mainStage, conditionOfGame);				
+				endGameCondition(allRows, mainStage, conditionOfGame);
+				setIncremental(0);
 			}
 		
 
@@ -195,12 +196,22 @@ public class Controller {
 		Main main = new Main();
 		Label someLabel = new Label(conditionOfGame);
 		Button backButton= new Button ("Go Back");
+		Button continueButton = new Button ("Continue");
+		
+		continueButton.setOnAction(e->{Main app=new Main();
+		app.start(mainStage);
+		});
+		
 		userInputToggle = false;
 		
-		allRows.getChildren().addAll(someLabel,backButton);
+		allRows.getChildren().addAll(someLabel,backButton,continueButton);
 		// when you win it promps the go back button.
 		// when pressed go back to start method in main.
 		backButton.setOnAction(userInputAction ->main.start(mainStage));
+		//continueButton.setOnAction(userInputAction -> main.start(mainStage.setScene)));
+	}
+	public void continueButtonPressed(ActionEvent event ) throws IOException{
+		
 	}
 
 	
@@ -321,6 +332,7 @@ public class Controller {
 	 * @param userInputSnake Button for inputting a value. 
 	 */
 	public void userInteraction(String enteredUserAction,Stage mainStage, VBox allRows) {
+		int base = 0;
 		int difficulty = 0;
 		if (difficulty == 0) {
 				// there is the input of a(right), d(left), w(up), and s(down)
@@ -354,8 +366,12 @@ public class Controller {
 				
 				
 				if (mazeCreation.ifVictory() == false) {
-					String conditionOfGame = "WINNER!";
+					base++;
+					setIncremental(base);
+					String conditionOfGame = "WINNER!"+ base ;
+					//setIncremental(base);
 					endGameCondition(allRows, mainStage, conditionOfGame);
+					
 			}
 		}
 	}

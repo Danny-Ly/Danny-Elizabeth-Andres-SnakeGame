@@ -69,7 +69,7 @@ public class ItemGenerator{
 		/*
 		 * Randomly creating 20 or less obstacle within maze
 		 */
-		while (numberOfobstactle < 20) {
+		while (numberOfobstactle < 25) {
 			Random randomvalue = new Random();
 			int xCord;
 			int yCord;
@@ -85,10 +85,10 @@ public class ItemGenerator{
 		}
 		// adding constant beginning location of snake and Walls of every maze.
 		// maze [4][9] = SNAKE;
-		maze[5][9] = new Wall();
+		//maze[5][9] = new Wall();
 		maze[5][8] = new Wall();
 		maze[5][10] = new Wall();
-		maze[4][8] = new Wall();
-		maze[4][10] = new Wall();
+		//maze[4][8] = new Wall();
+		//maze[4][10] = new Wall();
 	}
 }
