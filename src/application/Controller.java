@@ -23,8 +23,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -33,12 +31,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -65,7 +59,6 @@ public class Controller {
 	
 	private boolean userInputToggle = true;
 	
-	Shape[][] shapes = new Shape[10][20];
 
 	/**
 	 * This method when pressing the start button in the GUI
@@ -125,7 +118,7 @@ public class Controller {
 	 * @throws UnsupportedAudioFileException 
 	 */
 	@FXML
-    public void easyButtonPressed(ActionEvent event) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+    public void easyButtonPressed(ActionEvent event) throws IOException{
 		int difficultylocal = 0;
 //		Media media = new Media("sample-3s.mp3");
 //		MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -166,7 +159,6 @@ public class Controller {
 		Scene gameScene = new Scene(allRows,840,520);
 		
 		//allRows.setStyle("-fx-background-color: rgb(211, 235, 204);");
-		//gameScene.requestFocus();
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
 		//runGame.setOnAction(inputAction -> runGame.setVisible(false));
@@ -226,12 +218,20 @@ public class Controller {
 	
 	public void transferStringToShape(ByteArrayOutputStream baos,PrintStream old) {
 		char[][] someMaze;
-        Image wallImage = new Image("brickImage.png");
-    	Image imagePellet = new Image("yellowPelletImage.png");
-       	Image bombImage = new Image("gameBomb.png");
-    	Image ninjaStarImage = new Image("gameNinjaStar.png");
-    	Image groundImage = new Image("gameGround.png");
-    	Image snakeImage = new Image("snakeTexture.png");
+		//Parisa helped me with this
+        Image wallImage = new Image(getClass().getResource("/ImagesFolder/brickImage.png").toString());
+    	Image imagePellet = new Image(getClass().getResource("/ImagesFolder/yellowPelletImage.png").toString());
+       	Image bombImage = new Image(getClass().getResource("/ImagesFolder/gameBomb.png").toString());
+    	Image ninjaStarImage = new Image(getClass().getResource("/ImagesFolder/gameNinjaStar.png").toString());
+    	Image groundImage = new Image(getClass().getResource("/ImagesFolder/gameGround.png").toString());
+    	Image snakeImage = new Image(getClass().getResource("/ImagesFolder/snakeTexture.png").toString());
+
+//    	Image wallImage = new Image("brickImage.png");
+//       	Image imagePellet = new Image("yellowPelletImage.png");
+//        Image bombImage = new Image("gameBomb.png");
+//       	Image ninjaStarImage = new Image("gameNinjaStar.png");
+//       	Image groundImage = new Image("gameGround.png");
+//       	Image snakeImage = new Image("snakeTexture.png");
 		 
 		//https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
 		System.out.flush();
@@ -261,19 +261,16 @@ public class Controller {
             while (columnMaze < someMaze[rowMaze].length) {
             	//https://www.tabnine.com/code/java/methods/javafx.scene.shape.Rectangle/setWidth
             	// First example used as a reference for height and width.
-                Rectangle someRect = new Rectangle();
-            	someRect.setWidth(42);
-            	someRect.setHeight(42);
             	
             	ImageView someOtherView = new ImageView();
-            	someOtherView.setFitHeight(42);
-            	someOtherView.setFitWidth(42);
+            	someOtherView.setFitHeight(40);
+            	someOtherView.setFitWidth(40);
             	
             	ImageView someImageView = new ImageView();
-            	someImageView.setFitHeight(42);
-            	someImageView.setFitWidth(42);
-            	
-            	
+            	someImageView.setFitHeight(40);
+            	someImageView.setFitWidth(40);
+//            	someImageView.fitHeightProperty().bind());
+//            	someImageView.fitWidthProperty().bind(grid.heightProperty());
             	
                 if (someMaze[rowMaze][columnMaze] == '#') {
                 	//someRect.setFill(Color.GREY);    
@@ -283,7 +280,7 @@ public class Controller {
                 	grid.add(someImageView, columnMaze, rowMaze);
                 }
                 if (someMaze[rowMaze][columnMaze] == '.') {
-                	someRect.setFill(Color.BEIGE);
+                	//someRect.setFill(Color.BEIGE);
                 	
                 	someImageView.setImage(imagePellet);
                 	someOtherView.setImage(groundImage);
@@ -315,11 +312,11 @@ public class Controller {
                 }  
                 //grid.add(someRect, columnMaze, rowMaze);
                 if (someMaze[rowMaze][columnMaze] == 'o') {
-                	someRect.setFill(Color.GREEN);
-                	someRect.setWidth(41);
-                	someRect.setHeight(41);
-                    //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/shape/Shape.html
-                    someRect.setStroke(Color.BLACK);
+//                	someRect.setFill(Color.GREEN);
+//                	someRect.setWidth(41);
+//                	someRect.setHeight(41);
+//                    //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/shape/Shape.html
+//                    someRect.setStroke(Color.BLACK);
 //                    grid.add(someRect, columnMaze, rowMaze);
                     someImageView.setImage(snakeImage);
                     grid.add(someImageView, columnMaze, rowMaze);
