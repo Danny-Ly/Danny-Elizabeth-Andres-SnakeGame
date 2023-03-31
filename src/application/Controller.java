@@ -25,6 +25,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -224,11 +226,14 @@ public class Controller {
 	
 	public void transferStringToShape(ByteArrayOutputStream baos,PrintStream old) {
 		char[][] someMaze;
+        Image wallImage = new Image("brickImage.png");
+    	Image imagePellet = new Image("gamePellet.png");
+       	Image bombImage = new Image("BombImage.jpg");
+    	Image ninjaStarImage = new Image("NinjaStarImage.jpg");
 		 
 		//https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
 		System.out.flush();
     	System.setOut(old);
-    	
     	String output = baos.toString();
          
     	// https://stackoverflow.com/questions/454908/split-java-string-by-new-line
@@ -239,26 +244,55 @@ public class Controller {
             someMaze[i] = mazeString[i].toCharArray();
         }
         
-  
-        // maybe change this to while loops?
-        for (int rowMaze = 0; rowMaze < someMaze.length; rowMaze++) {
-            for (int columnMaze = 0; columnMaze < someMaze[rowMaze].length; columnMaze++) {
+        // clears the grid to avoid constant object build up in the maze.
+        // https://stackoverflow.com/questions/27066484/remove-all-children-from-a-group-without-knowing-the-containing-nodes
+        grid.getChildren().clear();
+        
+        // image ref: bomb: https://steemit.com/pixelart/@loomy/pixel-art-items-i-am-using-in-my-current-project
+        // coin: https://www.pngall.com/game-gold-coin-png/download/42458
+        // brick: https://opengameart.org/content/pixel-art-brick-tiles
+        int rowMaze = 0;
+        while (rowMaze < someMaze.length) {
+        	int columnMaze = 0;
+            while (columnMaze < someMaze[rowMaze].length) {
             	//https://www.tabnine.com/code/java/methods/javafx.scene.shape.Rectangle/setWidth
             	// First example used as a reference for height and width.
-            	Rectangle someRect = new Rectangle();
+                Rectangle someRect = new Rectangle();
             	someRect.setWidth(42);
             	someRect.setHeight(42);
             	
-            	Circle someCirc = new Circle();
-            	someCirc.setRadius(19);
+            	ImageView someImageView = new ImageView();
+            	someImageView.setFitHeight(42);
+            	someImageView.setFitWidth(42);
+            	
                 if (someMaze[rowMaze][columnMaze] == '#') {
-                	someRect.setFill(Color.GREY);
-                	
+                	//someRect.setFill(Color.GREY);    
+                	someImageView.setImage(wallImage);
                 	//https://www.tutorialspoint.com/javafx/layout_gridpane.htm
                 	// for grid.add
-                	grid.add(someRect, columnMaze, rowMaze);
+                	grid.add(someImageView, columnMaze, rowMaze);
                 }
+                if (someMaze[rowMaze][columnMaze] == '.') {
+                	someImageView.setImage(imagePellet);
+
+                    grid.add(someImageView, columnMaze, rowMaze);
+                }
+                if (someMaze[rowMaze][columnMaze] == '@') {
+//                	someCirc.setFill(Color.BLACK);
+                	
+                	someImageView.setImage(bombImage);
+                            	
+                    grid.add(someImageView, columnMaze, rowMaze);
+                }
+                if (someMaze[rowMaze][columnMaze] == '*') {
+//                	someCirc.setFill(Color.BLUE);
+                    someImageView.setImage(ninjaStarImage);
+                	grid.add(someImageView, columnMaze, rowMaze);
+                }
+                
                 if (someMaze[rowMaze][columnMaze] == ' ') {
+                	
+                	
                 	someRect.setFill(Color.WHITE);
                     grid.add(someRect, columnMaze, rowMaze);
                 }  
@@ -271,25 +305,11 @@ public class Controller {
                     someRect.setStroke(Color.BLACK);
                     grid.add(someRect, columnMaze, rowMaze);
                 }
-                if (someMaze[rowMaze][columnMaze] == '.') {	
-                	someCirc.setFill(Color.YELLOW);
-                	someCirc.setStroke(Color.ORANGE);
-
-                   grid.add(someCirc, columnMaze, rowMaze);
+                	 columnMaze++;
                 }
-                if (someMaze[rowMaze][columnMaze] == '@') {
-                	someCirc.setFill(Color.BLACK);
-                    grid.add(someCirc, columnMaze, rowMaze);
-                }
-                if (someMaze[rowMaze][columnMaze] == '*') {
-                	someCirc.setFill(Color.BLUE);
-                	grid.add(someCirc, columnMaze, rowMaze);
-                }
-               
-                
+                rowMaze++;
             }
         }
-	}
 	 
 	public void movementOfSnake (int row_movement, int column_movement) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
