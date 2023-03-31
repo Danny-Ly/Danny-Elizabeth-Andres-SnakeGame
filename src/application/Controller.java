@@ -227,9 +227,10 @@ public class Controller {
 	public void transferStringToShape(ByteArrayOutputStream baos,PrintStream old) {
 		char[][] someMaze;
         Image wallImage = new Image("brickImage.png");
-    	Image imagePellet = new Image("gamePellet.png");
-       	Image bombImage = new Image("BombImage.jpg");
-    	Image ninjaStarImage = new Image("NinjaStarImage.jpg");
+    	Image imagePellet = new Image("yellowPelletImage.png");
+       	Image bombImage = new Image("gameBomb.png");
+    	Image ninjaStarImage = new Image("gameNinjaStar.png");
+    	Image groundImage = new Image("gameGround.png");
 		 
 		//https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
 		System.out.flush();
@@ -248,9 +249,11 @@ public class Controller {
         // https://stackoverflow.com/questions/27066484/remove-all-children-from-a-group-without-knowing-the-containing-nodes
         grid.getChildren().clear();
         
-        // image ref: bomb: https://steemit.com/pixelart/@loomy/pixel-art-items-i-am-using-in-my-current-project
-        // coin: https://www.pngall.com/game-gold-coin-png/download/42458
+        // image ref: bomb: http://pixelartmaker.com/art/cf8800006625ade
+        // coin: http://pixelartmaker.com/art/69c534c1f4fac20
         // brick: https://opengameart.org/content/pixel-art-brick-tiles
+        // ninja: http://pixelartmaker.com/art/fb575e0da47165a
+        // ground: http://pixelartmaker.com/art/454c9a9174136b1
         int rowMaze = 0;
         while (rowMaze < someMaze.length) {
         	int columnMaze = 0;
@@ -261,9 +264,15 @@ public class Controller {
             	someRect.setWidth(42);
             	someRect.setHeight(42);
             	
+            	ImageView someOtherView = new ImageView();
+            	someOtherView.setFitHeight(42);
+            	someOtherView.setFitWidth(42);
+            	
             	ImageView someImageView = new ImageView();
             	someImageView.setFitHeight(42);
             	someImageView.setFitWidth(42);
+            	
+            	
             	
                 if (someMaze[rowMaze][columnMaze] == '#') {
                 	//someRect.setFill(Color.GREY);    
@@ -273,28 +282,35 @@ public class Controller {
                 	grid.add(someImageView, columnMaze, rowMaze);
                 }
                 if (someMaze[rowMaze][columnMaze] == '.') {
+                	someRect.setFill(Color.BEIGE);
+                	
                 	someImageView.setImage(imagePellet);
-
+                	someOtherView.setImage(groundImage);
+                    grid.add(someOtherView, columnMaze, rowMaze);
                     grid.add(someImageView, columnMaze, rowMaze);
                 }
                 if (someMaze[rowMaze][columnMaze] == '@') {
 //                	someCirc.setFill(Color.BLACK);
                 	
                 	someImageView.setImage(bombImage);
-                            	
+                	someOtherView.setImage(groundImage);
+                    grid.add(someOtherView, columnMaze, rowMaze);
                     grid.add(someImageView, columnMaze, rowMaze);
                 }
                 if (someMaze[rowMaze][columnMaze] == '*') {
 //                	someCirc.setFill(Color.BLUE);
+//                	someRect.setFill(Color.BEIGE);
+                	
                     someImageView.setImage(ninjaStarImage);
+                    someOtherView.setImage(groundImage);
+                    grid.add(someOtherView, columnMaze, rowMaze);
                 	grid.add(someImageView, columnMaze, rowMaze);
                 }
-                
+
                 if (someMaze[rowMaze][columnMaze] == ' ') {
-                	
-                	
-                	someRect.setFill(Color.WHITE);
-                    grid.add(someRect, columnMaze, rowMaze);
+//                	someRect.setFill(Color.BEIGE);
+                	someImageView.setImage(groundImage);
+                    grid.add(someImageView, columnMaze, rowMaze);
                 }  
                 //grid.add(someRect, columnMaze, rowMaze);
                 if (someMaze[rowMaze][columnMaze] == 'o') {
