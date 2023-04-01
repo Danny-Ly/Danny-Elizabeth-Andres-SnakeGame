@@ -107,18 +107,8 @@ public class Controller {
 
 	}
 	
-	
-	/**
-	 * This method when pressing the easy button in the GUI
-	 * will generate and show a display scene, 
-	 * with a print in there to show that button was pressed in console.
-	 * @param event an action (button) initiates this method.
-	 * @throws IOException
-	 * @throws LineUnavailableException 
-	 * @throws UnsupportedAudioFileException 
-	 */
-	@FXML
-    public void easyButtonPressed(ActionEvent event) throws IOException{
+	public void gameFunctionality (ActionEvent event) {
+		userInputToggle = true;
 		int difficultylocal = 0;
 //		Media media = new Media("sample-3s.mp3");
 //		MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -185,16 +175,35 @@ public class Controller {
 		});		
 	}
 	
+	/**
+	 * This method when pressing the easy button in the GUI
+	 * will generate and show a display scene, 
+	 * with a print in there to show that button was pressed in console.
+	 * @param event an action (button) initiates this method.
+	 * @throws IOException
+	 * @throws LineUnavailableException 
+	 * @throws UnsupportedAudioFileException 
+	 */
+	@FXML
+    public void easyButtonPressed(ActionEvent event) throws IOException{
+		gameFunctionality (event);
+	}
+	
 	public void endGameCondition(VBox allRows, Stage mainStage, String conditionOfGame) {
 		Main main = new Main();
 		Label someLabel = new Label(conditionOfGame);
 		Button backButton= new Button ("Go Back");
+		// this was chagned from false to true
 		userInputToggle = false;
 		
-		allRows.getChildren().addAll(someLabel,backButton);
+		Button continueButton = new Button ("Continue");
+		
+		allRows.getChildren().addAll(someLabel,backButton,continueButton);
 		// when you win it promps the go back button.
 		// when pressed go back to start method in main.
 		backButton.setOnAction(userInputAction ->main.start(mainStage));
+		continueButton.setOnAction(event -> gameFunctionality(event));
+	
 	}
 
 	
