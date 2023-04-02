@@ -59,6 +59,8 @@ public class Controller {
 	
 	private boolean userInputToggle = true;
 	
+	private Label creditsLabel = new Label("");
+	
 
 	/**
 	 * This method when pressing the start button in the GUI
@@ -111,6 +113,10 @@ public class Controller {
 	public void gameFunctionality (ActionEvent event) {
 		userInputToggle = true;
 		int difficultylocal = 0;
+		VBox allRows = new VBox();
+		HBox someCreditsHBox = new HBox();
+		Button creditsButton = new Button("Credits");
+		
 //		Media media = new Media("sample-3s.mp3");
 //		MediaPlayer mediaPlayer = new MediaPlayer(media);
 //		mediaPlayer.play();
@@ -126,11 +132,15 @@ public class Controller {
 		//https://jenkov.com/tutorials/javafx/label.html#:~:text=button%20is%20clicked.-,Set%20Label%20Font,use%20a%20different%20text%20style.
 		counterLabel.setFont(new Font("courier new", 30));
 		
-		VBox allRows = new VBox();
-		HBox someHBox = new HBox();
+		// resets the credit everytime there is a gameover or wins.
+		creditsLabel.setText("");
+		
+		creditsButton.setAlignment(Pos.TOP_LEFT);
+		
+		
 		//https://docs.oracle.com/javafx/2/layout/size_align.htm#:~:text=Centering%20the%20Buttons,-The%20buttons%20are&text=hbButtons.,nodes%20within%20the%20HBox%20pane.
 		allRows.setAlignment(Pos. CENTER);
-		someHBox.setAlignment(Pos. CENTER);
+		someCreditsHBox.setAlignment(Pos. TOP_LEFT);
 		
         //https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -142,18 +152,24 @@ public class Controller {
 		snake = new Snake(mazeCreation);
 		mazeCreation.boundary();
 		
+		// this doesn't work but should show and not show every time button is pressed. 
+		if (creditsLabel.getText()==""){
+			creditsButton.setOnAction(creditsPressed->creditsLabel.setText("  Danny, Andres, Elizabeth in CPSC 219"));
+		}
+		else{
+			creditsButton.setOnAction(creditsPressed->creditsLabel.setText(""));
+		}
 		
-		//someHBox.getChildren().addAll(userInputSnakeLeft,userInputSnakeDown,userInputSnakeRight);
-		allRows.getChildren().addAll(counterLabel,/*displayMaze,*/grid /*,runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
+		someCreditsHBox.getChildren().addAll(creditsButton,creditsLabel);
+		allRows.getChildren().addAll(someCreditsHBox,counterLabel,/*displayMaze,*/grid /*,runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
-		Scene gameScene = new Scene(allRows,840,520);
+		Scene gameScene = new Scene(allRows,840,540);
 		
 		//allRows.setStyle("-fx-background-color: rgb(211, 235, 204);");
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		
-		//runGame.setOnAction(inputAction -> runGame.setVisible(false));
-		
+		//runGame.setOnAction(inputAction -> runGame.setVisible(false));	
 		mainStage.setScene(gameScene);
 		mainStage.show();
 		//boolean gameContinue = true;
