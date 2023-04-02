@@ -72,12 +72,13 @@ public class Controller {
 	// code allows for switching of scene.
 	@FXML 
     public void startGameInput(ActionEvent event) throws IOException {
-		System.out.println("Start button pressed\n");
-		Parent root = FXMLLoader.load(getClass().getResource("DifficultySelector.fxml"));
-		Stage difficultyStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		Scene difficultyScene = new Scene(root);
-		difficultyStage.setScene(difficultyScene);
-		difficultyStage.show();
+//		System.out.println("Start button pressed\n");
+//		Parent root = FXMLLoader.load(getClass().getResource("DifficultySelector.fxml"));
+//		Stage difficultyStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//		Scene difficultyScene = new Scene(root);
+//		difficultyStage.setScene(difficultyScene);
+//		difficultyStage.show();
+		gameFunctionality (event);
 	}
 	
 	/**
@@ -184,10 +185,10 @@ public class Controller {
 	 * @throws LineUnavailableException 
 	 * @throws UnsupportedAudioFileException 
 	 */
-	@FXML
-    public void easyButtonPressed(ActionEvent event) throws IOException{
-		gameFunctionality (event);
-	}
+//	@FXML
+//    public void easyButtonPressed(ActionEvent event) throws IOException{
+//		gameFunctionality (event);
+//	}
 	
 	public void endGameCondition(VBox allRows, Stage mainStage, String conditionOfGame) {
 		Main main = new Main();
@@ -213,17 +214,17 @@ public class Controller {
 	 * @param event medium button is pressed
 	 * @throws IOException
 	 */
-	 public void mediumButtonPressed(ActionEvent event) throws IOException {
-		 mediumErrorLabel.setText("In development.");
-	 }
-	/**
-	 * Sets the text in the difficulty display to "In development" if hard button is pressed.
-	 * @param event hard button is pressed
-	 * @throws IOException
-	 */
-	 public void hardButtonPressed(ActionEvent event) throws IOException {
-		 hardErrorLabel.setText("In development.");
-	 }
+//	 public void mediumButtonPressed(ActionEvent event) throws IOException {
+//		 mediumErrorLabel.setText("In development.");
+//	 }
+//	/**
+//	 * Sets the text in the difficulty display to "In development" if hard button is pressed.
+//	 * @param event hard button is pressed
+//	 * @throws IOException
+//	 */
+//	 public void hardButtonPressed(ActionEvent event) throws IOException {
+//		 hardErrorLabel.setText("In development.");
+//	 }
 	
 	public void transferStringToShape(ByteArrayOutputStream baos,PrintStream old) {
 		char[][] someMaze;
