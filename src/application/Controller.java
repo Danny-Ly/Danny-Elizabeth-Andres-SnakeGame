@@ -61,6 +61,8 @@ public class Controller {
 	
 	private Label creditsLabel = new Label("");
 	
+	private int pelletCount = 5;
+	
 
 	/**
 	 * This method when pressing the start button in the GUI
@@ -82,6 +84,7 @@ public class Controller {
 //		difficultyStage.show();
 		gameFunctionality (event);
 	}
+	
 	
 	/**
 	 * Get the value of a TextField and checks it. Then runs the userInteraction. If the Snake runs into a wall or itself,
@@ -110,6 +113,25 @@ public class Controller {
 
 	}
 	
+//	public void playMusic(String filePath) {
+//	    try {
+//	        // Create a Media object with the given file path
+//	        Media media = new Media(new File(filePath).toURI().toString());
+//
+//	        // Create a MediaPlayer object with the Media object
+//	        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//
+//	        // Set the MediaPlayer to loop indefinitely
+//	        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+//
+//	        // Play the media
+//	        mediaPlayer.play();
+//	    } catch (Exception e) {
+//	        System.out.println("Error playing music: " + e.getMessage());
+//	    }
+//	}
+
+	
 	public void gameFunctionality (ActionEvent event) {
 		userInputToggle = true;
 		int difficultylocal = 0;
@@ -120,13 +142,9 @@ public class Controller {
 //		Media media = new Media("sample-3s.mp3");
 //		MediaPlayer mediaPlayer = new MediaPlayer(media);
 //		mediaPlayer.play();
-//
-//		File file = new File ("sample-3s.wav");
-//		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-//		Clip clip = AudioSystem.getClip();
-//		clip.open(audioStream);
-//		
-//		clip.start();
+		
+//		playMusic("sample-3s.mp3");
+
 
 		counterLabel = new Label("Points: 0");
 		//https://jenkov.com/tutorials/javafx/label.html#:~:text=button%20is%20clicked.-,Set%20Label%20Font,use%20a%20different%20text%20style.
@@ -148,7 +166,8 @@ public class Controller {
     	PrintStream old = System.out;
     	System.setOut(ps);
     	
-		mazeCreation = new MazeGenerator(difficultylocal);
+    	// so, new MazeGenerator (pelletCount)
+		mazeCreation = new MazeGenerator(difficultylocal, pelletCount);
 		snake = new Snake(mazeCreation);
 		mazeCreation.boundary();
 		
@@ -212,6 +231,8 @@ public class Controller {
 		Button backButton= new Button ("Go Back");
 		// this was chagned from false to true
 		userInputToggle = false;
+		
+		pelletCount++;
 		
 		Button continueButton = new Button ("Continue");
 		

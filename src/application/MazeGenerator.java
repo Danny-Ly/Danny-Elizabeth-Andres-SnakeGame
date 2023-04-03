@@ -41,13 +41,14 @@ public class MazeGenerator {
 	 * @param difficuty_paramter an integer that represents the difficulty the maze
 	 *                           has
 	 */
-	public MazeGenerator( int difficulty_parameter) {
+	public MazeGenerator( int difficulty_parameter, int pelletCount) {
+		
 		difficulty = difficulty_parameter;
 		// all difficulties generate specific size array
 		if (difficulty >= 0) {
 			maze = new MazeItems[10][20];
 		}
-		obstacles(); // generates the obstacles the maze needs.
+		obstacles(pelletCount); // generates the obstacles the maze needs.
 	}
 
 	/**
@@ -82,7 +83,7 @@ public class MazeGenerator {
 	 * clears old maze if it exist and generates random walls, random pellets, and
 	 * random bombs.
 	 */
-	public void obstacles() {
+	public void obstacles(int pelletCount) {
 
 		item = new ItemGenerator();
 		item.clearMaze(maze);
@@ -93,8 +94,9 @@ public class MazeGenerator {
 		
 		
 		pellet = new PelletGenerator();
+		pellet.setPelletCount(pelletCount);
 		pellet.generateObject(maze);
-
+		
 		
 		ninjaStar = new NinjaStarGenerator();
 		ninjaStar.generateObject(maze);
