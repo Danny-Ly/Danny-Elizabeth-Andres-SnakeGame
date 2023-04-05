@@ -53,7 +53,7 @@ public class Controller {
 	 private Label hardErrorLabel;
 	
 	
-	private Label counterLabel;
+	private Label pointCounterLabel;
 	
 	private GridPane grid = new GridPane();
 	
@@ -62,6 +62,8 @@ public class Controller {
 	private Label creditsLabel = new Label("");
 	
 	private int pelletCount = 5;
+	
+	private int levelCounter = 0;
 	
 
 	/**
@@ -95,7 +97,6 @@ public class Controller {
 	 * @param userInputSnake Button for the input of snake. 
 	 */
 	void getInputValue(String Action, Stage mainStage, VBox allRows) {
-
 			String line = "something";
 			int difficulty = 0;
 			String enteredUserAction = "";
@@ -132,33 +133,39 @@ public class Controller {
 //	}
 
 	
-	public void gameFunctionality (ActionEvent event) {
+	public void gameFunctionality (ActionEvent event) {		
 		userInputToggle = true;
 		int difficultylocal = 0;
 		VBox allRows = new VBox();
 		HBox someCreditsHBox = new HBox();
+		HBox someLevelHBox = new HBox();
 		Button creditsButton = new Button("Credits");
+		Label levelLabel = new Label();
 		
 //		Media media = new Media("sample-3s.mp3");
 //		MediaPlayer mediaPlayer = new MediaPlayer(media);
 //		mediaPlayer.play();
 		
 //		playMusic("sample-3s.mp3");
-
-
-		counterLabel = new Label("Points: 0");
+		
+		pointCounterLabel = new Label("Points: 0");
 		//https://jenkov.com/tutorials/javafx/label.html#:~:text=button%20is%20clicked.-,Set%20Label%20Font,use%20a%20different%20text%20style.
-		counterLabel.setFont(new Font("courier new", 30));
+		pointCounterLabel.setFont(new Font("courier new", 30));
 		
-		// resets the credit everytime there is a gameover or wins.
-		creditsLabel.setText("");
+		levelCounter++;
+		levelLabel.setText("Level: " + String.valueOf(levelCounter));
+		levelLabel.setFont(new Font("courier new", 20));
 		
-		creditsButton.setAlignment(Pos.TOP_LEFT);
-		
-		
+		creditsButton.setFont(new Font("courier new", 15));
+		//resets the credit label everytime there is a gameover or wins.
+		creditsLabel.setText("");	
+		creditsLabel.setFont(new Font("courier new", 15));
+
 		//https://docs.oracle.com/javafx/2/layout/size_align.htm#:~:text=Centering%20the%20Buttons,-The%20buttons%20are&text=hbButtons.,nodes%20within%20the%20HBox%20pane.
 		allRows.setAlignment(Pos. CENTER);
+		someLevelHBox.setAlignment(Pos.TOP_LEFT);
 		someCreditsHBox.setAlignment(Pos. TOP_LEFT);
+		
 		
         //https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -179,11 +186,13 @@ public class Controller {
 			creditsButton.setOnAction(creditsPressed->creditsLabel.setText(""));
 		}
 		
+		someLevelHBox.getChildren().addAll(levelLabel);
 		someCreditsHBox.getChildren().addAll(creditsButton,creditsLabel);
-		allRows.getChildren().addAll(someCreditsHBox,counterLabel,/*displayMaze,*/grid /*,runGame/*,userInputtedValue,userInputSnakeUp,someHBox*/);
+		allRows.getChildren().addAll(someLevelHBox,someCreditsHBox,pointCounterLabel,grid );
+		
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
-		Scene gameScene = new Scene(allRows,840,540);
+		Scene gameScene = new Scene(allRows,840,560);
 		
 		//allRows.setStyle("-fx-background-color: rgb(211, 235, 204);");
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -211,74 +220,52 @@ public class Controller {
 		});		
 	}
 	
-	/**
-	 * This method when pressing the easy button in the GUI
-	 * will generate and show a display scene, 
-	 * with a print in there to show that button was pressed in console.
-	 * @param event an action (button) initiates this method.
-	 * @throws IOException
-	 * @throws LineUnavailableException 
-	 * @throws UnsupportedAudioFileException 
-	 */
-//	@FXML
-//    public void easyButtonPressed(ActionEvent event) throws IOException{
-//		gameFunctionality (event);
-//	}
+	public void winGameContinue(VBox allRows, Label someLabel, Button backButton) {
+		Button continueButton = new Button ("Continue");
+		allRows.getChildren().add(continueButton);
+		continueButton.setOnAction(event -> gameFunctionality(event));
+	}
 	
 	public void endGameCondition(VBox allRows, Stage mainStage, String conditionOfGame) {
 		Main main = new Main();
 		Label someLabel = new Label(conditionOfGame);
 		Button backButton= new Button ("Go Back");
 		// this was chagned from false to true
-		userInputToggle = false;
-		
+		userInputToggle = false;	
 		pelletCount++;
+
 		
-		Button continueButton = new Button ("Continue");
-		
-		allRows.getChildren().addAll(someLabel,backButton,continueButton);
 		// when you win it promps the go back button.
 		// when pressed go back to start method in main.
 		backButton.setOnAction(userInputAction ->main.start(mainStage));
-		continueButton.setOnAction(event -> gameFunctionality(event));
-	
+		allRows.getChildren().addAll(someLabel,backButton);
+		
+		if (conditionOfGame == "WINNER!") {
+			winGameContinue(allRows, someLabel, backButton);
+		}
+//		Button continueButton = new Button ("Continue");
+//		allRows.getChildren().add(continueButton);
+//		continueButton.setOnAction(event -> gameFunctionality(event));
+		
 	}
 
-	
-	/**
-	 * Sets the text in the difficulty display to "In development" 
-	 * if medium button is pressed.
-	 * @param event medium button is pressed
-	 * @throws IOException
-	 */
-//	 public void mediumButtonPressed(ActionEvent event) throws IOException {
-//		 mediumErrorLabel.setText("In development.");
-//	 }
-//	/**
-//	 * Sets the text in the difficulty display to "In development" if hard button is pressed.
-//	 * @param event hard button is pressed
-//	 * @throws IOException
-//	 */
-//	 public void hardButtonPressed(ActionEvent event) throws IOException {
-//		 hardErrorLabel.setText("In development.");
-//	 }
 	
 	public void transferStringToShape(ByteArrayOutputStream baos,PrintStream old) {
 		char[][] someMaze;
 		//Parisa helped me with this
+		// image ref: bomb: http://pixelartmaker.com/art/cf8800006625ade
+        // coin: http://pixelartmaker.com/art/69c534c1f4fac20
+        // brick: https://opengameart.org/content/pixel-art-brick-tiles
+        // ninja: http://pixelartmaker.com/art/fb575e0da47165a
+        // ground: http://pixelartmaker.com/art/454c9a9174136b1
+		
+		// initialize the images
         Image wallImage = new Image(getClass().getResource("/ImagesFolder/brickImage.png").toString());
     	Image imagePellet = new Image(getClass().getResource("/ImagesFolder/yellowPelletImage.png").toString());
        	Image bombImage = new Image(getClass().getResource("/ImagesFolder/gameBomb.png").toString());
     	Image ninjaStarImage = new Image(getClass().getResource("/ImagesFolder/gameNinjaStar.png").toString());
     	Image groundImage = new Image(getClass().getResource("/ImagesFolder/gameGround.png").toString());
     	Image snakeImage = new Image(getClass().getResource("/ImagesFolder/snakeTexture.png").toString());
-
-//    	Image wallImage = new Image("brickImage.png");
-//       	Image imagePellet = new Image("yellowPelletImage.png");
-//        Image bombImage = new Image("gameBomb.png");
-//       	Image ninjaStarImage = new Image("gameNinjaStar.png");
-//       	Image groundImage = new Image("gameGround.png");
-//       	Image snakeImage = new Image("snakeTexture.png");
 		 
 		//https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
 		System.out.flush();
@@ -297,11 +284,6 @@ public class Controller {
         // https://stackoverflow.com/questions/27066484/remove-all-children-from-a-group-without-knowing-the-containing-nodes
         grid.getChildren().clear();
         
-        // image ref: bomb: http://pixelartmaker.com/art/cf8800006625ade
-        // coin: http://pixelartmaker.com/art/69c534c1f4fac20
-        // brick: https://opengameart.org/content/pixel-art-brick-tiles
-        // ninja: http://pixelartmaker.com/art/fb575e0da47165a
-        // ground: http://pixelartmaker.com/art/454c9a9174136b1
         int rowMaze = 0;
         while (rowMaze < someMaze.length) {
         	int columnMaze = 0;
@@ -316,36 +298,26 @@ public class Controller {
             	ImageView someImageView = new ImageView();
             	someImageView.setFitHeight(40);
             	someImageView.setFitWidth(40);
-//            	someImageView.fitHeightProperty().bind());
-//            	someImageView.fitWidthProperty().bind(grid.heightProperty());
             	
                 if (someMaze[rowMaze][columnMaze] == '#') {
                 	//someRect.setFill(Color.GREY);    
                 	someImageView.setImage(wallImage);
                 	//https://www.tutorialspoint.com/javafx/layout_gridpane.htm
-                	// for grid.add
                 	grid.add(someImageView, columnMaze, rowMaze);
                 }
                 if (someMaze[rowMaze][columnMaze] == '.') {
-                	//someRect.setFill(Color.BEIGE);
-                	
                 	someImageView.setImage(imagePellet);
                 	someOtherView.setImage(groundImage);
                     grid.add(someOtherView, columnMaze, rowMaze);
                     grid.add(someImageView, columnMaze, rowMaze);
                 }
                 if (someMaze[rowMaze][columnMaze] == '@') {
-//                	someCirc.setFill(Color.BLACK);
-                	
                 	someImageView.setImage(bombImage);
                 	someOtherView.setImage(groundImage);
                     grid.add(someOtherView, columnMaze, rowMaze);
                     grid.add(someImageView, columnMaze, rowMaze);
                 }
-                if (someMaze[rowMaze][columnMaze] == '*') {
-//                	someCirc.setFill(Color.BLUE);
-//                	someRect.setFill(Color.BEIGE);
-                	
+                if (someMaze[rowMaze][columnMaze] == '*') {                	
                     someImageView.setImage(ninjaStarImage);
                     someOtherView.setImage(groundImage);
                     grid.add(someOtherView, columnMaze, rowMaze);
@@ -353,21 +325,13 @@ public class Controller {
                 }
 
                 if (someMaze[rowMaze][columnMaze] == ' ') {
-//                	someRect.setFill(Color.BEIGE);
                 	someImageView.setImage(groundImage);
                     grid.add(someImageView, columnMaze, rowMaze);
                 }  
                 //grid.add(someRect, columnMaze, rowMaze);
                 if (someMaze[rowMaze][columnMaze] == 'o') {
-//                	someRect.setFill(Color.GREEN);
-//                	someRect.setWidth(41);
-//                	someRect.setHeight(41);
-//                    //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/shape/Shape.html
-//                    someRect.setStroke(Color.BLACK);
-//                    grid.add(someRect, columnMaze, rowMaze);
                     someImageView.setImage(snakeImage);
-                    grid.add(someImageView, columnMaze, rowMaze);
-                    
+                    grid.add(someImageView, columnMaze, rowMaze);  
                 }
                 	 columnMaze++;
                 }
@@ -388,9 +352,7 @@ public class Controller {
 		
 		int mainCounter = snake.returnCounter();
 		//https://www.javatpoint.com/java-int-to-string
-		counterLabel.setText("Points: " + String.valueOf(mainCounter));
-		
-		
+		pointCounterLabel.setText("Points: " + String.valueOf(mainCounter));
 		
 		transferStringToShape( baos, old);
 	}
@@ -412,8 +374,7 @@ public class Controller {
 				if (enteredUserAction.equalsIgnoreCase("d")) {
 					int row_movement = 0;
 					int column_movement = 1;
-					movementOfSnake (row_movement, column_movement);
-					
+					movementOfSnake (row_movement, column_movement);		
 				}
 				
 				if (enteredUserAction.equalsIgnoreCase("a")) {

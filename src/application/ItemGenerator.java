@@ -88,7 +88,7 @@ public class ItemGenerator{
 		maze[5][9] = new Wall();
 		maze[5][8] = new Wall();
 		maze[5][10] = new Wall();
-		maze[4][8] = new Wall();
-		maze[4][10] = new Wall();
+		//maze[4][8] = new Wall();
+		//maze[4][10] = new Wall();
 	}
 }
