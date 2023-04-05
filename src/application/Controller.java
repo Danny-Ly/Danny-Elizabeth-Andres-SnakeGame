@@ -215,8 +215,8 @@ public class Controller {
 	 * creation of a grid of images by converting the string array of the output
 	 * of the console and putting it into a char array then reading it and converting it
 	 * into a grid array with images. 
-	 * @param baos 
-	 * @param old
+	 * @param baos the creation of a new byte array output stream from the output of the console
+	 * @param old 
 	 */
 	public void transferStringToShape(ByteArrayOutputStream baos,PrintStream old) {
 		char[][] someMaze;

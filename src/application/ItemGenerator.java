@@ -3,7 +3,7 @@ package application;
 import java.util.Random;
 
 /**
- * This class is used randmily generating obstacles within the maze, and clearing them.
+ * This class is used randomly generating obstacles within the maze, and clearing them.
  * 
  * @author Written by Elizabeth, assisted and co-written by Andres and Danny.
  *
