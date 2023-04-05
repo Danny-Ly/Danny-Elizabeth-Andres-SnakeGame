@@ -88,16 +88,18 @@ public class Snake {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Returns the int value of point.
+	 * @return the number of points for map
 	 */
 	public int returnPointCounter() {
 		return pointCounter;
 	}
 	
 	/**
-	 * 
-	 * @param mazeCreation
+	 * This removes one segment of snake if the ninja star is eaten by removing
+	 * the old location to the array list
+	 * @param mazeCreation is from MazeGenerator class that represent how all
+	 * objects are manipulated in the maze.
 	 */
 	public void eatNinjaStar(MazeGenerator mazeCreation) {
 		SnakeSegment oldTail = arraySnakeSegment.remove(arraySnakeSegment.size()-1);

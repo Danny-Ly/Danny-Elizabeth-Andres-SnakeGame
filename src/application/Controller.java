@@ -1,25 +1,14 @@
 package application;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintStream;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,9 +18,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -55,7 +41,6 @@ public class Controller {
 	private Label creditsLabel = new Label();
 	private int pelletCount = 5;
 	private int levelCounter = 0;
-	
 
 	/**
 	 * This method when pressing the start button in the GUI
@@ -75,14 +60,13 @@ public class Controller {
 	/**
 	 * Get the value of a TextField and checks it. Then runs the userInteraction. If the Snake runs into a wall or itself,
 	 * then it prints a game over, and allows for user to go back to the main screen. 
-	 * @param Action TextField value.
+	 * @param userInput String value for w,a,s,d.
 	 * @param mainStage a stage for GUI.
-	 * @param allRows VBox container.
-	 * @param userInputSnake Button for the input of snake. 
+	 * @param allRows VBox container. 
 	 */
-	void getInputValue(String Action, Stage mainStage, VBox allRows) {
+	void getInputValue(String userInput, Stage mainStage, VBox allRows) {
 			String enteredUserAction = "";
-			enteredUserAction = Action;
+			enteredUserAction = userInput;
 			try {
 				userInteraction(enteredUserAction,mainStage,allRows);
 				
@@ -92,6 +76,10 @@ public class Controller {
 			}
 	}
 	
+	/**
+	 * 
+	 * @param event
+	 */
 	public void gameFunctionality (ActionEvent event) {		
 		userInputToggle = true;
 		int difficultylocal = 0;
@@ -154,7 +142,7 @@ public class Controller {
 		
 		transferStringToShape(baos,old);
 	
-		//based off of the code in this video:
+		//based off of the code in this video by BroCode:
 		// https://www.youtube.com/watch?v=tq_0im9qc6E&ab_channel=BroCode
 		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -170,6 +158,12 @@ public class Controller {
 		});		
 	}
 	
+	/**
+	 * 
+	 * @param allRows
+	 * @param someLabel
+	 * @param backButton
+	 */
 	public void winGameContinue(VBox allRows, Label someLabel, Button backButton) {
 		// if you beat the round, then pops up the continue button to continue the game
 		Button continueButton = new Button ("Continue");
@@ -177,6 +171,12 @@ public class Controller {
 		continueButton.setOnAction(event -> gameFunctionality(event));
 	}
 	
+	/**
+	 * 
+	 * @param allRows
+	 * @param mainStage
+	 * @param conditionOfGame
+	 */
 	public void endGameCondition(VBox allRows, Stage mainStage, String conditionOfGame) {
 		Main main = new Main();
 		Label someLabel = new Label(conditionOfGame);
@@ -194,8 +194,12 @@ public class Controller {
 			winGameContinue(allRows, someLabel, backButton);
 		}	
 	}
-
 	
+	/**
+	 * 
+	 * @param baos
+	 * @param old
+	 */
 	public void transferStringToShape(ByteArrayOutputStream baos,PrintStream old) {
 		char[][] someMaze;
 		
@@ -224,21 +228,26 @@ public class Controller {
     	// https://stackoverflow.com/questions/454908/split-java-string-by-new-line
         String[] mazeString = output.split("\\r?\n");
         
-        // put the string output into a char array. 
-        someMaze = new char[mazeString.length][];
-        for (int i = 0; i < mazeString.length; i++) {
-            someMaze[i] = mazeString[i].toCharArray();
+        // put the string output into a char array.
+        int mazeStringSize = mazeString.length; 
+        someMaze = new char[mazeStringSize][];
+        int rowCharMaze = 0;
+        // increase the row while after turning the elements into a char element of a char array
+        while (rowCharMaze < mazeStringSize) {
+        	//https://www.geeksforgeeks.org/java-string-tochararray-example/
+        	// conversion of string into sequence of char.
+        	someMaze[rowCharMaze] = mazeString[rowCharMaze].toCharArray();
+        	rowCharMaze++;
         }
-        
        
         // https://stackoverflow.com/questions/27066484/remove-all-children-from-a-group-without-knowing-the-containing-nodes
         // clears the grid to avoid constant object build up in the maze.
         grid.getChildren().clear();
         
-        int rowMaze = 0;
-        while (rowMaze < someMaze.length) {
-        	int columnMaze = 0;
-            while (columnMaze < someMaze[rowMaze].length) {
+        int rowGridMaze = 0;
+        while (rowGridMaze < someMaze.length) {
+        	int columnGridMaze = 0;
+            while (columnGridMaze < someMaze[rowGridMaze].length) {
             	//Initialize ImageView's, someOtherView is for background. 
             	
             	//https://www.tabnine.com/code/java/methods/javafx.scene.shape.Rectangle/setWidth
@@ -251,43 +260,47 @@ public class Controller {
             	someImageView.setFitHeight(40);
             	someImageView.setFitWidth(40);
             	
-                if (someMaze[rowMaze][columnMaze] == '#') {  
+                if (someMaze[rowGridMaze][columnGridMaze] == '#') {  
                 	someImageView.setImage(wallImage);
                 	//https://www.tutorialspoint.com/javafx/layout_gridpane.htm
-                	grid.add(someImageView, columnMaze, rowMaze);
+                	grid.add(someImageView, columnGridMaze, rowGridMaze);
                 }
-                if (someMaze[rowMaze][columnMaze] == '.') {
+                if (someMaze[rowGridMaze][columnGridMaze] == '.') {
                 	someImageView.setImage(imagePellet);
                 	someBackgroundView.setImage(groundImage);
-                    grid.add(someBackgroundView, columnMaze, rowMaze);
-                    grid.add(someImageView, columnMaze, rowMaze);
+                    grid.add(someBackgroundView, columnGridMaze, rowGridMaze);
+                    grid.add(someImageView, columnGridMaze, rowGridMaze);
                 }
-                if (someMaze[rowMaze][columnMaze] == '@') {
+                if (someMaze[rowGridMaze][columnGridMaze] == '@') {
                 	someImageView.setImage(bombImage);
                 	someBackgroundView.setImage(groundImage);
-                    grid.add(someBackgroundView, columnMaze, rowMaze);
-                    grid.add(someImageView, columnMaze, rowMaze);
+                    grid.add(someBackgroundView, columnGridMaze, rowGridMaze);
+                    grid.add(someImageView, columnGridMaze, rowGridMaze);
                 }
-                if (someMaze[rowMaze][columnMaze] == '*') {                	
+                if (someMaze[rowGridMaze][columnGridMaze] == '*') {                	
                     someImageView.setImage(ninjaStarImage);
                     someBackgroundView.setImage(groundImage);
-                    grid.add(someBackgroundView, columnMaze, rowMaze);
-                	grid.add(someImageView, columnMaze, rowMaze);
+                    grid.add(someBackgroundView, columnGridMaze, rowGridMaze);
+                	grid.add(someImageView, columnGridMaze, rowGridMaze);
                 }
-                if (someMaze[rowMaze][columnMaze] == ' ') {
+                if (someMaze[rowGridMaze][columnGridMaze] == ' ') {
                 	someImageView.setImage(groundImage);
-                    grid.add(someImageView, columnMaze, rowMaze);
+                    grid.add(someImageView, columnGridMaze, rowGridMaze);
                 }  
-                if (someMaze[rowMaze][columnMaze] == 'o') {
+                if (someMaze[rowGridMaze][columnGridMaze] == 'o') {
                     someImageView.setImage(snakeImage);
-                    grid.add(someImageView, columnMaze, rowMaze);  
+                    grid.add(someImageView, columnGridMaze, rowGridMaze);  
                 }
-                	 columnMaze++;
+                	 columnGridMaze++;
                 }
-                rowMaze++;
+                rowGridMaze++;
             }
         }
-	 
+	/**
+	 * 
+	 * @param row_movement
+	 * @param column_movement
+	 */
 	public void movementOfSnake (int row_movement, int column_movement) {
 		int mainCounter;
 		
@@ -305,7 +318,7 @@ public class Controller {
 		mainCounter = snake.returnPointCounter();
 		pointCounterLabel.setText("Points: " + String.valueOf(mainCounter));
 		
-		transferStringToShape( baos, old);
+		transferStringToShape(baos, old);
 	}
 	 
 	/**
@@ -327,28 +340,23 @@ public class Controller {
 					int column_movement = 1;
 					movementOfSnake (row_movement, column_movement);		
 				}
-				
 				if (enteredUserAction.equalsIgnoreCase("a")) {
 					int row_movement = 0;
 					int column_movement = -1;
 					movementOfSnake (row_movement, column_movement);
 				}
-
 				if (enteredUserAction.equalsIgnoreCase("w")) {
 					int row_movement = -1;
 					int column_movement = 0;
 					 //REFERENCE
 					movementOfSnake (row_movement, column_movement);
 			        } 
-					
 				}
 				if (enteredUserAction.equalsIgnoreCase("s")) {
 					int row_movement = 1;
 					int column_movement = 0;
 					movementOfSnake (row_movement, column_movement);
 				}
-				
-				
 				if (mazeCreation.ifVictory() == false) {
 					String conditionOfGame = "WINNER!";
 					endGameCondition(allRows, mainStage, conditionOfGame);
