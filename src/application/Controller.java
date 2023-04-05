@@ -188,9 +188,9 @@ public class Controller {
 	/**
 	 * Creation of a go back button if the player either loses or wins, will disable 
 	 * keyboard interaction, if the player wins then goes to winGameContinue. 
-	 * @param allRows
-	 * @param mainStage
-	 * @param conditionOfGame
+	 * @param allRows VBox for containing.
+	 * @param mainStage Stage for the scene. 
+	 * @param conditionOfGame determine if win or loss. 
 	 */
 	public void endGameCondition(VBox allRows, Stage mainStage, String conditionOfGame) {
 		//initialization
@@ -211,15 +211,17 @@ public class Controller {
 	}
 	
 	/**
-	 * 
-	 * @param baos
+	 * creation of a grid of images by converting the string array of the output
+	 * of the console and putting it into a char array then reading it and converting it
+	 * into a grid array with images. 
+	 * @param baos 
 	 * @param old
 	 */
 	public void transferStringToShape(ByteArrayOutputStream baos,PrintStream old) {
 		char[][] someMaze;
 		
-		//Parisa helped me with this		
-		//initialize the images
+		//Parisa(TA) helped me with the getClass().getResource part of the code. 		
+		//initialization of the images:
 		
         // brick wall image reference: https://opengameart.org/content/pixel-art-brick-tiles
         Image wallImage = new Image(getClass().getResource("/ImagesFolder/brickImage.png").toString());
@@ -236,37 +238,46 @@ public class Controller {
 		 
 		//https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
     	// turn the output of the console to a string variable.
+    	// By Ernest Friedman-Hill (on Jan 3, 2012), and edited by rekire (on Jan 4, 2019) 
 		System.out.flush();
     	System.setOut(old);
     	String output = baos.toString();
          
     	// https://stackoverflow.com/questions/454908/split-java-string-by-new-line
+    	// splitting the string output to new lines for the 2D array.
+    	// By cletus (Jan 18,2009), and edited by Buhake Sindi (on Oct 7, 2016).
         String[] mazeString = output.split("\\r?\n");
         
         // put the string output into a char array.
         int mazeStringSize = mazeString.length; 
         someMaze = new char[mazeStringSize][];
+        
         int rowCharMaze = 0;
-        // increase the row while after turning the elements into a char element of a char array
+        // increase the row after turning the elements into a char element of a char array
         while (rowCharMaze < mazeStringSize) {
         	//https://www.geeksforgeeks.org/java-string-tochararray-example/
         	// conversion of string into sequence of char.
+        	// geeksforgeeks (Java String toCharArray() with example, Dec 04 2018)
         	someMaze[rowCharMaze] = mazeString[rowCharMaze].toCharArray();
         	rowCharMaze++;
         }
        
         // https://stackoverflow.com/questions/27066484/remove-all-children-from-a-group-without-knowing-the-containing-nodes
         // clears the grid to avoid constant object build up in the maze.
+        // By James_D (On Nov 21, 2014). 
         grid.getChildren().clear();
         
+        int rowGridSize = someMaze.length;
         int rowGridMaze = 0;
-        while (rowGridMaze < someMaze.length) {
+        while (rowGridMaze < rowGridSize) {
+        	int columnGridSize = someMaze[rowGridMaze].length;
         	int columnGridMaze = 0;
-            while (columnGridMaze < someMaze[rowGridMaze].length) {
-            	//Initialize ImageView's, someOtherView is for background. 
+            while (columnGridMaze < columnGridSize) {
+            	//Initialize ImageView's, someBackgroundView is for background. 
             	
-            	//https://www.tabnine.com/code/java/methods/javafx.scene.shape.Rectangle/setWidth
+            	//https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/ImageView.html
             	// First example used as a reference for height and width.
+            	// Oracle(Class ImageView)
             	ImageView someBackgroundView = new ImageView();
             	someBackgroundView.setFitHeight(40);
             	someBackgroundView.setFitWidth(40);
@@ -278,6 +289,8 @@ public class Controller {
                 if (someMaze[rowGridMaze][columnGridMaze] == '#') {  
                 	someImageView.setImage(wallImage);
                 	//https://www.tutorialspoint.com/javafx/layout_gridpane.htm
+                	//The example used as a reference for adding the nodes to the gridpane 
+                	//tutorialspoint (JavaFX - Layout GridPane)
                 	grid.add(someImageView, columnGridMaze, rowGridMaze);
                 }
                 if (someMaze[rowGridMaze][columnGridMaze] == '.') {
@@ -313,15 +326,18 @@ public class Controller {
         }
 	
 	/**
-	 * 
-	 * @param row_movement
-	 * @param column_movement
+	 * Allow for snake to move with Snake class and takes output of the console again.
+	 * Keeps track of the point counter for the level. Generate the maze everytime
+	 * the snake moves with transferStringToShape(). 
+	 * @param row_movement movement of the snake in the row of the array.
+	 * @param column_movement movement of the snake in the column of the array. 
 	 */
 	public void movementOfSnake (int row_movement, int column_movement) {
 		int mainCounter;
 		
 		//https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
 		//Takes in output from the console.
+	  	// By Ernest Friedman-Hill (on Jan 3, 2012), and edited by rekire (on Jan 4, 2019) 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	PrintStream ps = new PrintStream(baos);
     	PrintStream old = System.out;
@@ -338,17 +354,14 @@ public class Controller {
 	}
 	 
 	/**
-	 * Gets the values from the user and then moves the snake according to the inputed value. Also checks if victory,
+	 * Gets the keyboard value from the user and then moves the snake according to the inputed value. Also checks if victory,
 	 * if equal to false, then prints "WINNER" and prompts the user to go back to the start method
 	 * in main. 
-	 * @param enteredUserAction This is the TextField value converted to string.
+	 * @param enteredUserAction this is the keyboard input in a String.
 	 * @param mainStage Stage of GUI.
-	 * @param allRows VBox container.
-	 * @param userInputSnake Button for inputting a value. 
+	 * @param allRows VBox container. 
 	 */
 	public void userInteraction(String enteredUserAction,Stage mainStage, VBox allRows) {
-		int difficulty = 0;
-		if (difficulty == 0) {
 				// there is the input of a(right), d(left), w(up), and s(down)
 				// that calls the snake class to allow for it to function.
 				if (enteredUserAction.equalsIgnoreCase("d")) {
@@ -356,18 +369,17 @@ public class Controller {
 					int column_movement = 1;
 					movementOfSnake (row_movement, column_movement);		
 				}
-				if (enteredUserAction.equalsIgnoreCase("a")) {
+				else if (enteredUserAction.equalsIgnoreCase("a")) {
 					int row_movement = 0;
 					int column_movement = -1;
 					movementOfSnake (row_movement, column_movement);
 				}
-				if (enteredUserAction.equalsIgnoreCase("w")) {
+				else if (enteredUserAction.equalsIgnoreCase("w")) {
 					int row_movement = -1;
 					int column_movement = 0;
 					movementOfSnake (row_movement, column_movement);
-			        } 
-				}
-				if (enteredUserAction.equalsIgnoreCase("s")) {
+			   } 
+				else if (enteredUserAction.equalsIgnoreCase("s")) {
 					int row_movement = 1;
 					int column_movement = 0;
 					movementOfSnake (row_movement, column_movement);
@@ -378,5 +390,4 @@ public class Controller {
 					endGameCondition(allRows, mainStage, conditionOfGame);
 			}
 		}
-	}
-
+}

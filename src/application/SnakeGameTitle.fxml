@@ -22,7 +22,7 @@
          <children>
             <ImageView fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@SnakeGameTitle.png" />
+                  <Image url="@SnakeGameTitle.png" /><!-- Snake Title Page image: https://easyimages.net/?split_group_id=1&utm_content=18.06.21-18:00-pop&q=Chameleon%20clipart%20kawaii&land=1&from_stock=webstockreview_net&format=undefined&keyword=Chameleon%20clipart%20kawaii&s_img_id=169966&utm_content=18.06.21-18:00-pop&from_url=https://webstockreview.net/pict/getfirst -->
                </image></ImageView>
          </children>
       </HBox>
@@ -40,11 +40,11 @@
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#startGameInput" 
-                  	 style="-fx-background-color: transparent;"> <!-- This code I got from Loid to make button transparent -->
+                  	 style="-fx-background-color: transparent;"> <!-- This code I got from Loid(TA) to make button transparent -->
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@startImage.png" />
+                              <Image url="@startImage.png" /><!-- Start Button Image: http://pixelartmaker.com/art/6a45404d913e6d1 -->
                            </image></ImageView>
                      </graphic></Button>
                </children>
