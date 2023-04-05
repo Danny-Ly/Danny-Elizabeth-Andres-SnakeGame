@@ -63,6 +63,15 @@ public class Snake {
 		}
 	}
 	
+	
+	public void eatNinjaStar(MazeGenerator mazeCreation) {
+		SnakeSegment oldTail = arraySnakeSegment.remove(arraySnakeSegment.size()-1);
+		mazeCreation.remove(oldTail);
+		if (arraySnakeSegment.size()== 0) {
+			throw new RuntimeException("NO MORE SNAKE LEFT");
+		}
+		
+	}
 	/**
 	 * This regenerates the maze if the snake eats a bomb
 	 * 

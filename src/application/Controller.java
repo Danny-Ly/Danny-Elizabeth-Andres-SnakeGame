@@ -3,6 +3,7 @@ package application;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Timer;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -37,6 +38,7 @@ public class Controller {
 	private Label creditsLabel = new Label();
 	private int pelletCount = 5;
 	private int levelCounter = 0;
+
 
 	/**
 	 * This method when pressing the start button in the GUI
@@ -100,6 +102,7 @@ public class Controller {
 		levelLabel.setText("Level: " + String.valueOf(levelCounter));
 		levelLabel.setFont(new Font("courier new", 30));
 		
+
 		creditsButton.setFont(new Font("courier new", 15));
 		//resets the credit label everytime there is a gameover or wins.
 		creditsLabel.setText("");	
@@ -111,7 +114,7 @@ public class Controller {
 		allRows.setAlignment(Pos. CENTER);
 		someLevelHBox.setAlignment(Pos.TOP_LEFT);
 		someCreditsHBox.setAlignment(Pos. TOP_LEFT);		
-		
+
         //https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
 		// used to read and take the output of the console
 		// By Ernest Friedman-Hill (on Jan 3, 2012), and edited by rekire (on Jan 4, 2019) 
@@ -123,6 +126,8 @@ public class Controller {
     	// generates the maze by calling MazeGenerator class.
 		mazeCreation = new MazeGenerator(difficultylocal, pelletCount);
 		snake = new Snake(mazeCreation);
+		//control = new SnakeControl(snake, mazeCreation, 0, 0);
+		//Snaketimer.schedule(control,0,15000);
 		mazeCreation.boundary();
 		
 		// credits reset everytime the player gets on a new level.
@@ -357,12 +362,17 @@ public class Controller {
 	 * @param mainStage Stage of GUI.
 	 * @param allRows VBox container. 
 	 */
+
 	public void userInteraction(String enteredUserAction,Stage mainStage, VBox allRows) {
+
 				// there is the input of a(right), d(left), w(up), and s(down)
 				// that calls the snake class to allow for it to function.
 				if (enteredUserAction.equalsIgnoreCase("d")) {
+					control.setRow_movement(0);
+					control.setColumn_movement(1);
 					int row_movement = 0;
 					int column_movement = 1;
+
 					movementOfSnake (row_movement, column_movement);		
 				}
 				else if (enteredUserAction.equalsIgnoreCase("a")) {
@@ -376,6 +386,7 @@ public class Controller {
 					movementOfSnake (row_movement, column_movement);
 			   } 
 				else if (enteredUserAction.equalsIgnoreCase("s")) {
+
 					int row_movement = 1;
 					int column_movement = 0;
 					movementOfSnake (row_movement, column_movement);

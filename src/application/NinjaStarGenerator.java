@@ -1,5 +1,6 @@
 package application;
 
+
 /**
  * This class is randomly generating NinjaStars within the maze
  * 
@@ -21,3 +22,4 @@ public class NinjaStarGenerator extends ObjectGenerator {
 		randomCoordinate(maze2);
 	}
 }
+

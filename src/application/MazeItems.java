@@ -52,7 +52,9 @@ class Bombs implements MazeItems {
 	}
 }
 
+
 /**
+
  * Pellets class will print the desired output Extend the snake if it touches
  * the pellet
  * 

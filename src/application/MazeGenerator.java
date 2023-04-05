@@ -14,8 +14,10 @@ public class MazeGenerator {
 	private int difficulty;
 	private BombGenerator bomb;
 	private PelletGenerator pellet;
+
 	//private SpeedGenerator speedPellet;
 	private NinjaStarGenerator ninjaStar; 
+
 	/**
 	 * gets the current difficulty of the game.
 	 * @return the value of difficulty
@@ -93,6 +95,7 @@ public class MazeGenerator {
 		bomb.generateObject(maze);
 		
 		pellet = new PelletGenerator();
+
 		// set the number of pellets in the PelletGenerator.
 		// this setter I got from the help of Matthew (TA).
 		pellet.setPelletCount(pelletCount);
@@ -100,6 +103,7 @@ public class MazeGenerator {
 		
 		ninjaStar = new NinjaStarGenerator();
 		ninjaStar.generateObject(maze);
+
 	}
 	
 	/**
@@ -164,4 +168,7 @@ public class MazeGenerator {
 		int[] arrayOfSnakeLocation = oldTail.location();
 		maze[arrayOfSnakeLocation[0]][arrayOfSnakeLocation[1]] = null;
 	}
+
+
+		
 }
