@@ -7,7 +7,7 @@ package application;
  */
 public class PelletGenerator extends ObjectGenerator{
 	// Initializing/declaring variables that will be used in the class
-	int pelletCount = 5;
+	private int pelletCount = 5;
 	
 	/**
 	 * sets the pellet count

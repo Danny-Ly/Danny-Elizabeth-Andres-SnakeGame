@@ -8,7 +8,7 @@ package application;
  */
 public class NinjaStarGenerator extends ObjectGenerator {
 	//Initialization
-	int ninjaStarCount = 2;
+	private int ninjaStarCount = 2;
 	
 	/**
 	 * Generates random pellets through the maze

@@ -7,7 +7,7 @@ package application;
  */
 public class BombGenerator extends ObjectGenerator{
 	//Initialization
-	int bombCount = 3;
+	private int bombCount = 3;
 	/**
 	 * Generates random bombs through the maze
 	 * 
