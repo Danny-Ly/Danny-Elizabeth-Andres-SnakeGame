@@ -35,9 +35,6 @@ public abstract class ObjectGenerator {
 				numberOfObjects++;
 			}
 		}
-		//setLimiter(0);
-		//setObject(null);
-		//numberOfObjects = 0;
 	}
 
 	public int getLimiter() {
