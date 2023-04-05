@@ -368,8 +368,7 @@ public class Controller {
 				// there is the input of a(right), d(left), w(up), and s(down)
 				// that calls the snake class to allow for it to function.
 				if (enteredUserAction.equalsIgnoreCase("d")) {
-					control.setRow_movement(0);
-					control.setColumn_movement(1);
+					
 					int row_movement = 0;
 					int column_movement = 1;
 
