@@ -13,6 +13,7 @@ public class PelletGenerator extends ObjectGenerator{
 	 * sets the pellet count
 	 * @param pellet number of pellets from map.
 	 */
+	// this setter I got from the help of Matthew (TA). 
 	public void setPelletCount(int pellet) {
 		pelletCount=pellet;
 	}

@@ -94,6 +94,7 @@ public class MazeGenerator {
 		
 		pellet = new PelletGenerator();
 		// set the number of pellets in the PelletGenerator.
+		// this setter I got from the help of Matthew (TA).
 		pellet.setPelletCount(pelletCount);
 		pellet.generateObject(maze);
 		

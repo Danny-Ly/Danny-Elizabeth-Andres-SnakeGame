@@ -167,6 +167,9 @@ public class Controller {
 	public void winGameContinue(VBox allRows, Label someLabel, Button backButton) {
 		// if you beat the round, then pops up the continue button to continue the game
 		Button continueButton = new Button ("Continue");
+		//Everytime the user clears a level, the pellet increases by 1.
+		pelletCount++;
+		
 		allRows.getChildren().add(continueButton);
 		continueButton.setOnAction(event -> gameFunctionality(event));
 	}
@@ -183,8 +186,7 @@ public class Controller {
 		Button backButton= new Button ("Go Back");
 		// this was changed from true to false to turn off w,a,s,d controls
 		userInputToggle = false;	
-		pelletCount++;
-		
+
 		// when you win or its gameover, it prompts the go back button.
 		// when pressed go back to start method in main.
 		backButton.setOnAction(userInputAction ->main.start(mainStage));
