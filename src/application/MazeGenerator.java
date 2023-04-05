@@ -14,8 +14,10 @@ public class MazeGenerator {
 	private int difficulty;
 	private BombGenerator bomb;
 	private PelletGenerator pellet;
+
+	//private SpeedGenerator speedPellet;
 	private NinjaStarGenerator ninjaStar; 
-	
+
 	/**
 	 * gets the current difficulty of the game.
 	 * @return the value of difficulty
@@ -41,13 +43,14 @@ public class MazeGenerator {
 	 * @param difficuty_paramter an integer that represents the difficulty the maze
 	 *                           has
 	 */
-	public MazeGenerator( int difficulty_parameter) {
+	public MazeGenerator( int difficulty_parameter, int pelletCount) {
+		
 		difficulty = difficulty_parameter;
 		// all difficulties generate specific size array
 		if (difficulty >= 0) {
 			maze = new MazeItems[10][20];
 		}
-		obstacles(); // generates the obstacles the maze needs.
+		obstacles(pelletCount); // generates the obstacles the maze needs.
 	}
 
 	/**
@@ -81,22 +84,26 @@ public class MazeGenerator {
 	/**
 	 * clears old maze if it exist and generates random walls, random pellets, and
 	 * random bombs.
+	 * @param pelletCount brings in the number of pellets.
 	 */
-	public void obstacles() {
-
+	public void obstacles(int pelletCount) {
 		item = new ItemGenerator();
 		item.clearMaze(maze);
 		item.randomWall(maze);
 		
 		bomb = new BombGenerator();
-		bomb.randomBomb(maze);
+		bomb.generateObject(maze);
 		
 		pellet = new PelletGenerator();
-		pellet.randomPellet(maze);
+
+		// set the number of pellets in the PelletGenerator.
+		// this setter I got from the help of Matthew (TA).
+		pellet.setPelletCount(pelletCount);
+		pellet.generateObject(maze);
 		
 		ninjaStar = new NinjaStarGenerator();
-		ninjaStar.randomNinjaStar(maze);
-		
+		ninjaStar.generateObject(maze);
+
 	}
 	
 	/**
@@ -136,6 +143,7 @@ public class MazeGenerator {
 			}
 			System.out.println();
 		}
+
 	}
 	
 	/**

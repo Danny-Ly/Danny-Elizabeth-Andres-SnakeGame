@@ -13,16 +13,12 @@ import javafx.scene.Scene;
 
 /**
  * The class that calls upon Stage to allow
- * all classes to function together properly in unison. This class also handles 
- * the GUI screens.
+ * all classes to function together properly in unison. 
  * 
  * @author Written by Elizabeth, Danny, and Andres.
  *
  */
 public class Main extends Application{
-//	// Initializing/declaring variables that will be used in the class
-
-
 	/**
 	 * This handles user input of when the program is first run, this will initially
 	 * make a SnakeGameTitle scene for the GUI. 
@@ -36,6 +32,8 @@ public class Main extends Application{
 			FXMLLoader loader = new FXMLLoader();
 			Parent root = loader.load(new FileInputStream("src/application/SnakeGameTitle.fxml"));
 			Scene startScene = new Scene(root,400,400);
+			//https://stackoverflow.com/questions/71328159/javafx-scene-background-color-how-to-change
+			root.setStyle("-fx-background-color: rgb(211, 235, 204);");
 			startScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			startStage.setScene(startScene);
 			startStage.setTitle("Snake Game");
@@ -43,14 +41,10 @@ public class Main extends Application{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("__________________");
-		System.out.println("Refer to GUI.");
 	}
 
-	
 	public static void main(String[] args) {
-		// got from the demo's from D2L CPSC 219 for launch(args); as it was the code under main.
+		// Got from the demo's from D2L CPSC 219 for launch(args); as it was the code under main.
 		launch(args);
 	}
 }

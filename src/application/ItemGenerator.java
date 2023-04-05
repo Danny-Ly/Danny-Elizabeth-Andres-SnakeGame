@@ -1,12 +1,14 @@
 package application;
 
+import java.util.Random;
+
 /**
  * This class is used randmily generating obstacles within the maze, and clearing them.
  * 
  * @author Written by Elizabeth, assisted and co-written by Andres and Danny.
  *
  */
-public class ItemGenerator extends RandomNumberGenerator {
+public class ItemGenerator{
 	// Initializing/declaring variables that will be used in the class
 	private int numberOfobstactle = 0;
 	//private int[][] tempMaze;
@@ -68,12 +70,15 @@ public class ItemGenerator extends RandomNumberGenerator {
 		 * Randomly creating 20 or less obstacle within maze
 		 */
 		while (numberOfobstactle < 20) {
+			Random randomvalue = new Random();
+			int xCord;
+			int yCord;
 			// Using methods from subclass(RandomNumberGenerator) to generate random number
-			int x = RandomNumberGeneratorXcord();
-			int y = RandomNumberGeneratorYcord();
-			if (maze[x][y] == null || maze[x][y] instanceof Wall) {
-				if (x == 2 || x == 5 || x == 7) {
-					maze[x][y] = new Wall();
+			xCord = randomvalue.nextInt(10);
+			yCord = randomvalue.nextInt(16) + 2;
+			if (maze[xCord][yCord] == null || maze[xCord][yCord] instanceof Wall) {
+				if (xCord == 2 || xCord == 5 || xCord == 7) {
+					maze[xCord][yCord] = new Wall();
 					numberOfobstactle++;
 				}
 			}
@@ -83,7 +88,7 @@ public class ItemGenerator extends RandomNumberGenerator {
 		maze[5][9] = new Wall();
 		maze[5][8] = new Wall();
 		maze[5][10] = new Wall();
-		maze[4][8] = new Wall();
-		maze[4][10] = new Wall();
+		//maze[4][8] = new Wall();
+		//maze[4][10] = new Wall();
 	}
 }

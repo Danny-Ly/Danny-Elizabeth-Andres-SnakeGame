@@ -15,6 +15,7 @@ public class Snake {
 	// And customization of the movement
 	private ArrayList<SnakeSegment> arraySnakeSegment;
 	private SnakeSegment oldTail;
+	private int pointCounter = 0;
 	
 	/**
 	 * Constructor for Snake class, that creates a array list for snake and adds
@@ -54,7 +55,7 @@ public class Snake {
 		// updating the position of the snake
 		arraySnakeSegment.add(0, updatedHead);
 		// removing old position of head
-		oldTail = arraySnakeSegment.remove(arraySnakeSegment.size() - 1);
+		oldTail = arraySnakeSegment.remove(arraySnakeSegment.size() - 1); //
 		MazeItems oldItem = mazeCreation.add(updatedHead);
 		mazeCreation.remove(oldTail);
 		if (oldItem != null) {
@@ -90,6 +91,16 @@ public class Snake {
 	 */
 	public void eatPellet(MazeGenerator mazeCreation) {
 		arraySnakeSegment.add(oldTail);
-		mazeCreation.add(oldTail);	
+		mazeCreation.add(oldTail);
+		pointCounter ++;
+		
+	}
+	
+	/**
+	 * Returns the int value of point.
+	 * @return the number of points for map
+	 */
+	public int returnPointCounter() {
+		return pointCounter;
 	}
 }
