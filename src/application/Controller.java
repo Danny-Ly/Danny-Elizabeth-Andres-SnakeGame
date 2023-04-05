@@ -296,6 +296,7 @@ public class Controller {
                 rowGridMaze++;
             }
         }
+	
 	/**
 	 * 
 	 * @param row_movement
@@ -348,7 +349,6 @@ public class Controller {
 				if (enteredUserAction.equalsIgnoreCase("w")) {
 					int row_movement = -1;
 					int column_movement = 0;
-					 //REFERENCE
 					movementOfSnake (row_movement, column_movement);
 			        } 
 				}
@@ -357,6 +357,7 @@ public class Controller {
 					int column_movement = 0;
 					movementOfSnake (row_movement, column_movement);
 				}
+				// checks if all pellets are consumed and initiates end game if so (victory).
 				if (mazeCreation.ifVictory() == false) {
 					String conditionOfGame = "WINNER!";
 					endGameCondition(allRows, mainStage, conditionOfGame);

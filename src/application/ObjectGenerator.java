@@ -10,6 +10,7 @@ import java.util.Random;
  *
  */
 public abstract class ObjectGenerator {
+	//Initialization
 	protected int numberOfObjects;
 	private int limiter;
 	private MazeItems Object;

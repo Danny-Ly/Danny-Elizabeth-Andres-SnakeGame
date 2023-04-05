@@ -82,9 +82,9 @@ public class MazeGenerator {
 	/**
 	 * clears old maze if it exist and generates random walls, random pellets, and
 	 * random bombs.
+	 * @param pelletCount brings in the number of pellets.
 	 */
 	public void obstacles(int pelletCount) {
-
 		item = new ItemGenerator();
 		item.clearMaze(maze);
 		item.randomWall(maze);
@@ -92,15 +92,13 @@ public class MazeGenerator {
 		bomb = new BombGenerator();
 		bomb.generateObject(maze);
 		
-		
 		pellet = new PelletGenerator();
+		// set the number of pellets in the PelletGenerator.
 		pellet.setPelletCount(pelletCount);
 		pellet.generateObject(maze);
 		
-		
 		ninjaStar = new NinjaStarGenerator();
 		ninjaStar.generateObject(maze);
-
 	}
 	
 	/**

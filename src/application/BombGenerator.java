@@ -6,13 +6,15 @@ package application;
  *
  */
 public class BombGenerator extends ObjectGenerator{
+	//Initialization
+	int bombCount = 3;
 	/**
 	 * Generates random bombs through the maze
 	 * 
 	 * @param maze2 is the 2 dimensional array that we will add bombs to .
 	 */
 	public void generateObject(MazeItems[][] maze2) {
-		setLimiter(2);
+		setLimiter(bombCount);
 		setObject(new Bombs());
 		randomCoordinate(maze2);
 	}

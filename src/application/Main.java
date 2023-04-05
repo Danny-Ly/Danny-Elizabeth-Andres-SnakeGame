@@ -10,20 +10,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 
 /**
  * The class that calls upon Stage to allow
- * all classes to function together properly in unison. This class also handles 
- * the GUI screens.
+ * all classes to function together properly in unison. 
  * 
  * @author Written by Elizabeth, Danny, and Andres.
  *
  */
 public class Main extends Application{
-//	// Initializing/declaring variables that will be used in the class
-
-
 	/**
 	 * This handles user input of when the program is first run, this will initially
 	 * make a SnakeGameTitle scene for the GUI. 
@@ -46,14 +41,10 @@ public class Main extends Application{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("__________________");
-		System.out.println("Refer to GUI.");
 	}
 
-	
 	public static void main(String[] args) {
-		// got from the demo's from D2L CPSC 219 for launch(args); as it was the code under main.
+		// Got from the demo's from D2L CPSC 219 for launch(args); as it was the code under main.
 		launch(args);
 	}
 }
