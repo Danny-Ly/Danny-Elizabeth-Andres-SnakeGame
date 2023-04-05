@@ -29,12 +29,12 @@ import javafx.stage.Stage;
  */
 public class Controller {
 	// Initializing/declaring variables that will be used in the class
-	private MazeGenerator mazeCreation;
-	private Snake snake;
 	@FXML
 	private Label mediumErrorLabel;
 	@FXML
 	private Label hardErrorLabel;
+	private MazeGenerator mazeCreation;
+	private Snake snake;
 	private Label pointCounterLabel;
 	private GridPane grid = new GridPane();
 	private boolean userInputToggle = true;
@@ -44,22 +44,21 @@ public class Controller {
 
 	/**
 	 * This method when pressing the start button in the GUI
-	 * will generate and show a difficulty selector scene, 
-	 * with a print in there to show button was pressed in console.
+	 * will call the gameFunctionality method to generate the game.
 	 * @param event an action (button) initiates this method.
 	 * @throws IOException
 	 */
 	// Got this section of code (also syntax) to switch the scene from this video from BroCode.
 	// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
-	// code allows for switching of scene.
+	// code allows for switching of scene (JavaFX switch scenes, Jan 11 2021).
 	@FXML 
     public void startGameInput(ActionEvent event) throws IOException {
 		gameFunctionality (event);
 	}
 	
 	/**
-	 * Get the value of a TextField and checks it. Then runs the userInteraction. If the Snake runs into a wall or itself,
-	 * then it prints a game over, and allows for user to go back to the main screen. 
+	 * Get the value of a keyboard value, then runs the userInteraction. If the Snake runs into a wall or itself,
+	 * then it prints a game over, and goes to endGameCondition.
 	 * @param userInput String value for w,a,s,d.
 	 * @param mainStage a stage for GUI.
 	 * @param allRows VBox container. 
@@ -69,7 +68,7 @@ public class Controller {
 			enteredUserAction = userInput;
 			try {
 				userInteraction(enteredUserAction,mainStage,allRows);
-				
+			
 			} catch (RuntimeException ERROR) {
 				String conditionOfGame = "GAME OVER";
 				endGameCondition(allRows, mainStage, conditionOfGame);				
@@ -77,10 +76,13 @@ public class Controller {
 	}
 	
 	/**
-	 * 
-	 * @param event
+	 * Sets up the scene of the game with credits, the level, the point count, also 
+	 * takes the output of the console and also generates a maze. This method also
+	 * takes keyboard inputs from the user. 
+	 * @param event some action is passed through.
 	 */
 	public void gameFunctionality (ActionEvent event) {		
+		// initialization
 		userInputToggle = true;
 		int difficultylocal = 0;
 		VBox allRows = new VBox();
@@ -92,11 +94,13 @@ public class Controller {
 		pointCounterLabel = new Label("Points: 0");
 		//https://jenkov.com/tutorials/javafx/label.html#:~:text=button%20is%20clicked.-,Set%20Label%20Font,use%20a%20different%20text%20style.
 		//For setting font and size of a label
+		// By Jakob Jenkov on 2020-12-08. 
 		pointCounterLabel.setFont(new Font("courier new", 30));
 		
 		levelCounter++;
 		//https://www.javatpoint.com/java-int-to-string
-		// Int to string
+		//setting an Int to string.
+		// on JavaTpoint (Java Convert int to String).
 		levelLabel.setText("Level: " + String.valueOf(levelCounter));
 		levelLabel.setFont(new Font("courier new", 30));
 		
@@ -106,22 +110,26 @@ public class Controller {
 		creditsLabel.setFont(new Font("courier new", 15));
 
 		//https://docs.oracle.com/javafx/2/layout/size_align.htm#:~:text=Centering%20the%20Buttons,-The%20buttons%20are&text=hbButtons.,nodes%20within%20the%20HBox%20pane.
+		// setting the alignments of Boxes in the GUI. 
+		// Oracle (2 Tips for Sizing and Aligning Nodes)
 		allRows.setAlignment(Pos. CENTER);
 		someLevelHBox.setAlignment(Pos.TOP_LEFT);
 		someCreditsHBox.setAlignment(Pos. TOP_LEFT);		
 		
         //https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
+		// used to read and take the output of the console
+		// By Ernest Friedman-Hill (on Jan 3, 2012), and edited by rekire (on Jan 4, 2019) 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	PrintStream ps = new PrintStream(baos);
     	PrintStream old = System.out;
     	System.setOut(ps);
     	
-    	// so, new MazeGenerator (pelletCount)
+    	// generates the maze by calling MazeGenerator class.
 		mazeCreation = new MazeGenerator(difficultylocal, pelletCount);
 		snake = new Snake(mazeCreation);
 		mazeCreation.boundary();
 		
-		// this doesn't work but should show and not show every time button is pressed. 
+		// credits reset everytime the player gets on a new level.
 		if (creditsLabel.getText()==""){
 			creditsButton.setOnAction(creditsPressed->creditsLabel.setText("  Danny, Andres, Elizabeth in CPSC 219"));
 		}
@@ -135,15 +143,19 @@ public class Controller {
 		
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
+		// creation of the scene for the game (JavaFX switch scenes, Jan 11 2021).
 		Scene gameScene = new Scene(allRows,840,560);
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		mainStage.setScene(gameScene);
 		mainStage.show();
 		
+		// creation of a grid with images. 
 		transferStringToShape(baos,old);
 	
 		//based off of the code in this video by BroCode:
-		// https://www.youtube.com/watch?v=tq_0im9qc6E&ab_channel=BroCode
+		//https://www.youtube.com/watch?v=tq_0im9qc6E&ab_channel=BroCode
+		//Gets the keyboard input from the player and sends it to the 
+		//getInputValue method (JavaFX KeyEvent, Mar 15 2021).
 		gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent someEvent) {
@@ -159,12 +171,11 @@ public class Controller {
 	}
 	
 	/**
-	 * 
-	 * @param allRows
-	 * @param someLabel
-	 * @param backButton
+	 * If the condition for beating a level is met, creates continue button and that button
+	 * on action regenerates a new map. 
+	 * @param allRows VBox for containing.
 	 */
-	public void winGameContinue(VBox allRows, Label someLabel, Button backButton) {
+	public void winGameContinue(VBox allRows) {
 		// if you beat the round, then pops up the continue button to continue the game
 		Button continueButton = new Button ("Continue");
 		//Everytime the user clears a level, the pellet increases by 1.
@@ -175,12 +186,14 @@ public class Controller {
 	}
 	
 	/**
-	 * 
+	 * Creation of a go back button if the player either loses or wins, will disable 
+	 * keyboard interaction, if the player wins then goes to winGameContinue. 
 	 * @param allRows
 	 * @param mainStage
 	 * @param conditionOfGame
 	 */
 	public void endGameCondition(VBox allRows, Stage mainStage, String conditionOfGame) {
+		//initialization
 		Main main = new Main();
 		Label someLabel = new Label(conditionOfGame);
 		Button backButton= new Button ("Go Back");
@@ -193,7 +206,7 @@ public class Controller {
 		allRows.getChildren().addAll(someLabel,backButton);
 		
 		if (conditionOfGame == "WINNER!") {
-			winGameContinue(allRows, someLabel, backButton);
+			winGameContinue(allRows);
 		}	
 	}
 	
