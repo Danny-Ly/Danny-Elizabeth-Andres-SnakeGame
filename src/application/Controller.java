@@ -45,24 +45,15 @@ public class Controller {
 	// Initializing/declaring variables that will be used in the class
 	private MazeGenerator mazeCreation;
 	private Snake snake;
-//	private TextArea displayMaze;
-//	private PrintStream consoleOut;
 	@FXML
-	 private Label mediumErrorLabel;
+	private Label mediumErrorLabel;
 	@FXML
-	 private Label hardErrorLabel;
-	
-	
+	private Label hardErrorLabel;
 	private Label pointCounterLabel;
-	
 	private GridPane grid = new GridPane();
-	
 	private boolean userInputToggle = true;
-	
 	private Label creditsLabel = new Label("");
-	
 	private int pelletCount = 5;
-	
 	private int levelCounter = 0;
 	
 
@@ -78,15 +69,8 @@ public class Controller {
 	// code allows for switching of scene.
 	@FXML 
     public void startGameInput(ActionEvent event) throws IOException {
-//		System.out.println("Start button pressed\n");
-//		Parent root = FXMLLoader.load(getClass().getResource("DifficultySelector.fxml"));
-//		Stage difficultyStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//		Scene difficultyScene = new Scene(root);
-//		difficultyStage.setScene(difficultyScene);
-//		difficultyStage.show();
 		gameFunctionality (event);
 	}
-	
 	
 	/**
 	 * Get the value of a TextField and checks it. Then runs the userInteraction. If the Snake runs into a wall or itself,
@@ -97,8 +81,6 @@ public class Controller {
 	 * @param userInputSnake Button for the input of snake. 
 	 */
 	void getInputValue(String Action, Stage mainStage, VBox allRows) {
-			String line = "something";
-			int difficulty = 0;
 			String enteredUserAction = "";
 		
 			enteredUserAction = Action;
@@ -110,28 +92,7 @@ public class Controller {
 				String conditionOfGame = "GAME OVER";
 				endGameCondition(allRows, mainStage, conditionOfGame);				
 			}
-		
-
 	}
-	
-//	public void playMusic(String filePath) {
-//	    try {
-//	        // Create a Media object with the given file path
-//	        Media media = new Media(new File(filePath).toURI().toString());
-//
-//	        // Create a MediaPlayer object with the Media object
-//	        MediaPlayer mediaPlayer = new MediaPlayer(media);
-//
-//	        // Set the MediaPlayer to loop indefinitely
-//	        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-//
-//	        // Play the media
-//	        mediaPlayer.play();
-//	    } catch (Exception e) {
-//	        System.out.println("Error playing music: " + e.getMessage());
-//	    }
-//	}
-
 	
 	public void gameFunctionality (ActionEvent event) {		
 		userInputToggle = true;
@@ -140,13 +101,7 @@ public class Controller {
 		HBox someCreditsHBox = new HBox();
 		HBox someLevelHBox = new HBox();
 		Button creditsButton = new Button("Credits");
-		Label levelLabel = new Label();
-		
-//		Media media = new Media("sample-3s.mp3");
-//		MediaPlayer mediaPlayer = new MediaPlayer(media);
-//		mediaPlayer.play();
-		
-//		playMusic("sample-3s.mp3");
+		Label levelLabel = new Label();	
 		
 		pointCounterLabel = new Label("Points: 0");
 		//https://jenkov.com/tutorials/javafx/label.html#:~:text=button%20is%20clicked.-,Set%20Label%20Font,use%20a%20different%20text%20style.
@@ -154,7 +109,7 @@ public class Controller {
 		
 		levelCounter++;
 		levelLabel.setText("Level: " + String.valueOf(levelCounter));
-		levelLabel.setFont(new Font("courier new", 20));
+		levelLabel.setFont(new Font("courier new", 30));
 		
 		creditsButton.setFont(new Font("courier new", 15));
 		//resets the credit label everytime there is a gameover or wins.
@@ -164,8 +119,7 @@ public class Controller {
 		//https://docs.oracle.com/javafx/2/layout/size_align.htm#:~:text=Centering%20the%20Buttons,-The%20buttons%20are&text=hbButtons.,nodes%20within%20the%20HBox%20pane.
 		allRows.setAlignment(Pos. CENTER);
 		someLevelHBox.setAlignment(Pos.TOP_LEFT);
-		someCreditsHBox.setAlignment(Pos. TOP_LEFT);
-		
+		someCreditsHBox.setAlignment(Pos. TOP_LEFT);		
 		
         //https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -193,14 +147,9 @@ public class Controller {
 		// I also used the code section from BroCode here:
 		// https://www.youtube.com/watch?v=hcM-R-YOKkQ&ab_channel=BroCode
 		Scene gameScene = new Scene(allRows,840,560);
-		
-		//allRows.setStyle("-fx-background-color: rgb(211, 235, 204);");
 		Stage mainStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		
-		//runGame.setOnAction(inputAction -> runGame.setVisible(false));	
 		mainStage.setScene(gameScene);
 		mainStage.show();
-		//boolean gameContinue = true;
 		
 		transferStringToShape(baos,old);
 	
@@ -233,7 +182,6 @@ public class Controller {
 		// this was chagned from false to true
 		userInputToggle = false;	
 		pelletCount++;
-
 		
 		// when you win it promps the go back button.
 		// when pressed go back to start method in main.
@@ -252,19 +200,21 @@ public class Controller {
 	
 	public void transferStringToShape(ByteArrayOutputStream baos,PrintStream old) {
 		char[][] someMaze;
-		//Parisa helped me with this
-		// image ref: bomb: http://pixelartmaker.com/art/cf8800006625ade
-        // coin: http://pixelartmaker.com/art/69c534c1f4fac20
-        // brick: https://opengameart.org/content/pixel-art-brick-tiles
-        // ninja: http://pixelartmaker.com/art/fb575e0da47165a
-        // ground: http://pixelartmaker.com/art/454c9a9174136b1
 		
+		//Parisa helped me with this		
 		// initialize the images
+		
+        // brick wall image reference: https://opengameart.org/content/pixel-art-brick-tiles
         Image wallImage = new Image(getClass().getResource("/ImagesFolder/brickImage.png").toString());
+        // yellow pellet image reference: http://pixelartmaker.com/art/69c534c1f4fac20
     	Image imagePellet = new Image(getClass().getResource("/ImagesFolder/yellowPelletImage.png").toString());
+		//bomb image reference: http://pixelartmaker.com/art/cf8800006625ade
        	Image bombImage = new Image(getClass().getResource("/ImagesFolder/gameBomb.png").toString());
+        // ninjastar image reference: http://pixelartmaker.com/art/fb575e0da47165a
     	Image ninjaStarImage = new Image(getClass().getResource("/ImagesFolder/gameNinjaStar.png").toString());
+        // ground image reference: http://pixelartmaker.com/art/454c9a9174136b1
     	Image groundImage = new Image(getClass().getResource("/ImagesFolder/gameGround.png").toString());
+    	// I drew this image on Procreate on the Ipad.
     	Image snakeImage = new Image(getClass().getResource("/ImagesFolder/snakeTexture.png").toString());
 		 
 		//https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
