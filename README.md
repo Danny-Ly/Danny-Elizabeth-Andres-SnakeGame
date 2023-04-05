@@ -7,17 +7,17 @@ ____________
 Welcome to a game of SnakeMaze. To play, you must first press the play button in the top right corner. When this button is pressed you will be welcomed to the game of snake. Upon clicking start, a maze will appear and the user will be prompted to make a move using keys WASD. Different objects in the game will spawn when the user presses start.
 
 MOVEMENT:
-  W - is upwards
-  A - is left
-  S - is down 
-  D - is right 
+ - W: is upwards
+ - A: is left
+ - S: is down 
+ - D: is right 
 
 MAZE OBJECTS:
-   Pellets- Yellow circle
-   Bombs- Grey circle
-   Ninja Star- Grey 4-sided star
-   Wall- Brick wall texture
-   Snake- Green boxes
+   - Pellets: Yellow circle
+   - Bombs: Grey circle
+   - Ninja Star: Grey 4-sided star
+   - Wall: Brick wall
+   - Snake: Green boxes
 
 
 The objective of the game is to collect all the pellets without running into the walls. 
