@@ -29,10 +29,6 @@ import javafx.stage.Stage;
  */
 public class Controller {
 	// Initializing/declaring variables that will be used in the class
-	@FXML
-	private Label mediumErrorLabel;
-	@FXML
-	private Label hardErrorLabel;
 	private MazeGenerator mazeCreation;
 	private Snake snake;
 	private Label pointCounterLabel;
