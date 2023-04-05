@@ -19,13 +19,12 @@ MAZE OBJECTS:
    - Wall: Brick wall
    - Snake: Green boxes
 
-
 The objective of the game is to collect all the pellets without running into the walls. 
 - When a pellet is collected the snake will grow. 
-- If a wall is hit, a message reading “Game Over” will apear and you must click the "Go Back" button to return to the main menu.
-- If the user eats a bomb the maze walls will regenerate; making the program more diffuclt.
-- If the user eats a ninja star the snake will shrink; assiting is more difficult levels. 
+- If a wall is hit, a message reading “Game Over” will appear and you must click the "Go Back" button to return to the main menu.
+- If the user eats a bomb the maze walls will regenerate; making the program more difficult.
+- If the user eats a ninja star the snake will shrink; assisting in difficulty. 
 
-Note: If the snake is length 1 and the user eats a ninja star, the user will losse as there will be no snake left.
+Note: If the snake is length 1 and the user eats a ninja star, the user will lose as there will be no snake left.
 
-If the user successfully completes the level by colleceting all the pellets, a message “WINNER” will appear. The user will then have a choice to return to the main menu by clicking the "Go Back" button or continuing but pressing the "Continue" button. If the user continues, they will move to level 2 and the number of pellets will increase making the game more difficult. The game will continue until level 99; each level increasing the number of pellets. After the user reaches level 99 the user will be sent back to the main menu. 
+If the user successfully completes the level by collecting all the pellets, a message “WINNER” will appear. The user will then have a choice to return to the main menu by clicking the "Go Back" button or continuing but pressing the "Continue" button. If the user continues, they will move to level 2 and the number of pellets will increase making the game more difficult. The game will continue until level 99; each level increases the number of pellets. After the user reaches level 99 the user will be sent back to the main menu. 
