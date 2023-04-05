@@ -206,9 +206,17 @@ public class Controller {
 		backButton.setOnAction(userInputAction ->main.start(mainStage));
 		allRows.getChildren().addAll(someLabel,backButton);
 		
-		if (conditionOfGame == "WINNER!") {
+		// makes it so that if the condition is level cleared and the level is less than
+		// 99 then it will run the winGameContinue. 
+		if (conditionOfGame == "LEVEL CLEARED!" && levelCounter < 99) {
 			winGameContinue(allRows);
 		}	
+		// if the conditions meet for the level being cleared and being a level 99,
+		// then the Label gives a congratulations message for beating the game. 
+		if (conditionOfGame == "LEVEL CLEARED!" && levelCounter == 99) {
+			someLabel.setText( "CONGRATULATIONS YOU WIN!!");
+		}
+		
 	}
 	
 	/**
@@ -392,7 +400,7 @@ public class Controller {
 				}
 				// checks if all pellets are consumed and initiates end game if so (victory).
 				if (mazeCreation.ifVictory() == false) {
-					String conditionOfGame = "WINNER!";
+					String conditionOfGame = "LEVEL CLEARED!";
 					endGameCondition(allRows, mainStage, conditionOfGame);
 			}
 		}
