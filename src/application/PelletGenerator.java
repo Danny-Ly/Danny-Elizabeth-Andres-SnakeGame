@@ -6,18 +6,16 @@ package application;
  *
  */
 public class PelletGenerator extends ObjectGenerator{
-	int pelletCount = 5;
 	// Initializing/declaring variables that will be used in the class
-	//private int numberOfPellets;
-	//private ObjectGenerator Pellet;
+	int pelletCount = 5;
 	
+	/**
+	 * sets the pellet count
+	 * @param pellet number of pellets from map.
+	 */
 	public void setPelletCount(int pellet) {
 		pelletCount=pellet;
 	}
-	
-//	public int getPelletCount() {
-//		return pelletCount;
-//	}
 	
 	/**
 	 * Generates random pellets through the maze

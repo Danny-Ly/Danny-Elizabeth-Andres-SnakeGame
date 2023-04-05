@@ -15,8 +15,7 @@ public class Snake {
 	// And customization of the movement
 	private ArrayList<SnakeSegment> arraySnakeSegment;
 	private SnakeSegment oldTail;
-	
-	private int counter = 0;
+	private int pointCounter = 0;
 	
 	/**
 	 * Constructor for Snake class, that creates a array list for snake and adds
@@ -84,24 +83,22 @@ public class Snake {
 	public void eatPellet(MazeGenerator mazeCreation) {
 		arraySnakeSegment.add(oldTail);
 		mazeCreation.add(oldTail);
-		counter ++;
-		//System.out.println(counter);
-		
-	}
-	// getter
-	public int returnCounter() {
-		return counter;
-	}
-	
-	public void eatSpeed(MazeGenerator mazeCreation) {
-		//int actionValue = 2;
-		//System.out.println(actionValue);
-		System.out.println("Speed pellet consumed");
+		pointCounter ++;
 		
 	}
 	
-
+	/**
+	 * 
+	 * @return
+	 */
+	public int returnPointCounter() {
+		return pointCounter;
+	}
 	
+	/**
+	 * 
+	 * @param mazeCreation
+	 */
 	public void eatNinjaStar(MazeGenerator mazeCreation) {
 		SnakeSegment oldTail = arraySnakeSegment.remove(arraySnakeSegment.size()-1);
 		mazeCreation.remove(oldTail);

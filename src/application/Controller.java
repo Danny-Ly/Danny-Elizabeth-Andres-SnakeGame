@@ -52,7 +52,7 @@ public class Controller {
 	private Label pointCounterLabel;
 	private GridPane grid = new GridPane();
 	private boolean userInputToggle = true;
-	private Label creditsLabel = new Label("");
+	private Label creditsLabel = new Label();
 	private int pelletCount = 5;
 	private int levelCounter = 0;
 	
@@ -82,9 +82,7 @@ public class Controller {
 	 */
 	void getInputValue(String Action, Stage mainStage, VBox allRows) {
 			String enteredUserAction = "";
-		
 			enteredUserAction = Action;
-
 			try {
 				userInteraction(enteredUserAction,mainStage,allRows);
 				
@@ -105,9 +103,12 @@ public class Controller {
 		
 		pointCounterLabel = new Label("Points: 0");
 		//https://jenkov.com/tutorials/javafx/label.html#:~:text=button%20is%20clicked.-,Set%20Label%20Font,use%20a%20different%20text%20style.
+		//For setting font and size of a label
 		pointCounterLabel.setFont(new Font("courier new", 30));
 		
 		levelCounter++;
+		//https://www.javatpoint.com/java-int-to-string
+		// Int to string
 		levelLabel.setText("Level: " + String.valueOf(levelCounter));
 		levelLabel.setFont(new Font("courier new", 30));
 		
@@ -170,6 +171,7 @@ public class Controller {
 	}
 	
 	public void winGameContinue(VBox allRows, Label someLabel, Button backButton) {
+		// if you beat the round, then pops up the continue button to continue the game
 		Button continueButton = new Button ("Continue");
 		allRows.getChildren().add(continueButton);
 		continueButton.setOnAction(event -> gameFunctionality(event));
@@ -179,22 +181,18 @@ public class Controller {
 		Main main = new Main();
 		Label someLabel = new Label(conditionOfGame);
 		Button backButton= new Button ("Go Back");
-		// this was chagned from false to true
+		// this was changed from true to false to turn off w,a,s,d controls
 		userInputToggle = false;	
 		pelletCount++;
 		
-		// when you win it promps the go back button.
+		// when you win or its gameover, it prompts the go back button.
 		// when pressed go back to start method in main.
 		backButton.setOnAction(userInputAction ->main.start(mainStage));
 		allRows.getChildren().addAll(someLabel,backButton);
 		
 		if (conditionOfGame == "WINNER!") {
 			winGameContinue(allRows, someLabel, backButton);
-		}
-//		Button continueButton = new Button ("Continue");
-//		allRows.getChildren().add(continueButton);
-//		continueButton.setOnAction(event -> gameFunctionality(event));
-		
+		}	
 	}
 
 	
@@ -202,7 +200,7 @@ public class Controller {
 		char[][] someMaze;
 		
 		//Parisa helped me with this		
-		// initialize the images
+		//initialize the images
 		
         // brick wall image reference: https://opengameart.org/content/pixel-art-brick-tiles
         Image wallImage = new Image(getClass().getResource("/ImagesFolder/brickImage.png").toString());
@@ -218,6 +216,7 @@ public class Controller {
     	Image snakeImage = new Image(getClass().getResource("/ImagesFolder/snakeTexture.png").toString());
 		 
 		//https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
+    	// turn the output of the console to a string variable.
 		System.out.flush();
     	System.setOut(old);
     	String output = baos.toString();
@@ -225,60 +224,60 @@ public class Controller {
     	// https://stackoverflow.com/questions/454908/split-java-string-by-new-line
         String[] mazeString = output.split("\\r?\n");
         
+        // put the string output into a char array. 
         someMaze = new char[mazeString.length][];
         for (int i = 0; i < mazeString.length; i++) {
             someMaze[i] = mazeString[i].toCharArray();
         }
         
-        // clears the grid to avoid constant object build up in the maze.
+       
         // https://stackoverflow.com/questions/27066484/remove-all-children-from-a-group-without-knowing-the-containing-nodes
+        // clears the grid to avoid constant object build up in the maze.
         grid.getChildren().clear();
         
         int rowMaze = 0;
         while (rowMaze < someMaze.length) {
         	int columnMaze = 0;
             while (columnMaze < someMaze[rowMaze].length) {
+            	//Initialize ImageView's, someOtherView is for background. 
+            	
             	//https://www.tabnine.com/code/java/methods/javafx.scene.shape.Rectangle/setWidth
             	// First example used as a reference for height and width.
-            	
-            	ImageView someOtherView = new ImageView();
-            	someOtherView.setFitHeight(40);
-            	someOtherView.setFitWidth(40);
+            	ImageView someBackgroundView = new ImageView();
+            	someBackgroundView.setFitHeight(40);
+            	someBackgroundView.setFitWidth(40);
             	
             	ImageView someImageView = new ImageView();
             	someImageView.setFitHeight(40);
             	someImageView.setFitWidth(40);
             	
-                if (someMaze[rowMaze][columnMaze] == '#') {
-                	//someRect.setFill(Color.GREY);    
+                if (someMaze[rowMaze][columnMaze] == '#') {  
                 	someImageView.setImage(wallImage);
                 	//https://www.tutorialspoint.com/javafx/layout_gridpane.htm
                 	grid.add(someImageView, columnMaze, rowMaze);
                 }
                 if (someMaze[rowMaze][columnMaze] == '.') {
                 	someImageView.setImage(imagePellet);
-                	someOtherView.setImage(groundImage);
-                    grid.add(someOtherView, columnMaze, rowMaze);
+                	someBackgroundView.setImage(groundImage);
+                    grid.add(someBackgroundView, columnMaze, rowMaze);
                     grid.add(someImageView, columnMaze, rowMaze);
                 }
                 if (someMaze[rowMaze][columnMaze] == '@') {
                 	someImageView.setImage(bombImage);
-                	someOtherView.setImage(groundImage);
-                    grid.add(someOtherView, columnMaze, rowMaze);
+                	someBackgroundView.setImage(groundImage);
+                    grid.add(someBackgroundView, columnMaze, rowMaze);
                     grid.add(someImageView, columnMaze, rowMaze);
                 }
                 if (someMaze[rowMaze][columnMaze] == '*') {                	
                     someImageView.setImage(ninjaStarImage);
-                    someOtherView.setImage(groundImage);
-                    grid.add(someOtherView, columnMaze, rowMaze);
+                    someBackgroundView.setImage(groundImage);
+                    grid.add(someBackgroundView, columnMaze, rowMaze);
                 	grid.add(someImageView, columnMaze, rowMaze);
                 }
-
                 if (someMaze[rowMaze][columnMaze] == ' ') {
                 	someImageView.setImage(groundImage);
                     grid.add(someImageView, columnMaze, rowMaze);
                 }  
-                //grid.add(someRect, columnMaze, rowMaze);
                 if (someMaze[rowMaze][columnMaze] == 'o') {
                     someImageView.setImage(snakeImage);
                     grid.add(someImageView, columnMaze, rowMaze);  
@@ -290,18 +289,20 @@ public class Controller {
         }
 	 
 	public void movementOfSnake (int row_movement, int column_movement) {
+		int mainCounter;
+		
+		//https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
+		//Takes in output from the console.
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	PrintStream ps = new PrintStream(baos);
-    	// IMPORTANT: Save the old System.out!
     	PrintStream old = System.out;
-    	// Tell Java to use your special stream
     	System.setOut(ps);
     	
 		snake.moveSnake(mazeCreation, row_movement, column_movement);
 		mazeCreation.boundary();
 		
-		int mainCounter = snake.returnCounter();
-		//https://www.javatpoint.com/java-int-to-string
+		// transfer the point value to controller from Snake class
+		mainCounter = snake.returnPointCounter();
 		pointCounterLabel.setText("Points: " + String.valueOf(mainCounter));
 		
 		transferStringToShape( baos, old);
